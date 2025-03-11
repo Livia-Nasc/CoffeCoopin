@@ -1,0 +1,138 @@
+@font-face {
+    font-family: 'Muvia';
+    src: url('../fonts/Muvia.otf') format('opentype'), url('../fonts/Muvia.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #f9f0dd;
+}
+
+#container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--linear-gradient);
+    color: #f9f0dd;
+    
+}
+
+#box{
+    background-color: #C19770;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0px 15px   #f8dbc7 ;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    font-family: Muvia, Poppins;
+    /* letter-spacing: 2px; */
+    
+ 
+}
+
+#nome{
+    border-radius: 4px;
+    background-color: #f9f0dd;
+    color: #C19770;
+    font-family: Poppins;
+    color: #d5b895;
+    text-align: center;
+}
+
+#nome::placeholder{
+    color: #d5b895;
+}
+
+#senha{
+    border-radius: 4px;
+    background-color: #f9f0dd;
+    font-family: Poppins;
+    color: #d5b895;
+    text-align: center;
+}
+
+#senha::placeholder{
+    color: #d5b895;
+}
+
+#email{
+    border-radius: 4px;
+    background-color: #f9f0dd;
+    font-family: Poppins;
+    color: #d5b895;
+    text-align: center;
+}
+
+#email::placeholder{
+    color: #d5b895;
+}
+
+#cpf{
+    border-radius: 4px;
+    background-color: #f9f0dd;
+    font-family: Poppins;
+    align-items: center;
+    color: #d5b895;
+    text-align: center;
+}
+
+#telefone::placeholder{
+    color: #d5b895;
+    
+}
+#telefone{
+    border-radius: 4px;
+    background-color: #f9f0dd;
+    font-family: Poppins;
+    align-items: center;
+    color: #d5b895;
+    text-align: center;
+}
+
+#cpf::placeholder{
+    color: #d5b895;
+    
+}
+#data_nasc{
+    border-radius: 4px;
+    background-color: #f9f0dd;
+    font-family: Poppins;
+    align-items: center;
+    color: #d5b895;
+    text-align: center;
+    margin-left: 37px;
+}
+
+#data_nasc::placeholder{
+    color: #d5b895;
+    
+}
+
+#logo-container{
+  margin-right: 50px;
+}
+
+#btn .btn-warning{
+    background-color: #f9f0dd;
+    border-color: #f9f0dd;
+    font-family: poppins;
+    align-items: center;
+    justify-content: center;
+    margin-left: 60px;
+    color: #d5b895;
+}
+
+#titulo{
+    text-align: center;
+}
+
