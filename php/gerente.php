@@ -69,5 +69,8 @@
         if ($stmt->execute()){
             echo "<script type='text/javascript'> alert('Login realizado com sucesso'); window.location='../index.php';</script>"; // ! Se o login for realizado com sucesso, exibe mensagem de sucesso e vai para a página
         }
+        else{
+            header('location: ../login.php');
+        }
     }        
 ?>
