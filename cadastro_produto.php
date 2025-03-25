@@ -17,7 +17,7 @@
             <div id="box">
                 <div class="cadastro">
                     <form action="php/usuario.php" method="post">
-                        <h1>CADASTRAR</h1>
+                        <h1>CADASTRAR PRODUTO</h1>
                         <br><br>
                         <label for="nome">  
                             <input type="text" id="nome" required name = "nome" placeholder="Insira seu nome">
