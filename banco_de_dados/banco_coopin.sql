@@ -12,9 +12,10 @@ CREATE TABLE usuario(
 );
 
 CREATE TABLE gerente(
-	cpf INT UNIQUE PRIMARY KEY,
-    email VARCHAR(260) NOT NULL,
-    senha VARCHAR(260) NOT NULL
+	cod_gerente INT PRIMARY KEY AUTO_INCREMENT,
+	rg INT UNIQUE,
+    cod_user INT,
+    FOREIGN KEY (cod_user) REFERENCES usuario(cod_user)
 );
 
 CREATE TABLE garcom (
@@ -32,8 +33,8 @@ CREATE TABLE control_garcom (
 
 CREATE TABLE control_gerente (
     cod_control_gerente INT PRIMARY KEY AUTO_INCREMENT,
-    cpf_gerente INT,
-    FOREIGN KEY (cpf_gerente) REFERENCES gerente(cpf)
+    rg_gerente INT,
+    FOREIGN KEY (rg_gerente) REFERENCES gerente(rg)
 );
 
 CREATE TABLE conta (
@@ -58,9 +59,14 @@ CREATE TABLE produto (
     cod_produto INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(260) NOT NULL,
     porcao VARCHAR(260),
-    valor DECIMAL(10, 2),
+    preco DECIMAL(10, 2),
     categoria VARCHAR(260),
-    quant_estoque INT
+    qtd_estoque INT
 );
-
 Select * from usuario;	
+Select * from gerente;
+Select * from produto;
+SELECT u.cpf, u.nome, u.telefone, u.email, u.senha, g.rg
+    FROM gerente as g 
+    JOIN usuario as u ON g.cod_user = u.cod_user;	
+    
