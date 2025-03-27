@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -16,31 +20,28 @@
             
             <div id="box">
                 <div class="cadastro">
-                    <form action="php/usuario.php" method="post">
+                    <form action="php/produto.php" method="post">
                         <h1>CADASTRAR PRODUTO</h1>
                         <br><br>
                         <label for="nome">  
-                            <input type="text" id="nome" required name = "nome" placeholder="Insira seu nome">
+                            <input type="text" id="nome" required name = "nome" placeholder="Insira o nome do produto">
                         </label>
                         <br><br>
-                        <label for="cpf"> 
-                            <input  maxlength ="11" type="text" id="cpf" required name = "cpf" placeholder="Insira seu CPF"> <!-- oninput="mascara(this)" -->
+                        <label for="preco"> 
+                            <input type="text" id="preco" required name = "preco" placeholder="Insira o preço">
                         </label>
                         <br><br>
-                        <label for="email"> 
-                            <input type="email" id="email" required name = "email" placeholder="Insira seu e-mail">
+                        <label for="categoria"> 
+                            <input type="text" id="categoria" required name = "categoria" placeholder="Insira a categoria do produto">
                         </label>
                         <br><br>
-                        <label for="telefone"> 
-                            <input type="tel" id="telefone" required name = "telefone" placeholder="Insira seu telefone">
+                        <label for="porcao"> 
+                            <input type="text" id="porcao" required name = "porcao" placeholder="Insira a porção">
                         </label>
                         <br><br>
-                        <label for="data_nasc"> 
-                            <input type="date" id="data_nasc" required name = "data_nasc" placeholder="Insira uma senha">
-                        </label>
                         <br><br>
-                        <label for="senha"> 
-                            <input type="password" id="senha" required name = "senha" placeholder="Insira uma senha">
+                        <label for="qtd_estoque"> 
+                            <input type="text" id="qtd_estoque" required name = "qtd_estoque" placeholder="Insira o estoque">
                         </label>
                         <br><br>
                         <div id="btn">
@@ -52,7 +53,25 @@
             </div>
 
         </div>
-
+        <form action="php/produto.php" method="post">
+            <button type="submit" name = "visualizar">Visualizar produtos</button>
+        </form>
+        <?php
+            $nome = $_SESSION['nome'];
+            $porcao = $_SESSION['porcao'];
+            $qtd_estoque = $_SESSION['qtd_estoque'];
+            $categoria = $_SESSION['categoria'];
+            $preco = $_SESSION['preco'];
+            for ($i = 0; $i < count($nome); $i++) {
+        ?>
+                <p>Nome: <?php echo $nome[$i]; ?></p>
+                <p>Porção: <?php echo $porcao[$i]; ?></p>
+                <p>Categoria: <?php echo $categoria[$i]; ?></p>
+                <p>Preço: <?php echo $preco[$i]; ?></p>
+                <p>Qtd estoque: <?php echo $qtd_estoque[$i]; ?></p>
+        <?php
+            }
+        ?>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
         <script>
