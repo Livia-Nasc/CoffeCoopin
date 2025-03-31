@@ -14,21 +14,21 @@
         $cpf = $_POST['cpf'];
 
         $sql = 'SELECT * FROM usuario WHERE cpf = :cpf OR email = :email'; // ! Selecionando o CPF e o email do usuário cadastrado
-        $stmt = $conn -> prepare($sql);
+
         $stmt -> bindParam(':email', $email);
         $stmt -> bindParam(':cpf', $cpf);
         $stmt->execute();
 
         if($stmt -> rowcount() == 0 ){ // ! Verifica se o CPF e o e-mail não estão registrados
-            $cadastro = 'INSERT INTO usuario(nome, telefone, data_nasc, email, senha, cpf) VALUES( :nome, :telefone, :data_nasc,:email, :senha, :cpf)'; // ! Inserindo dados passados no formulário contido na página cadastro.php na tabela usuario 
+            $cadastro = 'INSERT INTO usuario(nome, telefone, data_nasc, email, senha, cpf) VALUES( :nome, :telefone, :data_nasc,:email, :senha, :cpf)'; // ! Inserindo dados passados no formulário contido na página cadastro.php na tabela usuario
             $stmt = $conn -> prepare($cadastro);
             $stmt -> bindParam(':nome', $nome);
             $stmt -> bindParam(':telefone', $telefone);
             $stmt -> bindParam(':data_nasc', $data_nasc);
             $stmt -> bindParam(':senha', $senha);
             $stmt -> bindParam(':email', $email);
-            $stmt -> bindParam(':cpf', $cpf); 
-            
+            $stmt -> bindParam(':cpf', $cpf);
+
             if ($stmt->execute()){
                 header('location: ../login.php'); // ! Vai para a página de login
                 exit();
@@ -42,7 +42,7 @@
             echo "<script type='text/javascript'>
                     alert('Informações já existentes');  // ! Se o CPF e o e-mail já existirem, exibe mensagem de erro na página cadastro.php
                     window.location='../cadastro.php';
-                  </script>"; 
+                  </script>";
         }
     }
 

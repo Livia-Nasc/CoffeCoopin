@@ -10,21 +10,30 @@
         $categoria = filter_var($_POST['categoria']);
         $porcao = filter_var($_POST['porcao']);
         $qtd_estoque = $_POST['qtd_estoque'];
-        if ($categoria or $porcao){
-            $sql = "INSERT INTO produto (nome, preco, categoria, porcao, qtd_estoque) values ( :nome, :preco, :categoria, :porcao, :qtd_estoque)";
-            $stmt = $conn -> prepare($sql);
-            $stmt->bindParam(':nome', $nome);
-            $stmt->bindParam(':preco', $preco);
-            $stmt->bindParam(':categoria', $categoria);
-            $stmt->bindParam(':porcao', $porcao);
-            $stmt->bindParam(':qtd_estoque', $qtd_estoque);
-            if ($stmt->execute()){
-                echo "Produto cadastrado com sucesso!";
-                header('location:../cadastro_produto.php');
+        if ($categoria){
+            if ($porcao){
+                $sql = "INSERT INTO produto (nome, preco, categoria, porcao, qtd_estoque) values ( :nome, :preco, :categoria, :porcao, :qtd_estoque)";
+                $stmt = $conn -> prepare($sql);
+                $stmt->bindParam(':nome', $nome);
+                $stmt->bindParam(':preco', $preco);
+                $stmt->bindParam(':categoria', $categoria);
+                $stmt->bindParam(':porcao', $porcao);
+                $stmt->bindParam(':qtd_estoque', $qtd_estoque);
+                if ($stmt->execute()){
+                    echo "Produto cadastrado com sucesso!";
+                    header('location:../cadastro_produto.php');
+                }
+                else{
+                    echo "Erro ao cadastrar produto!";
+                }
             }
             else{
-                echo "Erro ao cadastrar produto!";
-            }
+            echo "<script type='text/javascript'>
+                        alert('Escolha não selecionada');
+                        window.location='../cadastro_produto.php';
+                      </script>";
+        }
+
         }
         else{
             echo "<script type='text/javascript'>
@@ -33,17 +42,17 @@
                       </script>";
         }
 
-        
+
     }
     if(isset($_POST['cadastrar'])){
         CadastrarProduto();
     }
-    
+
     Function VisualizarProduto(){
         $conn = getConexao();
         $sql = "SELECT * FROM produto";
         $stmt = $conn->prepare($sql);
-        
+
         if ($stmt->execute()){
             $result = $stmt->fetchAll();
             $_SESSION['nome'] = [];
@@ -64,7 +73,7 @@
             echo "Erro ao visualizar produtos!";
         }
     }
-    
+
     if(isset($_POST['visualizar'])){
         VisualizarProduto();
     }
