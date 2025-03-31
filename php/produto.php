@@ -44,9 +44,6 @@
 
 
     }
-    if(isset($_POST['cadastrar'])){
-        CadastrarProduto();
-    }
 
     Function VisualizarProduto(){
         $conn = getConexao();
@@ -54,6 +51,11 @@
         $stmt = $conn->prepare($sql);
 
         if ($stmt->execute()){
+            session_unset($_SESSION['nome']);
+            session_unset($_SESSION['preco']);
+            session_unset($_SESSION['categoria']);
+            session_unset($_SESSION['porcao']);
+            session_unset($_SESSION['qtd_estoque']);
             $result = $stmt->fetchAll();
             $_SESSION['nome'] = [];
             $_SESSION['preco'] = [];
@@ -74,8 +76,33 @@
         }
     }
 
+    function ExcluirProduto(){
+        $conn = getConexao();
+        $cod_produto = $_POST['cod_produto'];
+        $sql = "DELETE FROM produto WHERE cod_produto = :cod_produto";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':cod_produto', $cod_produto);
+        if ($stmt->execute()){
+            echo "<script type='text/javascript'>
+            alert('Produto excluído com sucesso!');
+            window.location='../cadastro_produto.php';
+            </script>";
+            }
+        else{
+            echo "Erro ao excluir produto!";
+        }
+    }
+
+    if(isset($_POST['cadastrar'])){
+        CadastrarProduto();
+    }
+
     if(isset($_POST['visualizar'])){
         VisualizarProduto();
+    }
+
+    if(isset($_POST['excluir'])){
+        ExcluirProduto();
     }
 
 ?>
