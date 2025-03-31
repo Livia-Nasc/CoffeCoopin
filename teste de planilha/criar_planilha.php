@@ -2,46 +2,30 @@
 require_once('../php/conexao.php');
 $conn = getConexao();
 $sql = 'SELECT nome, telefone, email, cpf FROM usuario';
-$stmt = $conn -> prepare($sql);
+$stmt = $conn->prepare($sql);
+$stmt->execute();
 $result = $stmt->fetchAll();
 
-//echo "<h1>Gerar Excel - csv</h1>";
-
-// Aceitar csv ou texto
+// Set headers for CSV download
 header('Content-Type: text/csv; charset=utf-8');
+header('Content-Disposition: attachment; filename=usuarios.csv');
 
-// Nome arquivo
-header('Content-Disposition: attachment; filename=arquivo.csv');
+// Open output stream
+$output = fopen('php://output', 'w');
 
-// Gravar no buffer
-$resultado = fopen("php://output", 'w');
+// Write CSV header
+fputcsv($output, ['Nome', 'Telefone', 'Email', 'CPF'], ';');
 
-// Criar o cabeçalho do Excel - Usar a função mb_convert_encoding para converter carateres especiais
-$cabecalho = ['Nome', 'Telefone', 'Email', 'Cpf'];
-
-// Array de dados
-foreach ($result as $value) {
-    $usuarios = [
-        [
-            'Nome' => $value['nome'],
-            'Telefone' => $value['telefone'],
-           'Email' => $value['email'],
-            'Cpf' => $value['cpf']
-        ]
-        ];
-        };
-
-
-// Abrir o arquivo
-//$arquivo = fopen('file.csv', 'w');
-
-// Escrever o cabeçalho no arquivo
-fputcsv($resultado, $cabecalho, ';');
-
-// Escrever o conteúdo no arquivo
-foreach($usuarios as $row_usuario){
-    fputcsv($resultado, $row_usuario, ';');
+// Write data rows
+foreach ($result as $row) {
+    fputcsv($output, [
+        $row['nome'],
+        $row['telefone'],
+        $row['email'],
+        $row['cpf']
+    ], ';');
 }
 
-// Fechar arquivo
-fclose($resultado);
+// Close the output stream
+fclose($output);
+exit;
