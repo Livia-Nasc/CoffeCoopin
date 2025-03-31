@@ -4,7 +4,7 @@
 header('Content-Type: text/html; charset=UTF-8');
 
 // Caminho do arquivo CSV
-$arquivo_csv = '../arquivo.csv'; // Caminho do arquivo CSV de entrada
+$arquivo_csv = 'arquivo.csv'; // Caminho do arquivo CSV de entrada
 
 // Abrir o arquivo CSV original
 if (($handle = fopen($arquivo_csv, 'r')) !== FALSE) {
