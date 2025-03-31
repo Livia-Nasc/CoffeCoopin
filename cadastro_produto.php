@@ -10,6 +10,27 @@
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="css/cadastro.css">
+    <style>
+table {
+    text-align:center;
+  margin-top: 10px;
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+th{
+    font-weight: 600;
+}
+
+td, th {
+  border: 1px solid #000;
+  text-align: left;
+  padding: 8px;
+}
+#visualizar{
+  background-color:rgb(241, 197, 152)
+}
+</style>
 </head>
 <body>
         <div id="-logo-container">
@@ -31,13 +52,18 @@
                             <input type="text" id="preco" required name = "preco" placeholder="Insira o preço">
                         </label>
                         <br><br>
-                        <label for="categoria"> 
-                            <input type="text" id="categoria" required name = "categoria" placeholder="Insira a categoria do produto">
-                        </label>
+                        <select name="categoria" id="categoria" name="categoria" >
+                            <option value="">Escolha</option>
+                            <option value="comida">Comida</option>
+                            <option value="bebida">Bebida</option>
+                        </select>
                         <br><br>
-                        <label for="porcao"> 
-                            <input type="text" id="porcao" required name = "porcao" placeholder="Insira a porção">
-                        </label>
+                        <select name="porcao" id="porcao" name="porcao" >
+                            <option value="">Escolha</option>
+                            <option value="grande">Grande</option>
+                            <option value="media">Média</option>
+                            <option value="pequena">Pequena</option>
+                        </select>
                         <br><br>
                         <br><br>
                         <label for="qtd_estoque"> 
@@ -54,8 +80,16 @@
 
         </div>
         <form action="php/produto.php" method="post">
-            <button type="submit" name = "visualizar">Visualizar produtos</button>
+            <button type="submit" name = "visualizar" id="visualizar">Visualizar produtos</button>
         </form>
+        <table>
+        <tr>
+            <th>Nome</th>
+            <th>Porção</th>
+            <th>Qtd Estoque</th>
+            <th>Categoria</th>
+            <th>Preço</th>
+        </tr>
         <?php
             $nome = $_SESSION['nome'];
             $porcao = $_SESSION['porcao'];
@@ -64,14 +98,24 @@
             $preco = $_SESSION['preco'];
             for ($i = 0; $i < count($nome); $i++) {
         ?>
-                <p>Nome: <?php echo $nome[$i]; ?></p>
+        
+        <tr>
+            <td><?php echo $nome[$i]; ?></td>
+            <td><?php echo $porcao[$i]; ?></td>
+            <td><?php echo $qtd_estoque[$i]; ?></td>
+            <td><?php echo $categoria[$i]; ?></td>
+            <td><?php echo $preco[$i]; ?></td>
+        </tr>
+        
+                <!-- <p>Nome: <?php echo $nome[$i]; ?></p>
                 <p>Porção: <?php echo $porcao[$i]; ?></p>
                 <p>Categoria: <?php echo $categoria[$i]; ?></p>
                 <p>Preço: <?php echo $preco[$i]; ?></p>
-                <p>Qtd estoque: <?php echo $qtd_estoque[$i]; ?></p>
+                <p>Qtd estoque: <?php echo $qtd_estoque[$i]; ?></p> -->
         <?php
             }
         ?>
+        </table>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
         <script>

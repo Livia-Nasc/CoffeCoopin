@@ -7,24 +7,33 @@
 
         $nome = $_POST['nome'];
         $preco = $_POST['preco'];
-        $categoria = $_POST['categoria'];
-        $porcao = $_POST['porcao'];
+        $categoria = filter_var($_POST['categoria']);
+        $porcao = filter_var($_POST['porcao']);
         $qtd_estoque = $_POST['qtd_estoque'];
-
-        $sql = "INSERT INTO produto (nome, preco, categoria, porcao, qtd_estoque) values ( :nome, :preco, :categoria, :porcao, :qtd_estoque)";
-        $stmt = $conn -> prepare($sql);
-        $stmt->bindParam(':nome', $nome);
-        $stmt->bindParam(':preco', $preco);
-        $stmt->bindParam(':categoria', $categoria);
-        $stmt->bindParam(':porcao', $porcao);
-        $stmt->bindParam(':qtd_estoque', $qtd_estoque);
-        if ($stmt->execute()){
-            echo "Produto cadastrado com sucesso!";
-            header('location:../cadastro_produto.php');
+        if ($categoria or $porcao){
+            $sql = "INSERT INTO produto (nome, preco, categoria, porcao, qtd_estoque) values ( :nome, :preco, :categoria, :porcao, :qtd_estoque)";
+            $stmt = $conn -> prepare($sql);
+            $stmt->bindParam(':nome', $nome);
+            $stmt->bindParam(':preco', $preco);
+            $stmt->bindParam(':categoria', $categoria);
+            $stmt->bindParam(':porcao', $porcao);
+            $stmt->bindParam(':qtd_estoque', $qtd_estoque);
+            if ($stmt->execute()){
+                echo "Produto cadastrado com sucesso!";
+                header('location:../cadastro_produto.php');
+            }
+            else{
+                echo "Erro ao cadastrar produto!";
+            }
         }
         else{
-            echo "Erro ao cadastrar produto!";
+            echo "<script type='text/javascript'>
+                        alert('Escolha não selecionada');
+                        window.location='../cadastro_produto.php';
+                      </script>";
         }
+
+        
     }
     if(isset($_POST['cadastrar'])){
         CadastrarProduto();
