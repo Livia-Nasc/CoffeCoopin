@@ -51,11 +51,6 @@
         $stmt = $conn->prepare($sql);
 
         if ($stmt->execute()){
-            session_unset($_SESSION['nome']);
-            session_unset($_SESSION['preco']);
-            session_unset($_SESSION['categoria']);
-            session_unset($_SESSION['porcao']);
-            session_unset($_SESSION['qtd_estoque']);
             $result = $stmt->fetchAll();
             $_SESSION['nome'] = [];
             $_SESSION['preco'] = [];
@@ -78,10 +73,10 @@
 
     function ExcluirProduto(){
         $conn = getConexao();
-        $cod_produto = $_POST['cod_produto'];
-        $sql = "DELETE FROM produto WHERE cod_produto = :cod_produto";
+        $nome = $_POST['nome'];
+        $sql = "DELETE FROM produto WHERE nome = :nome";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':cod_produto', $cod_produto);
+        $stmt->bindParam(':nome', $nome);
         if ($stmt->execute()){
             echo "<script type='text/javascript'>
             alert('Produto excluído com sucesso!');
@@ -91,6 +86,22 @@
         else{
             echo "Erro ao excluir produto!";
         }
+    }
+
+    function AlterarProduto(){
+        $conn = getConexao();
+        $nome = $_POST['nome'];
+        $preco = $_POST['preco'];
+        $categoria = $_POST['categoria'];
+        $porcao = $_POST['porcao'];
+        $qtd_estoque = $_POST['qtd_estoque'];
+        $sql = "UPDATE produto SET nome = :nome, preco = :preco, categoria = :categoria, porcao = :porcao, qtd_estoque = :qtd_estoque WHERE nome = :nome";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':nome', $nome);
+        $stmt->bindParam(':preco', $preco);
+        $stmt->bindParam(':categoria', $categoria);
+        $stmt->bindParam(':porcao', $porcao);
+        $stmt->bindParam(':qtd_estoque', $qtd_estoque);
     }
 
     if(isset($_POST['cadastrar'])){

@@ -1,72 +1,76 @@
 CREATE DATABASE Coopin;
 USE Coopin;
 
-CREATE TABLE usuario(
-	cod_user INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(260) NOT NULL,
-    telefone CHAR(11),
+-- Tabela de usuários
+CREATE TABLE usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(11) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    telefone VARCHAR(20),
     data_nasc DATE,
-    email VARCHAR(260) NOT NULL UNIQUE,
-    senha VARCHAR(260) NOT NULL,
-    cpf CHAR(11) UNIQUE
+    senha VARCHAR(255) NOT NULL,
+    tipo INT NOT NULL DEFAULT 0, -- 1=admin, 2=gerente, 3=garcom
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE gerente(
-	cod_gerente INT PRIMARY KEY AUTO_INCREMENT,
-	rg INT UNIQUE,
-    cod_user INT,
-    FOREIGN KEY (cod_user) REFERENCES usuario(cod_user)
+-- Tabela de gerentes
+CREATE TABLE gerente (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    rg VARCHAR(20) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES usuario(id)
 );
 
+-- Tabela de garçons
 CREATE TABLE garcom (
-    cod_garcom INT PRIMARY KEY AUTO_INCREMENT,
-    escolaridade VARCHAR(260),
-    cod_user INT,
-    FOREIGN KEY (cod_user) REFERENCES usuario(cod_user)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    escolaridade VARCHAR(100),
+    FOREIGN KEY (user_id) REFERENCES usuario(id)
 );
 
-CREATE TABLE control_garcom (
-    cod_control_garcom INT PRIMARY KEY AUTO_INCREMENT,
-    cod_garcom INT,
-    FOREIGN KEY (cod_garcom) REFERENCES garcom(cod_garcom)
-);
-
-CREATE TABLE control_gerente (
-    cod_control_gerente INT PRIMARY KEY AUTO_INCREMENT,
-    rg_gerente INT,
-    FOREIGN KEY (rg_gerente) REFERENCES gerente(rg)
-);
-
-CREATE TABLE conta (
-    cod_conta INT PRIMARY KEY AUTO_INCREMENT,
-    cod_garcom INT,
-    data_abertura DATE,
-    hora_abertura TIME,
-    valor_total DECIMAL(10, 2),
-    FOREIGN KEY (cod_garcom) REFERENCES garcom(cod_garcom)
-);
-
-CREATE TABLE pedido (
-    cod_pedido INT PRIMARY KEY AUTO_INCREMENT,
-    cod_user INT,
-    data_pedido DATE,
-    hora_pedido TIME,
-    valor_total DECIMAL(10, 2),
-    FOREIGN KEY (cod_user) REFERENCES usuario(cod_user)
-);
-
+-- Tabela de produtos
 CREATE TABLE produto (
-    cod_produto INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(260) NOT NULL,
-    porcao VARCHAR(260),
-    preco DECIMAL(10, 2),
-    categoria VARCHAR(260),
-    qtd_estoque INT
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    preco DECIMAL(10,2) NOT NULL,
+    categoria VARCHAR(50),
+    porcao VARCHAR(50),
+    qtd_estoque INT DEFAULT 0,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-Select * from usuario;	
+
+-- Tabela de contas/mesas
+CREATE TABLE conta (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    mesa INT NOT NULL,
+    garcom_id INT NOT NULL,
+    data_abertura DATE NOT NULL,
+    hora_abertura TIME NOT NULL,
+    data_fechamento DATE,
+    hora_fechamento TIME,
+    valor_total DECIMAL(10,2) DEFAULT 0,
+    status VARCHAR(20) DEFAULT 'aberta', -- aberta, fechada
+    FOREIGN KEY (garcom_id) REFERENCES usuario(id)
+);
+
+-- Tabela de pedidos
+CREATE TABLE pedido (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    conta_id INT NOT NULL,
+    produto_id INT NOT NULL,
+    quantidade INT NOT NULL DEFAULT 1,
+    data_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (conta_id) REFERENCES conta(id),
+    FOREIGN KEY (produto_id) REFERENCES produto(id)
+);
+
+INSERT INTO usuario (nome, cpf, email, senha, tipo)
+VALUES ('Administrador', '12345678901', 'admin@admin.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1);
+Select * from usuario;
 Select * from gerente;
 Select * from produto;
 SELECT u.cpf, u.nome, u.telefone, u.email, u.senha, g.rg
-    FROM gerente as g 
-    JOIN usuario as u ON g.cod_user = u.cod_user;	
-    
+    FROM gerente as g
+    JOIN usuario as u ON g.cod_user = u.cod_user;

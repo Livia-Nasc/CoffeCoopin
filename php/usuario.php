@@ -52,8 +52,8 @@ function CadastrarUsuario() {
 function LoginUsuario() {
     $conn = getConexao();
 
-    $email = $_POST['email'] ?? '';
-    $senha = $_POST['senha'] ?? '';
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
 
     $sql = 'SELECT * FROM usuario WHERE email = :email';
     $stmt = $conn->prepare($sql);
@@ -86,7 +86,7 @@ function LoginUsuario() {
                     header('Location: ../garcom/dashboard.php');
                     break;
                 default:
-                    header('Location: ../cliente/dashboard.php');
+                    header('Location: ../home.html');
             }
             exit();
         } else {
