@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ivern Xodó</title>
+    <link rel="stylesheet" href="css/index.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+  </head>
+<body>
+  
+
+<!-- Links (sit on top) -->
+<div id="navbar">
+  <a href="#home">Home</a>
+  <a href="#news">News</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- Header with image -->
+<header class="bgimg w3-display-container" id="home">
+  <!-- <div class="w3-display-bottomleft w3-center w3-padding-large w3-hide-small">
+    <span class="w3-tag">5 por 10</span>
+  </div> -->
+  <div class="w3-display-middle w3-center">
+    <span class="w3-text-white" style="font-size:90px"><img src="img/bannertext.png" alt=""></span>
+    
+    
+  </div>
+  <!-- <div class="w3-display-bottomright w3-center w3-padding-large">
+    <span class="w3-text-white">Boca de Fumo</span>
+  </div> -->
+</header>
+
+<!-- Add a background color and large text to the whole page -->
+<div class="w3-large">
+  <div class="divider"></div>
+<!-- About Container -->
+
+<h1 class="w3-center w3-padding-64 text-cardapio">CARDAPIO</h1>
+<div class="w3-container" id="about">
+  <div class="w3-content" style="max-width:700px">
+ 
+    <div class="container">
+      <div class="text-content">
+          <h2 id="titulo-bebidas">Bebidas</h2>
+          <p id="texto-p">Nossas bebidas são preparadas com <span class="highlight">carinho e atenção</span>, utilizando <span class="highlight">ingredientes frescos</span> e de qualidade, com o objetivo de proporcionar uma <span class="highlight">experiência acolhedora</span> e única. Oferecemos desde o clássico café expresso até opções mais sofisticadas, todas preparadas com técnicas cuidadosas em um ambiente rústico e humanizado.</p>
+      </div>
+      <div class="image-content">
+          <img src="img/bebidas.png" alt="Bebida deliciosa">
+      </div>
+  </div>
+  </div>
+</div>
+
+<img src="img/divisoria.png" alt="">
+
+<!-- Menu Container -->
+<div class="w3-container" id="about">
+  <div class="w3-content" style="max-width:700px">
+    <div class="container">
+      <div class="text-content">
+          <h2 id="titulo-bolos">Bolos</h2>
+          <p id="texto-p">Nossos bolos são feitos com <span class="highlight">ingredientes selecionados</span>, de forma <span class="highlight">artesanal</span>, preservando sua naturalidade e sabor autêntico. Cada receita é preparada com muito <span class="highlight">cuidado e dedicação</span >, utilizando apenas produtos frescos, sem aditivos ou conservantes, para garantir uma experiência genuína de sabor.</p>
+      </div>
+      <div class="image-content">
+          <img src="img/bolo.png" alt="Bebida deliciosa">
+      </div>
+  </div>
+  </div>
+</div>
+<!-- Contact/Area Container -->
+<div class="w3-container" id="where" style="padding-bottom:32px;">
+  <div class="w3-content" style="max-width:700px">
+  </div>
+</div>
+
+<!-- End page content -->
+</div>
+
+<img src="img/divisoria.png" alt="">
+
+<div class="w3-container" id="about">
+  <div class="w3-content" style="max-width:700px">
+    <div class="container">
+      <div class="text-content">
+          <h2 id="titulo-salgados">Salgados</h2>
+          <p id="texto-p">Nossos salgados são preparados com ingredientes frescos e de qualidade, garantindo <span class="highlight">sabores autênticos e irresistíveis.</span> Oferecemos opções tradicionais e criativas, todas feitas com <span class="highlight">cuidado e dedicação</span>, em um ambiente acolhedor e cheio de personalidade.</p>
+      </div>
+      <div class="image-content">
+          <img src="img/salgados.png" alt="Bebida deliciosa">
+      </div>
+  </div>
+  </div>
+</div>
+
+<img src="img/divisoria.png" alt="">
+<div class="container-about">
+  <div class="text-content-about">
+      <h2 class="title-about">Sobre nós</h2>
+      <p>
+          Na Coopin, acreditamos que um bom <strong>café vai além do sabor</strong> – é um convite para desacelerar, compartilhar histórias e se conectar. Trabalhamos com <strong>grãos selecionados</strong>, métodos de preparo artesanais e um ambiente aconchegante, pensado para que cada visita seja <strong>especial</strong>. Além de um cardápio repleto de cafés especiais, também oferecemos opções de doces, salgados e refeições leves, preparados com ingredientes frescos e selecionados.
+      </p>
+  </div>
+  <div class="image-container">
+      <div class="circle"><img src="img/circle.png" alt=""></div>
+      <img src="img/about.png" alt="Barista sorridente">
+  </div>
+</div>
+<link rel="stylesheet" href="js/navbar.js">
+<script>
+// Tabbed Menu
+function openMenu(evt, menuName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("menu");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-dark-grey", "");
+  }
+  document.getElementById(menuName).style.display = "block";
+  evt.currentTarget.firstElementChild.className += " w3-dark-grey";
+}
+document.getElementById("myLink").click();
+</script>
+
+
+
+</body>
+</html>
+

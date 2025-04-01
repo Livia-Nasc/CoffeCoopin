@@ -36,14 +36,14 @@ function CadastrarUsuario() {
         $stmt->bindParam(':cpf', $cpf);
 
         if ($stmt->execute()) {
-            header('Location: ../login.php');
+            header('Location: ../login.php?success=Cadastro realizado!');
             exit();
         } else {
-            header('Location: ../cadastro.php');
+            header('Location: ../cadastro.php?erro=Erro no cadastro');
             exit();
         }
     } else {
-        header('Location: ../cadastro.php');
+        header('Location: ../cadastro.php?erro=Usuário já existe');
         exit();
     }
 }
@@ -86,15 +86,15 @@ function LoginUsuario() {
                     header('Location: ../garcom/dashboard.php');
                     break;
                 default:
-                    header('Location: ../home.html');
+                    header('Location: ../index.html');
             }
             exit();
         } else {
-            header('Location: ../login.php?error=password');
+            header('Location: ../login.php?error=Senha incorreta');
             exit();
         }
     } else {
-        header('Location: ../login.php?error=notfound');
+        header('Location: ../login.php?error=Usuário não encontrado');
         exit();
     }
 }

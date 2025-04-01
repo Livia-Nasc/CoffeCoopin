@@ -1,0 +1,209 @@
+@font-face {
+  font-family: 'Muvia';
+  src: url('../fonts/Muvia.otf') format('opentype'), url('../fonts/Muvia.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body, html {
+  height: 100%;
+  font-family:  Helvetica, sans-serif;
+  background-color: #f9f0dd;
+}
+
+.bgimg {
+  background-position: center;
+  background-size: cover;
+  background-image: url("../img/banner.png");
+  min-height: 80%;
+}
+
+.menu {
+  display: none;
+}
+
+
+p{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.w3-text-white{
+  font-family: Muvia;
+}
+.w3-text-white2{
+  font-family: Muvia;
+}
+
+ .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f9f0dd;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .text-content {
+            max-width: 60%;
+        }
+        .text-content h2 {
+            font-size: 70px;
+            /* font-weight: bold; */
+            color: #a6785d;
+        }
+        .text-content p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #8b5e3c;
+        }
+        .image-content img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+      #titulo-bebidas{
+        font-family: Muvia;
+        font-size: 70px;
+      }
+
+#navbar {
+  background-color: #333; /* Black background color */
+  position: fixed; /* Make it stick/fixed */
+  top: -50px; /* Hide the navbar 50 px outside of the top view */
+  width: 100%; /* Full width */
+  transition: top 0.3s; /* Transition effect when sliding down (and up) */
+}
+
+/* Style the navbar links */
+#navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  text-decoration: none;
+}
+
+#navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+
+#titulo-bolos{
+font-family: Muvia;
+font-size: 70px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9f0dd;
+  padding: 20px;
+  border-radius: 10px;
+}
+.text-content {
+  max-width: 60%;
+}
+.text-content h2 {
+  font-size: 2em;
+  font-weight: bold;
+  color: #a6785d;
+}
+.text-content p {
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+.highlight {
+  font-weight: bold;
+  color: #8b5e3c;
+}
+.image-content img {
+  width: 200px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+#titulo-salgados{
+font-family: Muvia;
+font-size: 70px;
+}
+
+.text-cardapio{
+  font-family: muvia;
+  font-size: 100px;
+  color: #a6785d;
+}
+
+.container-about {
+  display: flex;
+  align-items: center;
+  max-width: 10000px;
+  background: #B28D68;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  
+}
+.text-content-about {
+  max-width: 500px;
+  color: #FAF5E4;
+}
+h2 {
+  font-size: 42px;
+  font-weight: bold;
+  color: #FAF5E4;
+  font-family: 'Georgia', serif;
+}
+p {
+  font-size: 18px;
+  line-height: 1.8;
+  font-weight: 400;
+}
+strong {
+  font-weight: bold;
+}
+.image-container {
+  margin-left: 30px;
+  position: relative;
+}
+.image-container img {
+  width: 550px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 2;
+}
+.circle {
+  top: 50%;
+  left: 50%;
+}
+.title-about{
+  font-family: muvia;
+}
+
+ .divider {
+            position: relative;
+            width: 100%;
+            height: 0px;
+            background: #f9f0dd;
+            border-top: 2px solid #B28D68;
+        }
+        .divider::before {
+            content: '\2193';
+            font-size: 24px;
+            color: #B28D68;
+            position: absolute;
+            top: -35px;
+            border-top: 2px solid #B28D68;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f9f0dd;
+            padding: 30px;
+            border-radius: 50%;
+        }
