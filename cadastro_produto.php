@@ -118,7 +118,7 @@ td, th {
         </table>
 
         <form action="php/produto.php" method="post">
-            <input type="number" required name="cod_produto" placeholder="Id">
+            <input type="text" required name="nome" placeholder="Nome">
             <button type="submit" name = "excluir" id="excluir">Excluir</button>
         </form>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

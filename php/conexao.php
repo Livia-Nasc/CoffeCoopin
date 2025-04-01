@@ -12,7 +12,7 @@ function getConexao()
     try {
         $pdo = new PDO($dsn, $user, $pass);
         return $pdo;
-    } catch (PDOExcption $e) {
+    } catch (PDOException $e) {
         echo "Erro: ". $e -> getMessage();
     } catch (Exception $e) {
         echo "Erro genérico!". $e -> getMessage();

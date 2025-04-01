@@ -1,108 +1,86 @@
 <?php
 require_once('conexao.php');
+session_start();
 
-//  * Cadastra o usuário
-function CadastrarUsuario() {
+// Cadastro de usuário
+if(isset($_POST['cadastrar'])) {
     $conn = getConexao();
-
-    // Get form data
+    
     $nome = $_POST['nome'];
     $telefone = $_POST['telefone'];
     $data_nasc = $_POST['data_nasc'];
     $email = $_POST['email'];
-    $senha = $_POST['senha'];
+    $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
     $cpf = $_POST['cpf'];
-
-    // ! vê se o usuário já existe
-    $sql = 'SELECT * FROM usuario WHERE cpf = :cpf OR email = :email';// ! Selecionando o CPF e o email do usuário cadastrado
+    
+    // Verifica se usuário já existe - CORREÇÃO AQUI
+    $sql = 'SELECT * FROM usuario WHERE email = :email OR cpf = :cpf';
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':cpf', $cpf);
     $stmt->execute();
-
-    if($stmt->rowCount() == 0) { // ! Verifica se o CPF e o e-mail não estão registrados
-        // ! Codifica o password
-        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-
-        // ! Cria um novo usuário
-        $cadastro = 'INSERT INTO usuario(nome, telefone, data_nasc, email, senha, cpf)
-                     VALUES(:nome, :telefone, :data_nasc, :email, :senha, :cpf)';
-        $stmt = $conn->prepare($cadastro);
+    
+    if($stmt->rowCount() == 0) {
+        // Cadastra novo usuário - CORREÇÃO AQUI
+        $sql = 'INSERT INTO usuario(nome, telefone, data_nasc, email, senha, cpf) 
+                VALUES(:nome, :telefone, :data_nasc, :email, :senha, :cpf)';
+        $stmt = $conn->prepare($sql);
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':telefone', $telefone);
         $stmt->bindParam(':data_nasc', $data_nasc);
-        $stmt->bindParam(':senha', $senhaHash); // Store hashed password
         $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':senha', $senha);
         $stmt->bindParam(':cpf', $cpf);
-
-        if ($stmt->execute()) {
-            header('Location: ../login.php');
-            exit();
+        
+        if($stmt->execute()) {
+            header('Location: ../login.php?sucesso=Cadastro realizado!');
         } else {
-            header('Location: ../cadastro.php');
-            exit();
+            header('Location: ../cadastro.php?erro=Erro no cadastro');
         }
     } else {
-        header('Location: ../cadastro.php');
-        exit();
+        header('Location: ../cadastro.php?erro=Usuário já existe');
     }
+    exit();
 }
 
-// * Login usuário
-function LoginUsuario() {
+// Login
+if(isset($_POST['login'])) {
     $conn = getConexao();
-
-    $email = $_POST['email'] ?? '';
-    $senha = $_POST['senha'] ?? '';
-
+    
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+    
+    // CORREÇÃO AQUI
     $sql = 'SELECT * FROM usuario WHERE email = :email';
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':email', $email);
     $stmt->execute();
-
+    
     if($stmt->rowCount() == 1) {
-        $dadosUsuario = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        // ! Verifica se a senha passada é igual a da senha decodificada que foi cadastrada
-        if(password_verify($senha, $dadosUsuario['senha'])) {
-            // ! inicia a sessão
-            session_start();
+        $usuario = $stmt->fetch();
+        
+        if(password_verify($senha, $usuario['senha'])) {
             $_SESSION['usuario'] = [
-                'id' => $dadosUsuario['id'],
-                'nome' => $dadosUsuario['nome'],
-                'email' => $dadosUsuario['email'],
-                'tipo' => $dadosUsuario['tipo']
+                'id' => $usuario['id'],
+                'nome' => $usuario['nome'],
+                'email' => $usuario['email'],
+                'tipo' => $usuario['tipo'] // 1-admin, 2-gerente, 3-garcom
             ];
-
-            // ! redireciona baseado no tipo de usuário
-            switch($dadosUsuario['tipo']) {
-                case 'admin':
-                    header('Location: ../admin/dashboard.php');
-                    break;
-                case 'gerente':
-                    header('Location: ../gerente/dashboard.php');
-                    break;
-                case 'garcom':
-                    header('Location: ../garcom/dashboard.php');
-                    break;
-                default:
-                    header('Location: ../cliente/dashboard.php');
+            
+            // Redireciona conforme o tipo
+            if($usuario['tipo'] == 1) {
+                header('Location: ../admin_dashboard.php');
+            } elseif($usuario['tipo'] == 2) {
+                header('Location: ../gerente_dashboard.php');
+            } elseif($usuario['tipo'] == 3) {
+                header('Location: ../garcom.php_dashboard');
             }
-            exit();
-        } else {
-            header('Location: ../login.php?error=password');
+              else{
+                header('Location: ../home.html');
+              }
             exit();
         }
-    } else {
-        header('Location: ../login.php?error=notfound');
-        exit();
     }
+    
 }
-
-if(isset($_POST['cadastrar'])) {
-    CadastrarUsuario();
-}
-
-if(isset($_POST['login'])) {
-    LoginUsuario();
-}
+?>
