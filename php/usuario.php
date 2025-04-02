@@ -5,11 +5,11 @@ require_once('conexao.php');
 function CadastrarUsuario() {
     $conn = getConexao();
 
-    // Get form data
-    $nome = $_POST['nome'];
+    // ! Pega os dados do formulário
+    $nome = strtupper($_POST['nome']);
     $telefone = $_POST['telefone'];
     $data_nasc = $_POST['data_nasc'];
-    $email = $_POST['email'];
+    $email = strtlower($_POST['email']);
     $senha = $_POST['senha'];
     $cpf = $_POST['cpf'];
 
@@ -31,7 +31,7 @@ function CadastrarUsuario() {
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':telefone', $telefone);
         $stmt->bindParam(':data_nasc', $data_nasc);
-        $stmt->bindParam(':senha', $senhaHash); // Store hashed password
+        $stmt->bindParam(':senha', $senhaHash);// ! Codifica o password
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':cpf', $cpf);
 

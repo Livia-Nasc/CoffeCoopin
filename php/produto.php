@@ -2,10 +2,10 @@
     require_once('conexao.php');
     session_start();
 
-    Function CadastrarProduto(){
+    function CadastrarProduto(){
         $conn = getConexao();
 
-        $nome = $_POST['nome'];
+        $nome = strtupper($_POST['nome']);
         $preco = $_POST['preco'];
         $categoria = filter_var($_POST['categoria']);
         $porcao = filter_var($_POST['porcao']);
@@ -45,44 +45,52 @@
 
     }
 
-    Function VisualizarProduto(){
+    function VisualizarProduto() {
+    session_start();
+    if(isset($_SESSION['produto'])){
+        unset($_SESSION['produto']);
         $conn = getConexao();
-        $nome = $_POST['nome'];
-        if($nome){
+        $nome = $_POST['nome'] ?? '';
+
+        if ($nome != '') {
             $sql = "SELECT * FROM produto WHERE nome LIKE :nome";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':nome', $nome);
+            $stmt->bindValue(':nome', "%$nome%");
             $stmt->execute();
-            if($stmt->rowCount() >= 1){
+
+            if ($stmt->rowCount() >= 1) {
                 $result = $stmt->fetchAll();
-                $_SESSION['nome'] = [];
-                $_SESSION['preco'] = [];
-                $_SESSION['categoria'] = [];
-                $_SESSION['porcao'] = [];
-                $_SESSION['qtd_estoque'] = [];
-                    foreach ($result as $value) {
-                        $_SESSION['preco'][] = $value['preco'];
-                        $_SESSION['nome'][] = $value['nome'];
-                        $_SESSION['categoria'][] = $value['categoria'];
-                        $_SESSION['porcao'][] = $value['porcao'];
-                        $_SESSION['qtd_estoque'][] = $value['qtd_estoque'];
-                    }
-                    header("Location: ../cadastro_produto.php");
-            }
-            else{
+                $_SESSION['produto'] = [];
+
+                foreach ($result as $produto) {
+                    $_SESSION['produto'][] = [
+                        'nome' => $produto['nome'],
+                        'preco' => $produto['preco'],
+                        'categoria' => $produto['categoria'],
+                        'porcao' => $produto['porcao'],
+                        'qtd_estoque' => $produto['qtd_estoque']
+                    ];
+                }
+                header("Location: ../cadastro_produto.php");
+            } else {
                 echo "<script type='text/javascript'>
                         alert('Erro ao encontrar produto');
                         window.location='../cadastro_produto.php';
-                      </script>";
+                    </script>";
+                exit();
             }
-        }
-        else{
+        } else {
             $sql = "SELECT * FROM produto";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
+            $result = $stmt->fetchAll();
+            $_SESSION['produto'] = $result;
+            header("Location: ../cadastro_produto.php");
+            exit();
         }
-
     }
+
+}
 
     function ExcluirProduto(){
         $conn = getConexao();

@@ -93,27 +93,27 @@ td, th {
             <th>Preço</th>
         </tr>
         <?php
-            $nome = $_SESSION['nome'];
-            $porcao = $_SESSION['porcao'];
-            $qtd_estoque = $_SESSION['qtd_estoque'];
-            $categoria = $_SESSION['categoria'];
-            $preco = $_SESSION['preco'];
-            for ($i = 0; $i < count($nome); $i++) {
+        foreach ($_SESSION['produto'] as $produto) {
+            $nome = $produto['nome'] ?? '';
+            $porcao = $produto['porcao'] ?? '';
+            $qtd_estoque = $produto['qtd_estoque'] ?? 0;
+            $categoria = $produto['categoria'] ?? '';
+            $preco = $produto['preco'] ?? 0.0;
         ?>
 
         <tr>
-            <td><?php echo $nome[$i]; ?></td>
-            <td><?php echo $porcao[$i]; ?></td>
-            <td><?php echo $qtd_estoque[$i]; ?></td>
-            <td><?php echo $categoria[$i]; ?></td>
-            <td><?php echo $preco[$i]; ?></td>
+            <td><?php echo $nome; ?></td>
+            <td><?php echo $porcao; ?></td>
+            <td><?php echo $qtd_estoque; ?></td>
+            <td><?php echo $categoria; ?></td>
+            <td><?php echo $preco; ?></td>
         </tr>
 
-                <!-- <p>Nome: <?php echo $nome[$i]; ?></p>
-                <p>Porção: <?php echo $porcao[$i]; ?></p>
-                <p>Categoria: <?php echo $categoria[$i]; ?></p>
-                <p>Preço: <?php echo $preco[$i]; ?></p>
-                <p>Qtd estoque: <?php echo $qtd_estoque[$i]; ?></p> -->
+                <!-- <p>Nome: <?php echo $nome; ?></p>
+                <p>Porção: <?php echo $porcao; ?></p>
+                <p>Categoria: <?php echo $categoria; ?></p>
+                <p>Preço: <?php echo $preco; ?></p>
+                <p>Qtd estoque: <?php echo $qtd_estoque; ?></p> -->
         <?php
             }
         ?>
