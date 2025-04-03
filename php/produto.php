@@ -1,11 +1,11 @@
 <?php
     require_once('conexao.php');
-    session_start();
 
     function CadastrarProduto(){
-        $conn = getConexao();
+        session_start();
 
-        $nome = strtupper($_POST['nome']);
+        $conn = getConexao();
+        $nome = strtoupper($_POST['nome']);
         $preco = $_POST['preco'];
         $categoria = filter_var($_POST['categoria']);
         $porcao = filter_var($_POST['porcao']);
@@ -49,8 +49,9 @@
     session_start();
     if(isset($_SESSION['produto'])){
         unset($_SESSION['produto']);
-        $conn = getConexao();
-        $nome = $_POST['nome'] ?? '';
+    }
+    $conn = getConexao();
+        $nome = strtoupper($_POST['nome'] ?? '');
 
         if ($nome != '') {
             $sql = "SELECT * FROM produto WHERE nome LIKE :nome";
@@ -88,13 +89,13 @@
             header("Location: ../cadastro_produto.php");
             exit();
         }
-    }
 
 }
 
     function ExcluirProduto(){
+        session_start();
         $conn = getConexao();
-        $nome = $_POST['nome'];
+        $nome = strtoupper($_POST['nome']);
         $sql = "DELETE FROM produto WHERE nome = :nome";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':nome', $nome);
@@ -110,8 +111,9 @@
     }
 
     function AlterarProduto(){
+        session_start();
         $conn = getConexao();
-        $nome = $_POST['nome'];
+        $nome = strtoupper($_POST['nome']);
         $preco = $_POST['preco'];
         $categoria = $_POST['categoria'];
         $porcao = $_POST['porcao'];

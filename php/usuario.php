@@ -6,10 +6,10 @@ function CadastrarUsuario() {
     $conn = getConexao();
 
     // ! Pega os dados do formulário
-    $nome = strtupper($_POST['nome']);
+    $nome = strtoupper($_POST['nome']);
     $telefone = $_POST['telefone'];
     $data_nasc = $_POST['data_nasc'];
-    $email = strtlower($_POST['email']);
+    $email = strtolower($_POST['email']);
     $senha = $_POST['senha'];
     $cpf = $_POST['cpf'];
 
@@ -52,7 +52,7 @@ function CadastrarUsuario() {
 function LoginUsuario() {
     $conn = getConexao();
 
-    $email = $_POST['email'];
+    $email = strtolower($_POST['email']);
     $senha = $_POST['senha'];
 
     $sql = 'SELECT * FROM usuario WHERE email = :email';

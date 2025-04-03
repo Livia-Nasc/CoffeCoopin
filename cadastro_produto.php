@@ -107,6 +107,9 @@ td, th {
             <td><?php echo $qtd_estoque; ?></td>
             <td><?php echo $categoria; ?></td>
             <td><?php echo $preco; ?></td>
+            <form action="php/produto.php" method="post">
+                <td><button type="submit" name="">alterar</button></td>
+            </form>
         </tr>
 
                 <!-- <p>Nome: <?php echo $nome; ?></p>

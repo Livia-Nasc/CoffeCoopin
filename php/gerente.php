@@ -3,7 +3,7 @@
 
     function CadastrarGerente(){
             $conn = getConexao();
-    
+
             $nome = $_POST['nome'];
             $telefone = $_POST['telefone'];
             $data_nasc = $_POST['data_nasc'];
@@ -11,26 +11,26 @@
             $senha = $_POST['senha'];
             $cpf = $_POST['cpf'];
             $rg = $_POST['rg'];
-    
+
             $sql = 'SELECT * FROM usuario WHERE cpf = :cpf OR email = :email'; // ! Seleciona dados usando o CPF e o email do usuário a ser cadastrado
             $stmt = $conn -> prepare($sql);
             $stmt -> bindParam(':email', $email);
             $stmt -> bindParam(':cpf', $cpf);
             $stmt->execute();
-    
+
             if($stmt -> rowcount() == 0 ){ // ! Verifica se o CPF e o e-mail não estão registrados
-                $cadastro = 'INSERT INTO usuario(nome, telefone, data_nasc, email, senha, cpf) VALUES( :nome, :telefone, :data_nasc,:email, :senha, :cpf)'; // ! Insere dados passados no formulário contido na página cadastro.php na tabela usuario 
+                $cadastro = 'INSERT INTO usuario(nome, telefone, data_nasc, email, senha, cpf) VALUES( :nome, :telefone, :data_nasc,:email, :senha, :cpf)'; // ! Insere dados passados no formulário contido na página cadastro.php na tabela usuario
                 $stmt = $conn -> prepare($cadastro);
                 $stmt -> bindParam(':nome', $nome);
                 $stmt -> bindParam(':telefone', $telefone);
                 $stmt -> bindParam(':data_nasc', $data_nasc);
                 $stmt -> bindParam(':senha', $senha);
                 $stmt -> bindParam(':email', $email);
-                $stmt -> bindParam(':cpf', $cpf); 
-                
+                $stmt -> bindParam(':cpf', $cpf);
+
                 if ($stmt->execute()){
                     $cod_user = $conn->lastInsertId();
-    
+
                     // ! Insere os dados na tabela gerente
                     $cadastroGerente = 'INSERT INTO gerente(rg, cod_user) VALUES(:rg, :cod_user)';
                     $stmt = $conn->prepare($cadastroGerente);
@@ -50,13 +50,13 @@
                 echo "<script type='text/javascript'>
                         alert('Informações já existentes');  // ! Se o CPF e o e-mail já existirem, exibe mensagem de erro na página cadastro.php
                         window.location='../cadastro.php';
-                      </script>"; 
+                      </script>";
             }
         }
         if(isset($_POST['cadastrar_gerente'])){
             CadastrarGerente();
         }
-    
+
     function LoginGerente(){
         $conn = getConexao();
 
@@ -70,7 +70,7 @@
             echo "<script type='text/javascript'> alert('Login realizado com sucesso'); window.location='../index.php';</script>"; // ! Se o login for realizado com sucesso, exibe mensagem de sucesso e vai para a página
         }
         else{
-            header('location: ../login.php');
+            header('location: ../login.php'); 
         }
-    }        
+    }
 ?>
