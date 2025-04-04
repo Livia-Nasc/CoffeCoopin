@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="css/cadastro.css">
     <style>
-        
+
 #produtos {
     text-align:center;
   margin-top: 10px;
@@ -22,7 +22,7 @@
   align-self: center;
   justify-self: center;
   flex-direction: column;
-  
+
 }
 th{
     margin-top:20px;
@@ -119,7 +119,7 @@ td, th {
                     <td><?php echo $preco; ?></td>
                     <td>
                         <!-- Formulário para alterar -->
-                        <form action="php/produto.php" method="post" style="display:inline;">
+                        <form action="alterar_produto.php" method="post" style="display:inline;">
                             <input type="hidden" name="nome" value="<?php echo $nome; ?>">
                             <input type="hidden" name="preco" value="<?php echo $preco; ?>">
                             <input type="hidden" name="categoria" value="<?php echo $categoria; ?>">
@@ -128,7 +128,7 @@ td, th {
                             <input type="hidden" name="id" value="<?php echo $produto['id']; ?>">
                             <button type="submit" name="alterar" class="btn btn-primary btn-sm">Alterar</button>
                         </form>
-                        
+
                         <!-- Formulário para excluir -->
                         <form action="php/produto.php" method="post" style="display:inline;">
                             <input type="hidden" name="nome" value="<?php echo $nome; ?>">
