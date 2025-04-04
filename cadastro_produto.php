@@ -125,12 +125,14 @@ td, th {
                             <input type="hidden" name="categoria" value="<?php echo $categoria; ?>">
                             <input type="hidden" name="porcao" value="<?php echo $porcao; ?>">
                             <input type="hidden" name="qtd_estoque" value="<?php echo $qtd_estoque; ?>">
+                            <input type="hidden" name="id" value="<?php echo $produto['id']; ?>">
                             <button type="submit" name="alterar" class="btn btn-primary btn-sm">Alterar</button>
                         </form>
                         
                         <!-- Formulário para excluir -->
                         <form action="php/produto.php" method="post" style="display:inline;">
                             <input type="hidden" name="nome" value="<?php echo $nome; ?>">
+                            <input type="hidden" name="id" value="<?php echo $produto['id']; ?>">
                             <button type="submit" name="excluir" class="btn btn-danger btn-sm">Excluir</button>
                         </form>
                     </td>
