@@ -11,24 +11,32 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="css/cadastro.css">
     <style>
-table {
+        
+#produtos {
     text-align:center;
   margin-top: 10px;
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width: fit-content;
+  display: flex;
+  align-self: center;
+  justify-self: center;
+  flex-direction: column;
+  
 }
 th{
+    margin-top:20px;
     font-weight: 600;
 }
 
 td, th {
   border: 1px solid #000;
-  text-align: left;
+  text-align: center;
   padding: 8px;
 }
 #visualizar{
-  background-color:rgb(241, 197, 152)
+  background-color:rgb(241, 197, 152);
+  margin-bottom:20px;
 }
 </style>
 </head>
@@ -79,53 +87,60 @@ td, th {
             </div>
 
         </div>
-        <form action="php/produto.php" method="post">
-            <label for="nome">Pesquisar produto</label>
-            <input type="text" name="nome" placeholder="Insira o nome do produto" id="nome">
-            <button type="submit" name = "visualizar" id="visualizar">Visualizar produtos</button>
-        </form>
-        <table>
-        <tr>
-            <th>Nome</th>
-            <th>Porção</th>
-            <th>Qtd Estoque</th>
-            <th>Categoria</th>
-            <th>Preço</th>
-        </tr>
-        <?php
-        foreach ($_SESSION['produto'] as $produto) {
-            $nome = $produto['nome'] ?? '';
-            $porcao = $produto['porcao'] ?? '';
-            $qtd_estoque = $produto['qtd_estoque'] ?? 0;
-            $categoria = $produto['categoria'] ?? '';
-            $preco = $produto['preco'] ?? 0.0;
-        ?>
-
-        <tr>
-            <td><?php echo $nome; ?></td>
-            <td><?php echo $porcao; ?></td>
-            <td><?php echo $qtd_estoque; ?></td>
-            <td><?php echo $categoria; ?></td>
-            <td><?php echo $preco; ?></td>
+        <div id="produtos">
             <form action="php/produto.php" method="post">
-                <td><button type="submit" name="">alterar</button></td>
+                <label for="nome">Pesquisar produto</label>
+                <input type="text" name="nome" placeholder="Insira o nome do produto" id="nome">
+                <button type="submit" name = "visualizar" id="visualizar">Visualizar produtos</button>
             </form>
-        </tr>
-
-                <!-- <p>Nome: <?php echo $nome; ?></p>
-                <p>Porção: <?php echo $porcao; ?></p>
-                <p>Categoria: <?php echo $categoria; ?></p>
-                <p>Preço: <?php echo $preco; ?></p>
-                <p>Qtd estoque: <?php echo $qtd_estoque; ?></p> -->
-        <?php
-            }
-        ?>
-        </table>
-
-        <form action="php/produto.php" method="post">
-            <input type="text" required name="nome" placeholder="Digite o nome do produto">
-            <button type="submit" name = "excluir" id="excluir">Excluir</button>
-        </form>
+            <table>
+                <tr>
+                    <th>Nome</th>
+                    <th>Porção</th>
+                    <th>Qtd Estoque</th>
+                    <th>Categoria</th>
+                    <th>Preço</th>
+                    <th>Ações</th>
+                </tr>
+                <?php
+                if(isset($_SESSION['produto'])) {
+                    foreach ($_SESSION['produto'] as $produto) {
+                        $nome = $produto['nome'] ?? '';
+                        $porcao = $produto['porcao'] ?? '';
+                        $qtd_estoque = $produto['qtd_estoque'] ?? 0;
+                        $categoria = $produto['categoria'] ?? '';
+                        $preco = $produto['preco'] ?? 0.0;
+                ?>
+                <tr>
+                    <td><?php echo $nome; ?></td>
+                    <td><?php echo $porcao; ?></td>
+                    <td><?php echo $qtd_estoque; ?></td>
+                    <td><?php echo $categoria; ?></td>
+                    <td><?php echo $preco; ?></td>
+                    <td>
+                        <!-- Formulário para alterar -->
+                        <form action="php/produto.php" method="post" style="display:inline;">
+                            <input type="hidden" name="nome" value="<?php echo $nome; ?>">
+                            <input type="hidden" name="preco" value="<?php echo $preco; ?>">
+                            <input type="hidden" name="categoria" value="<?php echo $categoria; ?>">
+                            <input type="hidden" name="porcao" value="<?php echo $porcao; ?>">
+                            <input type="hidden" name="qtd_estoque" value="<?php echo $qtd_estoque; ?>">
+                            <button type="submit" name="alterar" class="btn btn-primary btn-sm">Alterar</button>
+                        </form>
+                        
+                        <!-- Formulário para excluir -->
+                        <form action="php/produto.php" method="post" style="display:inline;">
+                            <input type="hidden" name="nome" value="<?php echo $nome; ?>">
+                            <button type="submit" name="excluir" class="btn btn-danger btn-sm">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                <?php
+                    }
+                }
+                ?>
+            </table>
+        </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
         <script>

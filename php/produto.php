@@ -7,50 +7,38 @@
         $conn = getConexao();
         $nome = strtoupper($_POST['nome']);
         $preco = $_POST['preco'];
-        $categoria = filter_var($_POST['categoria']);
-        $porcao = filter_var($_POST['porcao']);
+        $categoria = $_POST['categoria'];
+        $porcao = $_POST['porcao'];
         $qtd_estoque = $_POST['qtd_estoque'];
-        if ($categoria){
-            if ($porcao){
-                $sql = "INSERT INTO produto (nome, preco, categoria, porcao, qtd_estoque) values ( :nome, :preco, :categoria, :porcao, :qtd_estoque)";
-                $stmt = $conn -> prepare($sql);
-                $stmt->bindParam(':nome', $nome);
-                $stmt->bindParam(':preco', $preco);
-                $stmt->bindParam(':categoria', $categoria);
-                $stmt->bindParam(':porcao', $porcao);
-                $stmt->bindParam(':qtd_estoque', $qtd_estoque);
-                if ($stmt->execute()){
-                    echo "Produto cadastrado com sucesso!";
-                    header('location:../cadastro_produto.php');
-                }
-                else{
-                    echo "Erro ao cadastrar produto!";
-                }
+        
+        if (!empty($categoria) && !empty($porcao)) {
+            $sql = "INSERT INTO produto (nome, preco, categoria, porcao, qtd_estoque) values (:nome, :preco, :categoria, :porcao, :qtd_estoque)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':nome', $nome);
+            $stmt->bindParam(':preco', $preco);
+            $stmt->bindParam(':categoria', $categoria);
+            $stmt->bindParam(':porcao', $porcao);
+            $stmt->bindParam(':qtd_estoque', $qtd_estoque);
+            
+            if ($stmt->execute()){
+                $_SESSION['mensagem'] = "Produto cadastrado com sucesso!";
+                header('Location: ../cadastro_produto.php');
+                exit();
+            } else {
+                $_SESSION['mensagem'] = "Erro ao cadastrar produto!";
+                header('Location: ../cadastro_produto.php');
+                exit();
             }
-            else{
-            echo "<script type='text/javascript'>
-                        alert('Escolha não selecionada');
-                        window.location='../cadastro_produto.php';
-                      </script>";
+        } else {
+            $_SESSION['mensagem'] = "Escolha não selecionada";
+            header('Location: ../cadastro_produto.php');
+            exit();
         }
-
-        }
-        else{
-            echo "<script type='text/javascript'>
-                        alert('Escolha não selecionada');
-                        window.location='../cadastro_produto.php';
-                      </script>";
-        }
-
-
     }
 
     function VisualizarProduto() {
-    session_start();
-    if(isset($_SESSION['produto'])){
-        unset($_SESSION['produto']);
-    }
-    $conn = getConexao();
+        session_start();
+        $conn = getConexao();
         $nome = strtoupper($_POST['nome'] ?? '');
 
         if ($nome != '') {
@@ -60,37 +48,23 @@
             $stmt->execute();
 
             if ($stmt->rowCount() >= 1) {
-                $result = $stmt->fetchAll();
-                $_SESSION['produto'] = [];
-
-                foreach ($result as $produto) {
-                    $_SESSION['produto'][] = [
-                        'nome' => $produto['nome'],
-                        'preco' => $produto['preco'],
-                        'categoria' => $produto['categoria'],
-                        'porcao' => $produto['porcao'],
-                        'qtd_estoque' => $produto['qtd_estoque']
-                    ];
-                }
+                $_SESSION['produto'] = $stmt->fetchAll();
                 header("Location: ../cadastro_produto.php");
+                exit();
             } else {
-                echo "<script type='text/javascript'>
-                        alert('Erro ao encontrar produto');
-                        window.location='../cadastro_produto.php';
-                    </script>";
+                $_SESSION['mensagem'] = "Nenhum produto encontrado";
+                header("Location: ../cadastro_produto.php");
                 exit();
             }
         } else {
             $sql = "SELECT * FROM produto";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
-            $result = $stmt->fetchAll();
-            $_SESSION['produto'] = $result;
+            $_SESSION['produto'] = $stmt->fetchAll();
             header("Location: ../cadastro_produto.php");
             exit();
         }
-
-}
+    }
 
     function ExcluirProduto(){
         session_start();
@@ -99,15 +73,14 @@
         $sql = "DELETE FROM produto WHERE nome = :nome";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':nome', $nome);
+        
         if ($stmt->execute()){
-            echo "<script type='text/javascript'>
-            alert('Produto excluído com sucesso!');
-            window.location='../cadastro_produto.php';
-            </script>";
-            }
-        else{
-            echo "Erro ao excluir produto!";
+            $_SESSION['mensagem'] = "Produto excluído com sucesso!";
+        } else {
+            $_SESSION['mensagem'] = "Erro ao excluir produto!";
         }
+        header('Location: ../cadastro_produto.php');
+        exit();
     }
 
     function AlterarProduto(){
@@ -118,13 +91,22 @@
         $categoria = $_POST['categoria'];
         $porcao = $_POST['porcao'];
         $qtd_estoque = $_POST['qtd_estoque'];
-        $sql = "UPDATE produto SET nome = :nome, preco = :preco, categoria = :categoria, porcao = :porcao, qtd_estoque = :qtd_estoque WHERE nome = :nome";
+        
+        $sql = "UPDATE produto SET preco = :preco, categoria = :categoria, porcao = :porcao, qtd_estoque = :qtd_estoque WHERE nome = :nome";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':preco', $preco);
         $stmt->bindParam(':categoria', $categoria);
         $stmt->bindParam(':porcao', $porcao);
         $stmt->bindParam(':qtd_estoque', $qtd_estoque);
+        
+        if ($stmt->execute()){
+            $_SESSION['mensagem'] = "Produto atualizado com sucesso!";
+        } else {
+            $_SESSION['mensagem'] = "Erro ao atualizar produto!";
+        }
+        header('Location: ../cadastro_produto.php');
+        exit();
     }
 
     if(isset($_POST['cadastrar'])){
@@ -139,4 +121,7 @@
         ExcluirProduto();
     }
 
+    if(isset($_POST['alterar'])){
+        AlterarProduto();
+    }
 ?>
