@@ -1,5 +1,6 @@
 <?php
     require_once("conexao.php");
+    require("usuario.php");
 
     function CadastrarGerente(){
             $conn = getConexao();
@@ -19,23 +20,25 @@
             $stmt->execute();
 
             if($stmt -> rowcount() == 0 ){ // ! Verifica se o CPF e o e-mail não estão registrados
-                $cadastro = 'INSERT INTO usuario(nome, telefone, data_nasc, email, senha, cpf) VALUES( :nome, :telefone, :data_nasc,:email, :senha, :cpf)'; // ! Insere dados passados no formulário contido na página cadastro.php na tabela usuario
+                
+                $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+                $cadastro = 'INSERT INTO usuario(nome, telefone, data_nasc, email, senha, cpf, tipo) VALUES( :nome, :telefone, :data_nasc,:email, :senha, :cpf, 2)'; // ! Insere dados passados no formulário contido na página cadastro.php na tabela usuario
                 $stmt = $conn -> prepare($cadastro);
                 $stmt -> bindParam(':nome', $nome);
                 $stmt -> bindParam(':telefone', $telefone);
                 $stmt -> bindParam(':data_nasc', $data_nasc);
-                $stmt -> bindParam(':senha', $senha);
+                $stmt->bindParam(':senha', $senhaHash);
                 $stmt -> bindParam(':email', $email);
                 $stmt -> bindParam(':cpf', $cpf);
 
                 if ($stmt->execute()){
-                    $cod_user = $conn->lastInsertId();
+                    $user_id = $conn->lastInsertId();
 
                     // ! Insere os dados na tabela gerente
-                    $cadastroGerente = 'INSERT INTO gerente(rg, cod_user) VALUES(:rg, :cod_user)';
+                    $cadastroGerente = 'INSERT INTO gerente(rg, user_id) VALUES(:rg, :user_id)';
                     $stmt = $conn->prepare($cadastroGerente);
                     $stmt->bindParam(':rg', $rg);
-                    $stmt->bindParam(':cod_user', $cod_user);
+                    $stmt->bindParam(':user_id', $user_id);
                     if ($stmt->execute()){
                         header('location: ../login.php'); // ! Vai para a página de login
                         exit();
@@ -56,21 +59,4 @@
         if(isset($_POST['cadastrar_gerente'])){
             CadastrarGerente();
         }
-
-    function LoginGerente(){
-        $conn = getConexao();
-
-        $email = $_POST['email'];
-        $senha = $_POST['senha'];
-        $sql = 'SELECT u.email, u.senha FROM gerente AS g JOIN usuario AS u ON g.cod_user = u.cod_user WHERE u.email = :email AND u.senha = :senha';
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':senha', $senha);
-        if ($stmt->execute()){
-            echo "<script type='text/javascript'> alert('Login realizado com sucesso'); window.location='../index.php';</script>"; // ! Se o login for realizado com sucesso, exibe mensagem de sucesso e vai para a página
-        }
-        else{
-            header('location: ../login.php'); 
-        }
-    }
 ?>

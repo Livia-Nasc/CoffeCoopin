@@ -16,7 +16,7 @@
             
             <div id="box">
                 <div class="cadastro">
-                    <form action="php/gerente.php" method="post">
+                    <form action="php/garcom.php" method="post">
                         <h1>CADASTRAR</h1>
                         <br><br>
                         <label for="nome">  
@@ -24,7 +24,7 @@
                         </label>
                         <br><br>
                         <label for="cpf"> 
-                            <input  oninput="mascara(this)" type="text" id="cpf" required name = "cpf" placeholder="Insira seu CPF">
+                            <input  oninput="mascara(this)" type="text" id="cpf" required name = "cpf" placeholder="Insira seu CPF"> 
                         </label>
                         <br><br>
                         <label for="email"> 
@@ -39,8 +39,8 @@
                             <input type="date" id="data_nasc" required name = "data_nasc" placeholder="Insira uma senha">
                         </label>
                         <br><br>
-                        <label for="rg"> 
-                            <input type="text" id="rg" required name = "rg" placeholder="Insira um rg">
+                        <label for="escolaridade"> 
+                            <input type="text" id="escolaridade" required name = "escolaridade" placeholder="Insire a escolaridade">
                         </label>
                         <br><br>
                         <label for="senha"> 
@@ -48,7 +48,7 @@
                         </label>
                         <br><br>
                         <div id="btn">
-                            <button type="submit" name = "cadastrar_gerente" class="btn btn-warning">ENVIAR</button>
+                            <button type="submit" name = "cadastrar_garcom" class="btn btn-warning">ENVIAR</button>
                         </div>
                     </form>
                 </div>

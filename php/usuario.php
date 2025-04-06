@@ -5,6 +5,7 @@ require_once('conexao.php');
 function CadastrarUsuario() {
     $conn = getConexao();
 
+
     // ! Pega os dados do formulário
     $nome = strtoupper($_POST['nome']);
     $telefone = $_POST['telefone'];
@@ -13,11 +14,14 @@ function CadastrarUsuario() {
     $senha = $_POST['senha'];
     $cpf = $_POST['cpf'];
 
+    $cpf_novo = preg_replace('/[^0-9]/', '', $cpf);
+    
+
     // ! vê se o usuário já existe
     $sql = 'SELECT * FROM usuario WHERE cpf = :cpf OR email = :email';// ! Selecionando o CPF e o email do usuário cadastrado
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':cpf', $cpf);
+    $stmt->bindParam(':cpf', $cpf_novo);
     $stmt->execute();
 
     if($stmt->rowCount() == 0) { // ! Verifica se o CPF e o e-mail não estão registrados
@@ -33,7 +37,7 @@ function CadastrarUsuario() {
         $stmt->bindParam(':data_nasc', $data_nasc);
         $stmt->bindParam(':senha', $senhaHash);// ! Codifica o password
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':cpf', $cpf);
+        $stmt->bindParam(':cpf', $cpf_novo);
 
         if ($stmt->execute()) {
             header('Location: ../login.php?success=Cadastro realizado!');
@@ -76,14 +80,14 @@ function LoginUsuario() {
 
             // ! redireciona baseado no tipo de usuário
             switch($dadosUsuario['tipo']) {
-                case 'admin':
-                    header('Location: ../admin/dashboard.php');
+                case 1:
+                    header('Location: ../cadastro_gerente.php');
                     break;
-                case 'gerente':
-                    header('Location: ../gerente/dashboard.php');
+                case 2:
+                    header('Location: ../cadastro_produto.php');
                     break;
-                case 'garcom':
-                    header('Location: ../garcom/dashboard.php');
+                case 3:
+                    header('Location: ../cadastro_produto.php');
                     break;
                 default:
                     header('Location: ../index.html');

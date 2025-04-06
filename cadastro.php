@@ -24,7 +24,7 @@
                         </label>
                         <br><br>
                         <label for="cpf"> 
-                            <input  maxlength ="11" type="text" id="cpf" required name = "cpf" placeholder="Insira seu CPF"> <!-- oninput="mascara(this)" -->
+                            <input oninput="mascara(this)"type="text" id="cpf" required name = "cpf" placeholder="Insira seu CPF">
                         </label>
                         <br><br>
                         <label for="email"> 
@@ -73,3 +73,4 @@
         </script>
 </body>
 </html>
+

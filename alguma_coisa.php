@@ -14,7 +14,7 @@ $disciplinas = "SELECT disciplinas.nome AS disciplinas_nome
 <!-- botar no select -->
     <?php
       $query = $pdo->query("SELECT id, nome FROM disciplinas ORDER BY nome");
-      while($reg = $query->fetch(PDO::FETCH_ASSOC)) {
+      while($reg = $query->fetch()) {
         echo '<option value="'.$reg["id"].'">'.$reg["nome"].'</option>';
       }
     ?>   
