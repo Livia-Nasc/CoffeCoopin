@@ -5,7 +5,7 @@
         $conn = getConexao();
         $mesa = $_POST['mesa'];
         $garcom_id = $_POST['garcom_id'];
-
+        // ! Abre uma conta nova
         $sql = "INSERT INTO conta (mesa, garcom_id, data_abertura, status)
             VALUES (:mesa, :garcom_id, NOW(), 'aberta')";
         $stmt = $conn -> prepare($sql);
@@ -33,7 +33,7 @@
         $stmt->execute();
         $_SESSION['conta'] = $stmt->fetchAll();
         
-        // Buscar produtos também
+        // ! Busca produtos também 
         $sql_produtos = "SELECT id, nome, preco FROM produto";
         $stmt_produtos = $conn->prepare($sql_produtos);
         $stmt_produtos->execute();
@@ -46,7 +46,7 @@
         session_start();
         $conn = getConexao();
         $conta_id = $_POST['conta_id'];
-        
+        // ! Muda o status da conta de "aberta" para "fechada"
         $sql = "UPDATE conta SET status = 'fechada', data_fechamento = NOW() WHERE id = :id";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':id', $conta_id);
@@ -68,7 +68,7 @@
         session_start();
         $conn = getConexao();
         $conta_id = $_POST['conta_id'];
-        
+        // ! Muda o status da conta de "aberta" para "cancelada"
         $sql = "UPDATE conta SET status = 'cancelada', data_fechamento = NOW() WHERE id = :id";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':id', $conta_id);
@@ -93,7 +93,7 @@
         $produto_id = $_POST['produto_id'];
         $quantidade = $_POST['quantidade'];
         
-        // Verificar estoque primeiro
+        // ! Verificar estoque primeiro
         $sql_estoque = "SELECT qtd_estoque FROM produto WHERE id = :produto_id";
         $stmt_estoque = $conn->prepare($sql_estoque);
         $stmt_estoque->bindParam(':produto_id', $produto_id);
@@ -108,7 +108,7 @@
             return;
         }
         
-        // Primeiro verifica se o produto já está associado à conta
+        // ! Primeiro verifica se o produto já está associado à conta
         $sql_check = "SELECT * FROM pedido WHERE conta_id = :conta_id AND produto_id = :produto_id";
         $stmt_check = $conn->prepare($sql_check);
         $stmt_check->bindParam(':conta_id', $conta_id);
@@ -116,7 +116,7 @@
         $stmt_check->execute();
         
         if($stmt_check->rowCount() > 0){
-            // Se já existe, atualiza a quantidade
+            // ! Se já existe, atualiza a quantidade
             $sql_update = "UPDATE pedido SET quantidade = quantidade + :quantidade 
                           WHERE conta_id = :conta_id AND produto_id = :produto_id";
             $stmt_update = $conn->prepare($sql_update);
@@ -125,7 +125,7 @@
             $stmt_update->bindParam(':produto_id', $produto_id);
             $result = $stmt_update->execute();
         } else {
-            // Se não existe, insere novo registro
+            // ! Se não existe, insere novo registro
             $sql_insert = "INSERT INTO pedido (conta_id, produto_id, quantidade) 
                           VALUES (:conta_id, :produto_id, :quantidade)";
             $stmt_insert = $conn->prepare($sql_insert);
@@ -135,7 +135,7 @@
             $result = $stmt_insert->execute();
         }
         
-        // Atualizar estoque
+        // ! Atualizar estoque
         if($result) {
             $sql_update_estoque = "UPDATE produto SET qtd_estoque = qtd_estoque - :quantidade WHERE id = :produto_id";
             $stmt_update_estoque = $conn->prepare($sql_update_estoque);
@@ -169,6 +169,7 @@
         $pedido = $stmt_select->fetch();
         
         if ($pedido) {
+            // ! Se o pedido existir ele vai ser exluído
             $sql_estoque = "UPDATE produto SET qtd_estoque = qtd_estoque + :quantidade WHERE id = :produto_id";
             $stmt_estoque = $conn->prepare($sql_estoque);
             $stmt_estoque->bindParam(':quantidade', $pedido['quantidade']);
