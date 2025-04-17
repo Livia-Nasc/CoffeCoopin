@@ -65,11 +65,13 @@ CREATE TABLE pedido (
     FOREIGN KEY (conta_id) REFERENCES conta(id),
     FOREIGN KEY (produto_id) REFERENCES produto(id)
 );
-
+/*senha: admin*/
 INSERT INTO usuario (nome, cpf, email, senha, tipo)
-VALUES ('Administrador', '12345678901', 'admin@admin.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1);
+VALUES ('Administrador', '12345678901', 'admin@admin.com', '$2y$10$E6d.qxxZw.l/RWzm4pBOXOHaA9QJ5QmfWKjoYQeVnnbtEdrxZlvrS', 1);
+
 Select * from usuario;
 Select * from gerente;
+Select * from garcom;
 Select * from produto;
 SELECT u.cpf, u.nome, u.telefone, u.email, u.senha, g.rg
     FROM gerente as g
