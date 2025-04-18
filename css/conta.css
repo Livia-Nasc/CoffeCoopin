@@ -1,13 +1,33 @@
+/* Estilos gerais */
 body {
-    font-family: Arial, sans-serif;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    font-family: Arial;
     background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
 }
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#box {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 600px;
+}
+
 h2, h3 {
     color: #333;
+    margin-top: 0;
 }
+
+/* Formulários */
 .form-container {
     background-color: white;
     padding: 20px;
@@ -15,36 +35,70 @@ h2, h3 {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     margin-bottom: 20px;
 }
+
 input, select {
-    padding: 8px;
-    margin: 5px;
+    padding: 10px;
+    margin: 5px 0;
     border: 1px solid #ddd;
     border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
 }
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Botões */
 button, .action-btn {
-    padding: 8px 15px;
+    padding: 10px 15px;
     margin: 5px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-weight: bold;
+    transition: background-color 0.3s;
 }
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.btn-primary {
+    background-color: #2196F3;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.btn-primary:hover {
+    background-color: #0b7dda;
+}
+
 #visualizar {
     background-color: #ffc107;
     color: #333;
 }
+
 .fechar-btn {
     background-color: #4CAF50;
     color: white;
 }
+
 .cancelar-btn {
     background-color: #f44336;
     color: white;
 }
+
 .associar-btn {
     background-color: #2196F3;
     color: white;
 }
+
+/* Filtros */
 .filtro-container {
     background-color: white;
     padding: 15px;
@@ -52,6 +106,7 @@ button, .action-btn {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     margin-bottom: 20px;
 }
+
 .filtro-btn {
     padding: 8px 15px;
     margin-right: 10px;
@@ -63,60 +118,103 @@ button, .action-btn {
     color: #333;
     display: inline-block;
 }
+
 .filtro-btn.active {
     background-color: #4CAF50;
     color: white;
 }
+
+/* Tabelas */
 #produtos {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     margin-top: 20px;
+    overflow-x: auto;
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;
 }
+
 th, td {
     border: 1px solid #ddd;
     padding: 12px;
     text-align: left;
 }
+
 th {
     background-color: #f2f2f2;
     font-weight: bold;
 }
+
+/* Produtos na conta */
 .produtos-conta {
     background-color: #f9f9f9;
     padding: 15px;
     border-radius: 5px;
-    margin-top: 10px;
 }
+
 .produto-item {
     display: flex;
     justify-content: space-between;
     padding: 8px 0;
     border-bottom: 1px solid #eee;
 }
+
 .produto-item:last-child {
     border-bottom: none;
 }
+
 .btn-excluir {
     background-color: #f44336;
     color: white;
-    padding: 3px 8px;
+    padding: 5px 10px;
     font-size: 12px;
     border-radius: 3px;
     margin-left: 10px;
+    border: none;
+    cursor: pointer;
 }
+
 .btn-excluir:hover {
     background-color: #d32f2f;
 }
+
 .total-conta {
     font-weight: bold;
     font-size: 1.1em;
     margin-top: 10px;
     padding-top: 10px;
     border-top: 2px solid #ddd;
+}
+
+/* Layout responsivo */
+@media (max-width: 768px) {
+    #box {
+        padding: 15px;
+    }
+    
+    .filtro-btn {
+        display: block;
+        margin: 5px 0;
+        width: 100%;
+    }
+    
+    table {
+        font-size: 14px;
+    }
+    
+    th, td {
+        padding: 8px;
+    }
+}
+
+/* Botões inline forms */
+form[style*="inline"] {
+    display: inline;
+    margin: 0;
 }

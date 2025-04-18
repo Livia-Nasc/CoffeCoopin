@@ -8,15 +8,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Produto</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/cadastro_produto.css">
 </head>
 <body>
     <div id="container">
         <div id="box">
             <div class="cadastro">
-                <form action="php/produto.php" method="post">
-                    <h1>CADASTRAR PRODUTO</h1>
+                <form action="php/produto.php" method="post" class="form-container">
+                    <h2>CADASTRAR PRODUTO</h2>
                     <br><br>
                     <label for="nome">
                         <input type="text" id="nome" required name="nome" placeholder="Insira o nome do produto">

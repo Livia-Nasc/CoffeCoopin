@@ -41,7 +41,7 @@
     <form action="php/conta.php" method="post">
         <button type="submit" name="visualizar" id="visualizar">Atualizar Lista de Contas</button>
     </form>
-
+    
     <?php if(isset($_SESSION['produtos']) && isset($_SESSION['conta'])): ?>
     <div class="form-container">
         <h3>Associar Produto a Conta</h3>
