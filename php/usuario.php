@@ -2,7 +2,8 @@
 require_once('conexao.php');
 
 //  * Cadastra o usuário
-function CadastrarUsuario() {
+function CadastrarUsuario()
+{
     $conn = getConexao();
 
 
@@ -15,16 +16,16 @@ function CadastrarUsuario() {
     $cpf = $_POST['cpf'];
 
     $cpf_novo = preg_replace('/[^0-9]/', '', $cpf);
-    
+
 
     // ! vê se o usuário já existe
-    $sql = 'SELECT * FROM usuario WHERE cpf = :cpf OR email = :email';// ! Selecionando o CPF e o email do usuário cadastrado
+    $sql = 'SELECT * FROM usuario WHERE cpf = :cpf OR email = :email'; // ! Selecionando o CPF e o email do usuário cadastrado
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':cpf', $cpf_novo);
     $stmt->execute();
 
-    if($stmt->rowCount() == 0) { // ! Verifica se o CPF e o e-mail não estão registrados
+    if ($stmt->rowCount() == 0) { // ! Verifica se o CPF e o e-mail não estão registrados
         // ! Codifica o password
         $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
@@ -35,7 +36,7 @@ function CadastrarUsuario() {
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':telefone', $telefone);
         $stmt->bindParam(':data_nasc', $data_nasc);
-        $stmt->bindParam(':senha', $senhaHash);// ! Codifica o password
+        $stmt->bindParam(':senha', $senhaHash); // ! Codifica o password
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':cpf', $cpf_novo);
 
@@ -53,7 +54,8 @@ function CadastrarUsuario() {
 }
 
 // * Login usuário
-function LoginUsuario() {
+function LoginUsuario()
+{
     $conn = getConexao();
 
     $email = strtolower($_POST['email']);
@@ -64,11 +66,11 @@ function LoginUsuario() {
     $stmt->bindParam(':email', $email);
     $stmt->execute();
 
-    if($stmt->rowCount() == 1) {
+    if ($stmt->rowCount() == 1) {
         $dadosUsuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // ! Verifica se a senha passada é igual a da senha decodificada que foi cadastrada
-        if(password_verify($senha, $dadosUsuario['senha'])) {
+        if (password_verify($senha, $dadosUsuario['senha'])) {
             // ! inicia a sessão
             session_start();
             $_SESSION['usuario'] = [
@@ -79,18 +81,18 @@ function LoginUsuario() {
             ];
 
             // ! redireciona baseado no tipo de usuário
-            switch($dadosUsuario['tipo']) {
+            switch ($dadosUsuario['tipo']) {
                 case 1:
                     header('Location: ../cadastro_gerente.php');
                     break;
                 case 2:
-                    header('Location: ../cadastro_produto.php');
+                    header('Location: ../cadastro_garcom.php');
                     break;
                 case 3:
                     header('Location: ../cadastro_produto.php');
                     break;
                 default:
-                    header('Location: ../index.html');
+                    header('Location: ../index.php  ');
             }
             exit();
         } else {
@@ -103,10 +105,21 @@ function LoginUsuario() {
     }
 }
 
-if(isset($_POST['cadastrar'])) {
+function SairUsuario()
+{
+    session_start();
+    unset($_SESSION['usuario']);
+    header('location:../login.php');
+}
+
+if (isset($_POST['cadastrar'])) {
     CadastrarUsuario();
 }
 
-if(isset($_POST['login'])) {
+if (isset($_POST['login'])) {
     LoginUsuario();
+}
+
+if (isset($_POST['sair'])) {
+   SairUsuario();
 }

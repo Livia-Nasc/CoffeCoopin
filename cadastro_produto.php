@@ -1,15 +1,17 @@
 <?php
-    session_start();
+session_start();
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Produto</title>
     <link rel="stylesheet" href="css/cadastro_produto.css">
 </head>
+
 <body>
     <div id="container">
         <div id="box">
@@ -53,10 +55,10 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function mascara(i){
+        function mascara(i) {
             var v = i.value;
-            if(isNaN(v[v.length-1])){
-                i.value = v.substring(0, v.length-1);
+            if (isNaN(v[v.length - 1])) {
+                i.value = v.substring(0, v.length - 1);
                 return;
             }
             i.setAttribute("maxlength", "14");
@@ -65,4 +67,5 @@
         }
     </script>
 </body>
+
 </html>

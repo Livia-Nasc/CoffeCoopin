@@ -1,26 +1,28 @@
 <?php
-    session_start();
-    if(!isset($_POST['id'])) {
-        header('Location: cadastro_produto.php');
-        exit();
-    }
+session_start();
+if (!isset($_POST['id'])) {
+    header('Location: cadastro_produto.php');
+    exit();
+}
 
-    $id = $_POST['id'];
-    $nome = strtoupper($_POST['nome'] ?? '');
-    $preco = $_POST['preco'] ?? '';
-    $categoria = $_POST['categoria'] ?? '';
-    $porcao = $_POST['porcao'] ?? '';
-    $qtd_estoque = $_POST['qtd_estoque'] ?? '';
+$id = $_POST['id'];
+$nome = strtoupper($_POST['nome'] ?? '');
+$preco = $_POST['preco'] ?? '';
+$categoria = $_POST['categoria'] ?? '';
+$porcao = $_POST['porcao'] ?? '';
+$qtd_estoque = $_POST['qtd_estoque'] ?? '';
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alterar produto</title>
     <link rel="stylesheet" href="css/alterar_produto.css">
-    </head>
+</head>
+
 <body>
     <div class="form-container">
         <h2>Alterar Produto</h2>
@@ -60,4 +62,5 @@
         </form>
     </div>
 </body>
+
 </html>

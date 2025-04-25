@@ -217,3 +217,73 @@ strong {
 #space{
   margin-left: 250px;
 }
+
+.container, .container-about {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-content, .text-content-about {
+  flex: 1 1 300px;
+  padding: 10px;
+}
+
+.image-content, .image-container {
+  flex: 1 1 300px;
+  padding: 10px;
+  text-align: center;
+}
+
+.image-content img, .image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.circle {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 600px) {
+  .text-content, .image-content, .text-content-about, .image-container {
+    text-align: center;
+  }
+}
+
+/* Navbar Transparente + Sticky Scroll */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 15px 20px;
+  z-index: 1000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: transparent;
+}
+
+.navbar a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.navbar.scrolled {
+  background-color: rgb(255, 6, 6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.scrolled a {
+  color: #333;
+}
