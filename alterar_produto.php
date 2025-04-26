@@ -1,6 +1,7 @@
 <?php
 session_start();
-if (!isset($_POST['id'])) {
+// Verifica se o usuário está logado e é do tipo 2 (gerente)
+if (!isset($_POST['id']) && $_SESSION['usuario']['tipo'] != 2){
     header('Location: cadastro_produto.php');
     exit();
 }

@@ -1,5 +1,9 @@
 <?php
 session_start();
+    if (($_SESSION['usuario']['tipo'] != 3) || ($_SESSION['usuario']['tipo'] != 2) ) {
+        header('location:login.php');
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>

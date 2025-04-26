@@ -89,10 +89,10 @@ function LoginUsuario()
                     header('Location: ../cadastro_garcom.php');
                     break;
                 case 3:
-                    header('Location: ../cadastro_produto.php');
+                    header('Location: ../abrir_conta.php');
                     break;
                 default:
-                    header('Location: ../index.php  ');
+                    header('Location: ../index.php');
             }
             exit();
         } else {
