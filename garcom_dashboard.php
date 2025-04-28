@@ -22,7 +22,7 @@
         <button type="submit" name="sair">Sair</button>
     </form>
     <ul>
-        <li><a href="cadastro_garcom.php">Novo garçom</a></li>
+        <li><a href="abrir_conta.php">Abrir conta</a></li>
         <li><a href="cadastro_produto.php">Novo produto</a></li>
         <li><a href="#">Clientes</a></li>
     </ul>
