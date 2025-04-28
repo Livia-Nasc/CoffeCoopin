@@ -1,9 +1,32 @@
-/* Estilos gerais */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+/* Estilos gerais com variáveis */
+
+@font-face {
+    font-family: 'Muvia';
+    src: url('../fonts/Muvia.otf') format('opentype'), url('../fonts/Muvia.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Variáveis */
+:root {
+    --cor-fundo: #f9f0dd;
+    --cor-principal: #C19770;
+    --cor-secundaria: #d5b895;
+    --cor-sombra: #f8dbc7;
+    --cor-texto: #f9f0dd;
+    --fonte-principal: 'Muvia', 'Poppins', sans-serif;
+    --fonte-secundaria: 'Poppins', sans-serif;
+}
+
+* {
     margin: 0;
     padding: 0;
+    border: 0;
+}
+
+body {
+    font-family: var(--fonte-principal);
+    background-color: var(--cor-fundo);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,23 +37,31 @@ body {
     width: 100%;
     max-width: 1200px;
     padding: 20px;
+    background: var(--linear-gradient);
+    color: var(--cor-texto);
 }
 
 #box {
-    background-color: white;
+    background-color: var(--cor-principal);
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 30px;
+    box-shadow: 0px 15px var(--cor-sombra);
+    padding: 40px;
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
+/* Títulos */
 h2 {
     display: flex;
-    color: #9999;
+    justify-content: center;
     text-align: center;
+    color: var(--cor-texto);
     margin-bottom: 30px;
+    font-family: var(--fonte-principal);
 }
 
 /* Formulário de cadastro */
@@ -46,26 +77,46 @@ label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
-    color: #555;
+    color: var(--cor-texto);
+    font-family: var(--fonte-secundaria);
 }
 
 input[type="text"],
 input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
 select {
     width: 100%;
     padding: 12px;
     margin-bottom: 20px;
-    border: 1px solid #ddd;
+    background-color: var(--cor-fundo);
+    border: none;
     border-radius: 4px;
     font-size: 16px;
+    font-family: var(--fonte-secundaria);
+    color: var(--cor-secundaria);
+    text-align: center;
     box-sizing: border-box;
     transition: border-color 0.3s;
 }
 
+input[type="text"]::placeholder,
+input[type="number"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+input[type="date"]::placeholder,
+select::placeholder {
+    color: var(--cor-secundaria);
+}
+
 input[type="text"]:focus,
 input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
 select:focus {
-    border-color: #4CAF50;
+    border: 2px solid var(--cor-secundaria);
     outline: none;
 }
 
@@ -86,24 +137,27 @@ select:focus {
     transition: background-color 0.3s;
     text-align: center;
     text-decoration: none;
+    font-family: var(--fonte-secundaria);
 }
 
+/* Botão "voltar" estilo warning */
 .btn-warning {
-    background-color: #ffc107;
-    color: #333;
+    background-color: var(--cor-fundo);
+    color: var(--cor-secundaria);
 }
 
 .btn-warning:hover {
-    background-color: #e0a800;
+    background-color: var(--cor-sombra);
 }
 
+/* Botão "cadastrar" estilo primary */
 .btn-primary {
-    background-color: #2196F3;
+    background-color: var(--cor-secundaria);
     color: white;
 }
 
 .btn-primary:hover {
-    background-color: #0b7dda;
+    background-color: #bfa37d;
 }
 
 /* Espaçamentos */

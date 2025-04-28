@@ -66,7 +66,10 @@ function ExcluirProduto()
     session_start();
     $conn = getConexao();
     $id = $_POST['id'];
-
+    $sqlPedidos = "DELETE FROM pedido WHERE produto_id = :id";
+    $stmtPedidos = $conn->prepare($sqlPedidos);
+    $stmtPedidos->bindParam(':id', $id);
+    $stmtPedidos->execute();
     $sql = "DELETE FROM produto WHERE id = :id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':id', $id);

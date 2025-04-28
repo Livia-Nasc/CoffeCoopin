@@ -86,7 +86,7 @@ function LoginUsuario()
                     header('Location: ../cadastro_gerente.php');
                     break;
                 case 2:
-                    header('Location: ../cadastro_garcom.php');
+                    header('Location: ../gerente_dashboard.php');
                     break;
                 case 3:
                     header('Location: ../abrir_conta.php');

@@ -56,3 +56,4 @@ function CadastrarGarcom()
 if (isset($_POST['cadastrar_garcom'])) {
     CadastrarGarcom();
 }
+?>
