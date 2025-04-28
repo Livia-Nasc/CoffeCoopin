@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if ($_SESSION['usuario']['tipo'] != 2) {
+    if ($_SESSION['usuario']['tipo'] != 1) {
         header('location:login.php');
         exit();
     }

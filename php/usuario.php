@@ -83,13 +83,13 @@ function LoginUsuario()
             // ! redireciona baseado no tipo de usuário
             switch ($dadosUsuario['tipo']) {
                 case 1:
-                    header('Location: ../cadastro_gerente.php');
+                    header('Location: ../admin_dashboard.php');
                     break;
                 case 2:
                     header('Location: ../gerente_dashboard.php');
                     break;
                 case 3:
-                    header('Location: ../abrir_conta.php');
+                    header('Location: ../garcom_dashboard.php');
                     break;
                 default:
                     header('Location: ../index.php');
