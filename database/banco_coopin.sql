@@ -65,14 +65,28 @@ CREATE TABLE pedido (
     FOREIGN KEY (conta_id) REFERENCES conta(id),
     FOREIGN KEY (produto_id) REFERENCES produto(id)
 );
+
+-- Tabela de histórico de comissões
+CREATE TABLE historico_comissao (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    garcom_id INT NOT NULL,
+    mes_referencia DATE NOT NULL,
+    total_vendido DECIMAL(10,2) NOT NULL,
+    valor_comissao DECIMAL(10,2) NOT NULL,
+    data_calculo DATETIME NOT NULL,
+    FOREIGN KEY (garcom_id) REFERENCES garcom(id)
+);
+
 /*senha: admin*/
 INSERT INTO usuario (nome, cpf, email, senha, tipo)
 VALUES ('Administrador', '12345678901', 'admin@admin.com', '$2y$10$E6d.qxxZw.l/RWzm4pBOXOHaA9QJ5QmfWKjoYQeVnnbtEdrxZlvrS', 1);
-
 Select * from usuario;
 Select * from gerente;
 Select * from garcom;
 Select * from produto;
+Select * from historico_comissao;
 SELECT u.cpf, u.nome, u.telefone, u.email, u.senha, g.rg
     FROM gerente as g
     JOIN usuario as u ON g.cod_user = u.cod_user;
+
+
