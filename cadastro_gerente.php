@@ -1,7 +1,7 @@
 <?php
 session_start();
     if ($_SESSION['usuario']['tipo'] != 1) {
-        header('location:entrar.php');
+        header('location:login.php');
         exit();
     }
 ?>
