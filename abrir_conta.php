@@ -48,6 +48,9 @@ $garcom_id = $dadosUsuario['id'];
 </head>
 
 <body>
+    <!-- Botão de Voltar -->
+    <a href="garcom_dashboard.php" class="btn-voltar">Voltar</a>
+
     <div class="form-container">
         <h2>Abrir Nova Conta</h2>
         <form method="post" action="php/conta.php">

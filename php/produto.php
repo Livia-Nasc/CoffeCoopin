@@ -57,7 +57,7 @@ function VisualizarProduto()
         $stmt->execute();
         $_SESSION['produto'] = $stmt->fetchAll();
     }
-    header("Location: ../cadastro_produto.php");
+    header("Location: ../visualizar_produto.php");
     exit();
 }
 
@@ -84,7 +84,7 @@ function ExcluirProduto()
     } else {
         $_SESSION['mensagem'] = "Erro ao excluir produto!";
     }
-    header('Location: ../cadastro_produto.php');
+    header('Location: ../visualizar_produto.php');
     exit();
 }
 

@@ -23,7 +23,7 @@
     </form>
     <ul>
         <li><a href="abrir_conta.php">Abrir conta</a></li>
-        <li><a href="cadastro_produto.php">Novo produto</a></li>
+        <li><a href="visualizar_produto.php">Visualizar produto</a></li>
         <li><a href="#">Clientes</a></li>
     </ul>
 </body>

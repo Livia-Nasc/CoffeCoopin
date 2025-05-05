@@ -37,13 +37,32 @@ body {
     min-height: 100vh;
 }
 
+.btn-voltar {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 10px 0;
+    background-color: var(--cor-principal);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+.btn-voltar:hover {
+    background-color: var(--cor-secundaria);
+}
+
 #box {
-    background-color: white;
+    background-color: var(--cor-principal);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     padding: 30px;
     width: 100%;
     max-width: 600px;
+}
+
+btn-cadastro{
+    background-color: var(--cor-principal);
 }
 
 h2, h3 {
@@ -110,16 +129,18 @@ button, .btn {
 }
 
 .btn-primary {
-    background-color: var(--cor-secundaria);
+    background-color: var(--cor-principal);
     color: white;
+    font-family: var(--fonte-principal);
+
 }
 
 .btn-warning:hover {
-    background-color: var(--cor-sombra);
+    background-color: var(--cor-principal);
 }
 
 .btn-primary:hover {
-    background-color: #bfa37d;
+    background-color: var(--cor-secundaria);
 }
 
 /* Filtros */
@@ -139,13 +160,13 @@ button, .btn {
     border-radius: 4px;
     cursor: pointer;
     text-decoration: none;
-    color: #333;
+    color: var(--cor-texto);
     display: inline-block;
 }
 
 .filtro-btn.active {
     background-color: var(--cor-principal);
-    color: var(--cor-texto);
+    color: white;
 }
 
 /* Tabelas */
@@ -169,12 +190,14 @@ th, td {
     padding: 12px;
     text-align: left;
     color: var(--cor-texto);
+    font-family: var(--fonte-secundaria);
 }
 
 th {
     background-color: #f2f2f2;
     font-weight: bold;
     color: var(--cor-principal);
+    font-family: var(--fonte-principal);
 }
 
 /* Produtos na conta */

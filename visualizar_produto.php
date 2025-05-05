@@ -13,7 +13,6 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualizar Produtos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/cadastro_produto.css">
 </head>
 
@@ -21,7 +20,7 @@ session_start();
 
     <div id="produtos">
         <div style="text-align: center; margin-bottom: 20px;">
-            <a href="cadastro_produto.php" class="btn btn-success">Cadastrar Novo Produto</a>
+            <a href="cadastro_produto.php" class="btn-cadastro">Cadastrar Novo Produto</a>
         </div>
 
         <form action="php/produto.php" method="post">
@@ -68,7 +67,7 @@ session_start();
                             <form action="php/produto.php" method="post" style="display:inline;">
                                 <input type="hidden" name="nome" value="<?php echo $nome; ?>">
                                 <input type="hidden" name="id" value="<?php echo $produto['id']; ?>">
-                                <button type="submit" name="excluir" class="btn btn-danger btn-sm">Excluir</button>
+                                <button type="submit" name="excluir" class="btn btn-primary btn-sm">Excluir</button>
                             </form>
                         </td>
                     </tr>
