@@ -84,9 +84,30 @@ Select * from usuario;
 Select * from gerente;
 Select * from garcom;
 Select * from produto;
+Select * from conta;
 Select * from historico_comissao;
 SELECT u.cpf, u.nome, u.telefone, u.email, u.senha, g.rg
     FROM gerente as g
     JOIN usuario as u ON g.cod_user = u.cod_user;
 
+CREATE VIEW relatorio_ocupacao AS
+SELECT 
+    c.mesa,
+    SUM(p.quantidade * pr.preco) AS total_vendido,
+    COUNT(c.id) AS total_contas,
+    c.status_conta
+FROM 
+    conta c
+JOIN 
+    pedido p ON c.id = p.conta_id
+JOIN 
+    produto pr ON p.produto_id = pr.id
+GROUP BY 
+    c.mesa, c.status_conta;
 
+ALTER TABLE conta
+ADD COLUMN status_conta VARCHAR(20) DEFAULT 'aberta';
+
+SELECT * FROM relatorio_ocupacao 
+WHERE status_conta = 'aberta';
+SELECT * FROM relatorio_ocupacao WHERE status_conta = 'fechada' AND data_ocupacao BETWEEN '2023-01-01' AND '2023-12-31';
