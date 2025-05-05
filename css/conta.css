@@ -1,7 +1,31 @@
-/* Estilos gerais */
+/* Estilos gerais com variáveis */
+@font-face {
+    font-family: 'Muvia';
+    src: url('../fonts/Muvia.otf') format('opentype'), url('../fonts/Muvia.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Variáveis */
+:root {
+    --cor-fundo: #f9f0dd;
+    --cor-principal: #C19770;
+    --cor-secundaria: #d5b895;
+    --cor-sombra: #f8dbc7;
+    --cor-texto: #333;
+    --fonte-principal: 'Muvia', 'Poppins', sans-serif;
+    --fonte-secundaria: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial;
-    background-color: #f5f5f5;
+    font-family: var(--fonte-principal);
+    background-color: var(--cor-fundo);
     margin: 0;
     padding: 20px;
 }
@@ -23,8 +47,10 @@ body {
 }
 
 h2, h3 {
-    color: #333;
+    color: var(--cor-texto);
     margin-top: 0;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 /* Formulários */
@@ -39,63 +65,61 @@ h2, h3 {
 input, select {
     padding: 10px;
     margin: 5px 0;
-    border: 1px solid #ddd;
+    background-color: var(--cor-fundo);
+    border: none;
     border-radius: 4px;
     width: 100%;
     box-sizing: border-box;
+    font-size: 16px;
+    font-family: var(--fonte-secundaria);
+    color: var(--cor-secundaria);
+    text-align: center;
+}
+
+input:focus, select:focus {
+    border: 2px solid var(--cor-secundaria);
+    outline: none;
 }
 
 label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--cor-texto);
 }
 
 /* Botões */
-button, .action-btn {
+button, .btn {
     padding: 10px 15px;
     margin: 5px;
     border: none;
     border-radius: 4px;
+    font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
+    text-align: center;
+    text-decoration: none;
+    font-family: var(--fonte-secundaria);
+    width: auto;
+    min-width: 150px;
 }
 
 .btn-warning {
-    background-color: #ffc107;
-    color: #333;
+    background-color: var(--cor-fundo);
+    color: var(--cor-secundaria);
 }
 
 .btn-primary {
-    background-color: #2196F3;
+    background-color: var(--cor-secundaria);
     color: white;
 }
 
 .btn-warning:hover {
-    background-color: #e0a800;
+    background-color: var(--cor-sombra);
 }
 
 .btn-primary:hover {
-    background-color: #0b7dda;
-}
-
-#visualizar {
-    background-color: #ffc107;
-    color: #333;
-}
-
-.fechar-btn {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.cancelar-btn {
-    background-color: #f44336;
-    color: white;
-}
-
-.associar-btn {
-    background-color: #2196F3;
-    color: white;
+    background-color: #bfa37d;
 }
 
 /* Filtros */
@@ -120,8 +144,8 @@ button, .action-btn {
 }
 
 .filtro-btn.active {
-    background-color: #4CAF50;
-    color: white;
+    background-color: var(--cor-principal);
+    color: var(--cor-texto);
 }
 
 /* Tabelas */
@@ -144,11 +168,13 @@ th, td {
     border: 1px solid #ddd;
     padding: 12px;
     text-align: left;
+    color: var(--cor-texto);
 }
 
 th {
     background-color: #f2f2f2;
     font-weight: bold;
+    color: var(--cor-principal);
 }
 
 /* Produtos na conta */
@@ -190,6 +216,7 @@ th {
     margin-top: 10px;
     padding-top: 10px;
     border-top: 2px solid #ddd;
+    color: var(--cor-principal);
 }
 
 /* Layout responsivo */
@@ -211,10 +238,8 @@ th {
     th, td {
         padding: 8px;
     }
-}
-
-/* Botões inline forms */
-form[style*="inline"] {
-    display: inline;
-    margin: 0;
+    
+    .btn {
+        width: 100%;
+    }
 }

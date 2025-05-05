@@ -204,6 +204,28 @@ function ExcluirPedido()
     }
 }
 
+// Em php/conta.php
+function GerarRelatorioOcupacao() {
+    $conn = getConexao();
+    $data_inicio = $_POST['data_inicio'];
+    $data_fim = $_POST['data_fim'];
+    
+    $sql = "SELECT c.mesa, SUM(p.preco * pd.quantidade) as total_vendido
+            FROM conta c
+            JOIN pedido pd ON c.id = pd.conta_id
+            JOIN produto p ON pd.produto_id = p.id
+            WHERE c.data_abertura BETWEEN :data_inicio AND :data_fim
+            GROUP BY c.mesa";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':data_inicio', $data_inicio);
+    $stmt->bindParam(':data_fim', $data_fim);
+    $stmt->execute();
+    
+    $_SESSION['relatorio_mesas'] = $stmt->fetchAll();
+    header("Location: ../relatorio_mesas.php");
+}
+
 if (isset($_POST['excluir_pedido'])) {
     ExcluirPedido();
 }
