@@ -19,7 +19,6 @@
       <a href="#home">Home</a>
       <a href="#news">News</a>
       <a href="#contact">Contact</a>
-      <button type="submit" name = "sair">Sair</button>
   </div>
 
 

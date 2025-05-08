@@ -17,6 +17,7 @@ session_start();
 </head>
 
 <body>
+    <a href="garcom_dashboard.php" class="btn-voltar">Voltar</a>
 
     <div id="produtos">
         <div style="text-align: center; margin-bottom: 20px;">

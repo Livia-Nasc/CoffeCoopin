@@ -29,6 +29,7 @@ $filtro_status = isset($_GET['status']) ? $_GET['status'] : 'todas';
 
 $user_id = $_SESSION['usuario']['id'];
 
+//
 $sql_garcom = "SELECT id FROM garcom WHERE user_id = :user_id ";
 $stmt = $conn->prepare($sql_garcom);
 $stmt->bindParam(':user_id', $user_id);
@@ -72,7 +73,7 @@ $garcom_id = $dadosUsuario['id'];
     </div>
 
     <form method="post">
-        <button type="submit" name="visualizar" id="visualizar">Atualizar Lista de Contas</button>
+        <button type="submit" name="visualizar" id="visualizar" class="btn btn-primary">Atualizar Lista de Contas</button>
     </form>
 
     <?php if (isset($_SESSION['produtos']) && isset($_SESSION['conta'])) { ?>
@@ -101,7 +102,7 @@ $garcom_id = $dadosUsuario['id'];
 
                 <input type="number" name="quantidade" placeholder="Quantidade" min="1" value="1" required>
 
-                <button type="submit" name="associar_produto" class="associar-btn">Adicionar Produto</button>
+                <button type="submit" name="associar_produto" class="btn btn-primary"">Adicionar Produto</button>
             </form>
         </div>
     <?php } ?>
