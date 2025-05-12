@@ -40,7 +40,7 @@ function CadastrarGarcom()
             $stmt->bindParam(':escolaridade', $escolaridade);
             $stmt->bindParam(':user_id', $user_id);
             if ($stmt->execute()) {
-                header('location: ../login.php'); // ! Vai para a página de login
+                header('location: ../gerente_dashboard.php'); // ! Vai para a página de login
                 exit();
             } else {
                 echo "Erro ao cadastrar usuário.";

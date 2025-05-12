@@ -10,7 +10,7 @@
 
 <body>
   <header class="header">
-    <img src="img/logo.png" alt="">
+    <img src="img/group 1.png" alt="">
   </header>
 
   <main class="menu-container">

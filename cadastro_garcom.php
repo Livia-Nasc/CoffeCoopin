@@ -18,8 +18,10 @@ session_start();
 
 <body>
     <div id="-logo-container">
-        <img src="img/logo.png" alt="">
+        <img src="img/Group 1.png" alt="">
     </div>
+    <!-- Botão de Voltar -->
+    <a href="gerente_dashboard.php" class="btn-voltar">Voltar</a>
 
     <div id="container">
 

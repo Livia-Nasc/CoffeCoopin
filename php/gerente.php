@@ -41,7 +41,7 @@ function CadastrarGerente()
             $stmt->bindParam(':rg', $rg);
             $stmt->bindParam(':user_id', $user_id);
             if ($stmt->execute()) {
-                header('location: ../login.php'); // ! Vai para a página de login
+                header('location: ../admin_dashboard.php'); // ! Vai para a página de login
                 exit();
             } else {
                 echo "Erro ao cadastrar usuário.";

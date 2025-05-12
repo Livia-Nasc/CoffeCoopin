@@ -29,8 +29,17 @@ function VerConta()
 {
     session_start();
     $conn = getConexao();
-    $sql = "SELECT id, mesa, garcom_id, data_abertura, status FROM conta";
+
+    $user_id = $_SESSION['usuario']['id'];
+    $sql_garcom = "SELECT id FROM garcom WHERE user_id = :user_id";
+    $stmt_garcom = $conn->prepare($sql_garcom);
+    $stmt_garcom->bindParam(':user_id',$user_id);
+    $stmt_garcom->execute();
+    $garcom_id = $stmt_garcom->fetchAll();
+
+    $sql = "SELECT id, mesa, garcom_id, data_abertura, status FROM conta WHERE garcom_id = :garcom_id";
     $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':garcom_id', $garcom_id);
     $stmt->execute();
     $_SESSION['conta'] = $stmt->fetchAll();
 

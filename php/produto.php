@@ -5,24 +5,32 @@ function CadastrarProduto()
 {
     session_start();
     $conn = getConexao();
+    
     $nome = strtoupper($_POST['nome']);
     $preco = $_POST['preco'];
-    $categoria = $_POST['categoria'];
+    $categoria_id = $_POST['categoria_id'];
+    $subcategoria_id = isset($_POST['subcategoria_id']) ? $_POST['subcategoria_id'] : null;
     $porcao = $_POST['porcao'];
     $qtd_estoque = $_POST['qtd_estoque'];
 
-    if (!empty($categoria) && !empty($porcao)) {
-        $sql = "INSERT INTO produto (nome, preco, categoria, porcao, qtd_estoque) VALUES (:nome, :preco, :categoria, :porcao, :qtd_estoque)";
+    if (!empty($categoria_id)) {
+        $sql = "INSERT INTO produto (nome, preco, categoria_id, subcategoria_id, porcao, qtd_estoque) 
+                VALUES (:nome, :preco, :categoria_id, :subcategoria_id, :porcao, :qtd_estoque)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':preco', $preco);
-        $stmt->bindParam(':categoria', $categoria);
+        $stmt->bindParam(':categoria_id', $categoria_id);
+        $stmt->bindParam(':subcategoria_id', $subcategoria_id);
         $stmt->bindParam(':porcao', $porcao);
         $stmt->bindParam(':qtd_estoque', $qtd_estoque);
 
         if ($stmt->execute()) {
-            // Atualiza a lista de produtos
-            $sql = "SELECT id, nome, preco, categoria, porcao, qtd_estoque FROM produto";
+            // Atualiza a lista de produtos com JOIN para pegar os nomes das categorias
+            $sql = "SELECT p.id, p.nome, p.preco, c.nome as categoria, sc.nome as subcategoria, 
+                    p.porcao, p.qtd_estoque 
+                    FROM produto p
+                    JOIN categoria c ON p.categoria_id = c.id
+                    LEFT JOIN subcategoria sc ON p.subcategoria_id = sc.id";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
             $_SESSION['produto'] = $stmt->fetchAll();
@@ -31,7 +39,7 @@ function CadastrarProduto()
             $_SESSION['mensagem'] = "Erro ao cadastrar produto!";
         }
     } else {
-        $_SESSION['mensagem'] = "Escolha não selecionada";
+        $_SESSION['mensagem'] = "Categoria não selecionada";
     }
     header('Location: ../cadastro_produto.php');
     exit();
@@ -44,7 +52,11 @@ function VisualizarProduto()
     $nome = strtoupper($_POST['nome'] ?? '');
 
     if ($nome != '') {
-        $sql = "SELECT id, nome, preco, categoria, porcao, qtd_estoque FROM produto WHERE nome LIKE :nome";
+        $sql = "SELECT p.id, p.nome, c.nome as categoria, sc.nome as subcategoria, p.preco, p.porcao, p.qtd_estoque 
+                FROM produto p
+                JOIN categoria c ON p.categoria_id = c.id
+                LEFT JOIN subcategoria sc ON p.subcategoria_id = sc.id
+                WHERE p.nome LIKE :nome";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':nome', "%$nome%");
         $stmt->execute();
@@ -52,7 +64,10 @@ function VisualizarProduto()
         $_SESSION['produto'] = $stmt->fetchAll();
         $_SESSION['mensagem'] = $stmt->rowCount() ? "" : "Nenhum produto encontrado";
     } else {
-        $sql = "SELECT id, nome, preco, categoria, porcao, qtd_estoque FROM produto";
+        $sql = "SELECT p.id, p.nome, c.nome as categoria, sc.nome as subcategoria, p.preco, p.porcao, p.qtd_estoque 
+                FROM produto p
+                JOIN categoria c ON p.categoria_id = c.id
+                LEFT JOIN subcategoria sc ON p.subcategoria_id = sc.id";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $_SESSION['produto'] = $stmt->fetchAll();
@@ -66,17 +81,25 @@ function ExcluirProduto()
     session_start();
     $conn = getConexao();
     $id = $_POST['id'];
+    
+    // Primeiro exclui os pedidos relacionados
     $sqlPedidos = "DELETE FROM pedido WHERE produto_id = :id";
     $stmtPedidos = $conn->prepare($sqlPedidos);
     $stmtPedidos->bindParam(':id', $id);
     $stmtPedidos->execute();
+    
+    // Depois exclui o produto
     $sql = "DELETE FROM produto WHERE id = :id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':id', $id);
 
     if ($stmt->execute()) {
-        // Atualiza a lista de produtos
-        $sql = "SELECT id, nome, preco, categoria, porcao, qtd_estoque FROM produto";
+        // Atualiza a lista de produtos com as categorias e subcategorias
+        $sql = "SELECT p.id, p.nome, p.preco, c.nome as categoria, sc.nome as subcategoria, 
+                p.porcao, p.qtd_estoque 
+                FROM produto p
+                JOIN categoria c ON p.categoria_id = c.id
+                LEFT JOIN subcategoria sc ON p.subcategoria_id = sc.id";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $_SESSION['produto'] = $stmt->fetchAll();
@@ -95,22 +118,36 @@ function AlterarProduto()
     $id = $_POST['id'];
     $nome = strtoupper($_POST['nome']);
     $preco = $_POST['preco'];
-    $categoria = $_POST['categoria'];
+    $categoria_id = $_POST['categoria_id'];
+    $subcategoria_id = isset($_POST['subcategoria_id']) ? $_POST['subcategoria_id'] : null;
     $porcao = $_POST['porcao'];
     $qtd_estoque = $_POST['qtd_estoque'];
 
-    $sql = "UPDATE produto SET nome = :nome, preco = :preco, categoria = :categoria, porcao = :porcao, qtd_estoque = :qtd_estoque WHERE id = :id";
+    $sql = "UPDATE produto SET 
+            nome = :nome, 
+            preco = :preco, 
+            categoria_id = :categoria_id, 
+            subcategoria_id = :subcategoria_id, 
+            porcao = :porcao, 
+            qtd_estoque = :qtd_estoque 
+            WHERE id = :id";
+            
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':id', $id);
     $stmt->bindParam(':nome', $nome);
     $stmt->bindParam(':preco', $preco);
-    $stmt->bindParam(':categoria', $categoria);
+    $stmt->bindParam(':categoria_id', $categoria_id);
+    $stmt->bindParam(':subcategoria_id', $subcategoria_id);
     $stmt->bindParam(':porcao', $porcao);
     $stmt->bindParam(':qtd_estoque', $qtd_estoque);
 
     if ($stmt->execute()) {
-        // Atualiza a lista de produtos
-        $sql = "SELECT id, nome, preco, categoria, porcao, qtd_estoque FROM produto";
+        // Atualiza a lista de produtos com as categorias e subcategorias
+        $sql = "SELECT p.id, p.nome, p.preco, c.nome as categoria, sc.nome as subcategoria, 
+                p.porcao, p.qtd_estoque 
+                FROM produto p
+                JOIN categoria c ON p.categoria_id = c.id
+                LEFT JOIN subcategoria sc ON p.subcategoria_id = sc.id";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $_SESSION['produto'] = $stmt->fetchAll();
@@ -118,7 +155,7 @@ function AlterarProduto()
     } else {
         $_SESSION['mensagem'] = "Erro ao atualizar produto!";
     }
-    header('Location: ../cadastro_produto.php');
+    header('Location: ../visualizar_produto.php');
     exit();
 }
 

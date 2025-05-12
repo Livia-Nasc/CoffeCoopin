@@ -171,7 +171,7 @@ th, td {
     padding: 12px;
     text-align: left;
     color: var(--cor-texto);
-    font-family: var(--fonte-secundaria);
+    font-family: var(--fonte-principal);
 }
 
 th {

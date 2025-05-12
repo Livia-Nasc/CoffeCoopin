@@ -1,12 +1,32 @@
+/* Estilos gerais com variáveis */
+@font-face {
+    font-family: 'Muvia';
+    src: url('../fonts/Muvia.otf') format('opentype'), url('../fonts/Muvia.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Variáveis*/
+:root {
+    --cor-fundo: #f9f0dd;
+    --cor-principal: #C19770;
+    --cor-secundaria: #d5b895;
+    --cor-sombra: #f8dbc7;
+    --cor-texto: #333;
+    --fonte-principal: 'Muvia', 'Poppins', sans-serif;
+    --fonte-secundaria: 'Poppins', sans-serif;
+}
+
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: var(--fonte-principal);
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: var(--cor-fundo);
 }
 h2, h3 {
-    color: #333;
+    color: var(--cor-texto);
 }
 .form-container {
     background-color: white;
@@ -22,23 +42,37 @@ input, select {
     border-radius: 4px;
 }
 button, .action-btn {
-    padding: 8px 15px;
-    margin: 5px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
-.fechar-btn {
-    background-color: #4CAF50;
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 10px 0;
+    background-color: var(--cor-principal);
     color: white;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
 }
-.cancelar-btn {
-    background-color: #f44336;
+
+.fechar-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 10px 0;
+    background-color: var(--cor-principal);
     color: white;
     text-decoration: none;
-    padding: 8px 15px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+.cancelar-btn {
     display: inline-block;
+    padding: 8px 16px;
+    margin: 10px 0;
+    background-color: var(--cor-principal);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
 }
 label {
     display: block;
