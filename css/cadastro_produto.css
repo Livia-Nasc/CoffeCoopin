@@ -104,6 +104,7 @@ label {
     color: var(--cor-texto);
     font-family: var(--fonte-principal);
     font-size: 20px;
+
 }
 
 input, select {
@@ -115,7 +116,7 @@ input, select {
     width: 100%;
     box-sizing: border-box;
     font-size: 16px;
-    font-family: var(--fonte-principal);
+    font-family: var(--fonte-secundaria),var(--fonte-principal);
     color: var(--cor-texto);
     transition: all 0.3s;
 }
@@ -172,7 +173,7 @@ th, td {
     padding: 12px;
     text-align: left;
     color: var(--cor-texto);
-    font-family: var(--fonte-principal);
+    font-family: var(--fonte-secundaria);
 }
 
 th {
