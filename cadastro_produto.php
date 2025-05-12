@@ -54,7 +54,7 @@ if ($categoriaSelecionada) {
                     <label for="preco">Preço do produto </label>
                         <input type="text" id="preco" required name="preco" placeholder="Insira o preço"
                                value="<?php echo isset($_POST['preco']) ? htmlspecialchars($_POST['preco']) : ''; ?>">
-                    <br><br>
+                    <br>
                     <label for="categoria">Categoria do produto</label>
                     <select name="categoria_id" id="categoria" required onchange="this.form.submit()">
                         <option value="">Escolha</option>

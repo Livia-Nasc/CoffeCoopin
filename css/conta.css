@@ -93,8 +93,8 @@ h2, h3 {
     flex-direction: column;
 }
 
-input,input::placeholder, select {
-    padding: 10px;
+input, select {
+    padding: 12px;
     margin: 5px 0;
     background-color: var(--cor-fundo);
     border: none;
@@ -102,8 +102,8 @@ input,input::placeholder, select {
     width: 100%;
     box-sizing: border-box;
     font-size: 16px;
-    font-family: var(--fonte-secundaria);
-    color: var(--cor-secundaria);
+    font-family: var(--fonte-principal);
+    color: var(--cor-texto);
     text-align: center;
 }
 
@@ -138,6 +138,7 @@ button, .btn {
 .btn-warning {
     background-color: var(--cor-fundo);
     color: var(--cor-secundaria);
+    font-family: var(--fonte-principal);
 }
 
 .btn-primary {

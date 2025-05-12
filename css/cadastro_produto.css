@@ -102,7 +102,8 @@ label {
     margin-bottom: 8px;
     font-weight: bold;
     color: var(--cor-texto);
-    font-family: var(--fonte-secundaria);
+    font-family: var(--fonte-principal);
+    font-size: 20px;
 }
 
 input, select {

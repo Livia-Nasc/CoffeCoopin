@@ -28,12 +28,18 @@ switch ($_SESSION['usuario']['tipo']) {
 </head>
 
 <body>
-    <a href="<?php echo $arquivo ?>" class="btn-voltar">Voltar</a>
+    <div id="-logo-container">
+        <img src="img/Group 1.png" alt="">
+    </div>
+    <!-- Botão de Voltar -->
+    <a href="garcom_dashboard.php" class="btn-voltar">Voltar</a>
 
     <div id="produtos">
+         <?php if ($_SESSION['usuario']['tipo'] == 2) { ?>
         <div style="text-align: center; margin-bottom: 20px;">
-            <a href="cadastro_produto.php" class="btn-cadastro">Cadastrar Novo Produto</a>
+            <a href="cadastro_produto.php" class="btn btn-primary">Cadastrar Novo Produto</a>
         </div>
+    <?php }?>
 
         <form action="php/produto.php" method="post">
             <label for="nome">Pesquisar produto</label> 
@@ -53,7 +59,9 @@ switch ($_SESSION['usuario']['tipo']) {
                 <th>Categoria</th>
                 <th>Subcategoria</th>
                 <th>Preço</th>
+                <?php if ($_SESSION['usuario']['tipo'] == 2) { ?>
                 <th>Ações</th>
+                <?php } ?>
             </tr>
             <?php if(isset($_SESSION['produto']) && !empty($_SESSION['produto'])) { ?>
                 <?php foreach($_SESSION['produto'] as $produto) { ?>
@@ -64,6 +72,8 @@ switch ($_SESSION['usuario']['tipo']) {
                         <td><?php echo htmlspecialchars($produto['categoria']); ?></td>
                         <td><?php echo htmlspecialchars($produto['subcategoria']); ?></td>
                         <td>R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?></td>
+                        
+                                <?php if ($_SESSION['usuario']['tipo'] == 2) { ?>
                         <td>
                             <form action="alterar_produto.php" method="post" style="display:inline;">
                                 <input type="hidden" name="id" value="<?php echo $produto['id']; ?>">
@@ -74,10 +84,9 @@ switch ($_SESSION['usuario']['tipo']) {
                                 <input type="hidden" name="porcao" value="<?php echo htmlspecialchars($produto['porcao']); ?>">
                                 <input type="hidden" name="qtd_estoque" value="<?php echo $produto['qtd_estoque']; ?>">
                                 <button type="submit" name="alterar" class="btn-alterar">Alterar</button>
-                            </form>
-                            <form action="php/produto.php" method="post" style="display:inline;">
                                 <input type="hidden" name="id" value="<?php echo $produto['id']; ?>">
                                 <button type="submit" name="excluir" class="btn btn-primary">Excluir</button>
+                                <?php } ?>
                             </form>
                         </td>
                     </tr>

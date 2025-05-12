@@ -65,7 +65,6 @@ $garcom_id = $dadosUsuario['id'];
         </form>
     </div>
 
-    <?php if (isset($_SESSION['produtos']) && isset($_SESSION['conta'])) { ?>
         <div class="form-container">
             <h3>Associar Produto a Conta</h3>
             <form method="post" action="php/conta.php">
@@ -95,6 +94,5 @@ $garcom_id = $dadosUsuario['id'];
                 <a href="ver_conta.php" class="btn-voltar">Visualizar contas</a>
             </form>
         </div>
-    <?php } ?>
 </body>
 </html>

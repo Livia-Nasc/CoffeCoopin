@@ -36,6 +36,8 @@ $stmt->bindParam(':user_id', $user_id);
 $stmt->execute();
 $dadosUsuario = $stmt->fetch();
 $garcom_id = $dadosUsuario['id'];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -117,7 +119,7 @@ $garcom_id = $dadosUsuario['id'];
                                     </form>
                                     <form method="post" action="php/conta.php" style="display: inline;">
                                         <input type="hidden" name="conta_id" value="<?php echo $id; ?>">
-                                        <button type="submit" name="cancelar_conta" class="cancelar-btn">Cancelar Conta</button>
+                                        <button type="submit" name="cancelar_conta" class="btn btn-primary">Cancelar Conta</button>
                                     </form>
                                 <?php } ?>
                             </td>
