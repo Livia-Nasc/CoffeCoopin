@@ -17,7 +17,7 @@
 </head>
 <body>
 <div id="-logo-container">
-        <img src="img/Group 1.png" alt="">
+        <img src="img/logo.png" alt="">
     </div>
     <p>Olá <span id="colaborador"><?php echo $nome ?></span>, seja bem vindo!</p>
             

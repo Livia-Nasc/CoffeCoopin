@@ -50,7 +50,7 @@ $garcom_id = $dadosUsuario['id'];
 </head>
 <body>
      <div id="-logo-container">
-        <img src="img/Group 1.png" alt="">
+        <img src="img/logo.png" alt="">
     </div>
     <!-- Botão de Voltar -->
     <a href="garcom_dashboard.php" class="btn-voltar">Voltar</a>
@@ -115,7 +115,7 @@ $garcom_id = $dadosUsuario['id'];
                                 <?php if ($status == 'aberta') { ?>
                                     <form method="post" action="php/conta.php" style="display: inline;">
                                         <input type="hidden" name="conta_id" value="<?php echo $id; ?>">
-                                        <button type="submit" name="fechar_conta" class="fechar-btn">Fechar Conta</button>
+                                        <button type="submit" name="fechar_conta" class="btn btn-warning">Fechar Conta</button>
                                     </form>
                                     <form method="post" action="php/conta.php" style="display: inline;">
                                         <input type="hidden" name="conta_id" value="<?php echo $id; ?>">

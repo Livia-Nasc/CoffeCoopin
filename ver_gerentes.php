@@ -75,7 +75,7 @@ $filtro_ativo = isset($_GET['status']) ? $_GET['status'] : 'todos';
 </head>
 <body>
     <div class="logo-container">
-        <img src="img/Group 1.png" alt="Logo">
+        <img src="img/logo.png" alt="Logo">
     </div>
     <a href="admin_dashboard.php" class="btn-voltar">Voltar</a>
 

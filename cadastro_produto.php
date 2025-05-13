@@ -33,8 +33,8 @@ if ($categoriaSelecionada) {
 </head>
 
 <body>
-    <div id="-logo-container">
-        <img src="img/Group 1.png" alt="">
+    <div class="-logo-container">
+        <img src="img/logo.png" alt="Logo" class="logo-img">
     </div>
     <a href="gerente_dashboard.php" class="btn-voltar">Voltar</a>
     

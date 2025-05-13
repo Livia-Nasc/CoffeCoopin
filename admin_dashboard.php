@@ -15,11 +15,16 @@ $nome = $_SESSION['usuario']['nome'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Administrativo</title>
     <link rel="stylesheet" href="css/conta.css">
+    <style>
+        body{
+            overflow: hidden;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="logo-container">
-        <img src="img/group 1.png" alt="Logo" class="logo-img">
+    <div class="-logo-container">
+        <img src="img/logo.png" alt="Logo" class="logo-img">
     </div>
 
     <div id="container">

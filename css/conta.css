@@ -21,6 +21,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    letter-spacing: 0.9px;
 }
 
 body {
@@ -44,13 +45,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 70vh;
 }
 
 .btn-voltar {
     display: inline-block;
     padding: 11px 8px;
-    margin: 12px 0;
+    margin: 20px 0;
     background-color: var(--cor-principal);
     color: white;
     text-decoration: none;
@@ -261,6 +262,9 @@ th {
 
 /* Layout responsivo */
 @media (max-width: 768px) {
+    .btn-voltar{
+        margin-left: 1px;
+    }
     #box {
         padding: 15px;
     }

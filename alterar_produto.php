@@ -1,7 +1,7 @@
 <?php
 session_start();
 // Verifica se o usuário está logado e é do tipo 2 (gerente)
-if (!isset($_POST['id']) || $_SESSION['usuario']['tipo'] != 2) {
+if ($_SESSION['usuario']['tipo'] != 2) {
     header('Location: cadastro_produto.php');
     exit();
 }
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoria_id']) && !i
 
 <body>
     <div id="-logo-container">
-        <img src="img/Group 1.png" alt="">
+        <img src="img/logo.png" alt="">
     </div>
     
     <div id="container">

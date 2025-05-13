@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['usuario']['tipo'] != 3 && $_SESSION['usuario']['tipo'] != 2) {
+if ($_SESSION['usuario']['tipo'] == 0) {
     header('location:login.php');
     exit();
 }
@@ -29,7 +29,7 @@ switch ($_SESSION['usuario']['tipo']) {
 
 <body>
     <div id="-logo-container">
-        <img src="img/Group 1.png" alt="">
+        <img src="img/logo.png" alt="">
     </div>
     <!-- Botão de Voltar -->
     <a href="garcom_dashboard.php" class="btn-voltar">Voltar</a>

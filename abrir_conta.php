@@ -50,7 +50,7 @@ $garcom_id = $dadosUsuario['id'];
 
 <body>
     <div id="-logo-container">
-        <img src="img/Group 1.png" alt="">
+        <img src="img/logo.png" alt="">
     </div>
     <!-- Botão de Voltar -->
     <a href="garcom_dashboard.php" class="btn-voltar">Voltar</a>

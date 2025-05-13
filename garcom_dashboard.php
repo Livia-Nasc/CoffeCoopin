@@ -43,7 +43,7 @@
 
 <body>
     <div class="-logo-container">
-        <img src="img/group 1.png" alt="Logo" class="logo-img">
+        <img src="img/logo.png" alt="Logo" class="logo-img">
     </div>
 
     <div id="container">

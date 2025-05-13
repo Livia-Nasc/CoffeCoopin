@@ -18,7 +18,7 @@ if ($_SESSION['usuario']['tipo'] != 2) {
 
 <body>
     <div id="-logo-container">
-        <img src="img/Group 1.png" alt="">
+        <img src="img/logo.png" alt="">
     </div>
     <a href="gerente_dashboard.php" class="btn-voltar">Voltar</a>
 

@@ -17,7 +17,7 @@ if ($_SESSION['usuario']['tipo'] != 1) {
 </head>
 
 <body>
-    <div class="logo-container">
+    <div class="-logo-container">
         <img src="img/logo.png" alt="Logo" class="logo-img">
     </div>
     <a href="admin_dashboard.php" class="btn-voltar">Voltar</a>
