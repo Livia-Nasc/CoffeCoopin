@@ -107,11 +107,13 @@ function AssociarProduto()
     $quantidade = $_POST['quantidade'];
 
     // ! Verificar estoque primeiro
-    $sql_estoque = "SELECT qtd_estoque FROM produto WHERE id = :produto_id";
+    $sql_estoque = "SELECT qtd_estoque, preco FROM produto WHERE id = :produto_id";
     $stmt_estoque = $conn->prepare($sql_estoque);
     $stmt_estoque->bindParam(':produto_id', $produto_id);
     $stmt_estoque->execute();
-    $estoque = $stmt_estoque->fetchColumn();
+    $produto = $stmt_estoque->fetch();
+    $estoque = $produto['qtd_estoque'];
+    $preco_unitario = $produto['preco'];
 
     if ($estoque < $quantidade) {
         echo "<script type='text/javascript'>
@@ -127,7 +129,10 @@ function AssociarProduto()
     $stmt_check->bindParam(':conta_id', $conta_id);
     $stmt_check->bindParam(':produto_id', $produto_id);
     $stmt_check->execute();
-
+    
+    $result = false;
+    $valor_adicionado = $preco_unitario * $quantidade;
+    
     if ($stmt_check->rowCount() > 0) {
         // ! Se já existe, atualiza a quantidade
         $sql_update = "UPDATE pedido SET quantidade = quantidade + :quantidade 
@@ -148,13 +153,21 @@ function AssociarProduto()
         $result = $stmt_insert->execute();
     }
 
-    // ! Atualizar estoque
+    // ! Atualizar estoque e valor total da conta
     if ($result) {
+        // Atualizar estoque
         $sql_update_estoque = "UPDATE produto SET qtd_estoque = qtd_estoque - :quantidade WHERE id = :produto_id";
         $stmt_update_estoque = $conn->prepare($sql_update_estoque);
         $stmt_update_estoque->bindParam(':quantidade', $quantidade);
         $stmt_update_estoque->bindParam(':produto_id', $produto_id);
         $stmt_update_estoque->execute();
+
+        // Atualizar valor total da conta
+        $sql_update_conta = "UPDATE conta SET valor_total = valor_total + :valor_adicionado WHERE id = :conta_id";
+        $stmt_update_conta = $conn->prepare($sql_update_conta);
+        $stmt_update_conta->bindParam(':valor_adicionado', $valor_adicionado);
+        $stmt_update_conta->bindParam(':conta_id', $conta_id);
+        $stmt_update_conta->execute();
     }
 
     if ($result) {
@@ -176,7 +189,10 @@ function ExcluirPedido()
     $conn = getConexao();
     $pedido_id = $_POST['pedido_id'];
 
-    $sql_select = "SELECT produto_id, quantidade FROM pedido WHERE id = :id";
+    $sql_select = "SELECT pd.produto_id, pd.quantidade, p.preco 
+                   FROM pedido pd
+                   JOIN produto p ON pd.produto_id = p.id
+                   WHERE pd.id = :id";
     $stmt_select = $conn->prepare($sql_select);
     $stmt_select->bindParam(':id', $pedido_id);
     $stmt_select->execute();
@@ -184,12 +200,24 @@ function ExcluirPedido()
 
     if ($pedido) {
         // ! Se o pedido existir ele vai ser exluído
+        $valor_removido = $pedido['preco'] * $pedido['quantidade'];
+        
+        // Primeiro atualiza o estoque
         $sql_estoque = "UPDATE produto SET qtd_estoque = qtd_estoque + :quantidade WHERE id = :produto_id";
         $stmt_estoque = $conn->prepare($sql_estoque);
         $stmt_estoque->bindParam(':quantidade', $pedido['quantidade']);
         $stmt_estoque->bindParam(':produto_id', $pedido['produto_id']);
         $stmt_estoque->execute();
 
+        // Depois atualiza o valor total da conta
+        $sql_update_conta = "UPDATE conta SET valor_total = valor_total - :valor_removido 
+                             WHERE id = (SELECT conta_id FROM pedido WHERE id = :pedido_id)";
+        $stmt_update_conta = $conn->prepare($sql_update_conta);
+        $stmt_update_conta->bindParam(':valor_removido', $valor_removido);
+        $stmt_update_conta->bindParam(':pedido_id', $pedido_id);
+        $stmt_update_conta->execute();
+
+        // Finalmente exclui o pedido
         $sql_delete = "DELETE FROM pedido WHERE id = :id";
         $stmt_delete = $conn->prepare($sql_delete);
         $stmt_delete->bindParam(':id', $pedido_id);

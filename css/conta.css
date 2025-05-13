@@ -21,7 +21,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    letter-spacing: 0.4px;
 }
 
 body {
@@ -29,9 +28,10 @@ body {
     background-color: var(--cor-fundo);
     margin: 0;
     padding: 20px;
+    overflow-x: hidden;
 }
 
-#-logo-container{
+.-logo-container{
     display: flex;
     align-items: center;
     align-self: center;
@@ -83,6 +83,10 @@ h2, h3 {
     margin-bottom: 20px;
 }
 
+p{
+    font-family: var(--fonte-secundaria);
+}
+
 /* Formulários */
 .form-container {
     background-color: white;
@@ -92,12 +96,10 @@ h2, h3 {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
-
-input, select {
-    padding: 12px;
+input,input::placeholder, select {
+    padding: 10px;
     margin: 5px 0;
     background-color: var(--cor-fundo);
     border: none;
@@ -106,7 +108,7 @@ input, select {
     box-sizing: border-box;
     font-size: 16px;
     font-family: var(--fonte-secundaria);
-    color: var(--cor-texto);
+    color: var(--cor-secundaria);
     text-align: center;
 }
 
@@ -141,7 +143,6 @@ button, .btn {
 .btn-warning {
     background-color: var(--cor-fundo);
     color: var(--cor-secundaria);
-    font-family: var(--fonte-principal);
 }
 
 .btn-primary {
@@ -152,7 +153,7 @@ button, .btn {
 }
 
 .btn-warning:hover {
-    background-color: var(--cor-principal);
+    background-color: rgba(249, 240, 221,0.6);
 }
 
 .btn-primary:hover {
