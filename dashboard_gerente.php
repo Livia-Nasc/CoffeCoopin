@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if ($_SESSION['usuario']['tipo'] != 3) {
+    if ($_SESSION['usuario']['tipo'] != 2) {
         header('location:login.php');
         exit();
     }
@@ -9,11 +9,10 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel garçom</title>
+    <title>Painel do Gerente</title>
     <link rel="stylesheet" href="css/conta.css">
     <style>
 
@@ -40,7 +39,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="-logo-container">
         <img src="img/logo.png" alt="Logo" class="logo-img">
@@ -50,12 +48,14 @@
         <div id="box">
             <div class="cadastro">
                 <div class="form-container">
-                    <h2>Painel garçom</h2>
+                    <h2>Painel do Gerente</h2>
                     <p style="text-align: center; margin-bottom: 20px;">Olá <span id="colaborador"><?php echo htmlspecialchars($nome) ?></span>, seja bem-vindo(a)!</p>
                     
                     <div class="dashboard-menu">
-                        <a href="abrir_conta.php" class="btn btn-primary">Abrir conta</a>
-                        <a href="visualizar_produto.php" class="btn btn-primary">Visualizar produto</a>
+                        <a href="cadastro_garcom.php" class="btn btn-primary">Novo Garçom</a>
+                        <a href="ver_garcons.php" class="btn btn-primary">Ver Garçom</a>
+                        <a href="cadastro_produto.php" class="btn btn-primary">Novo Produto</a>
+                        <a type="submit" name="calcular_comissao" class="btn btn-primary">Calcular Comissão</a>
                     </div>
                     
                     <form action="php/usuario.php" method="post" style="margin-top: 30px; text-align: center;">
@@ -74,7 +74,5 @@
             ?>
         </div>
     <?php } ?>
-
-    
 </body>
 </html>
