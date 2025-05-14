@@ -49,11 +49,11 @@ $garcom_id = $dadosUsuario['id'];
 </head>
 
 <body>
-    <div id="-logo-container">
-        <img src="img/logo.png" alt="">
+    <div class="-logo-container">
+        <img src="img/logo.png" alt="Logo" class="logo-img">
     </div>
     <!-- Botão de Voltar -->
-    <a href="garcom_dashboard.php" class="btn-voltar">Voltar</a>
+    <a href="dashboard_garcom.php" class="btn-voltar">Voltar</a>
 
     <div class="form-container">
         <h2>Abrir Nova Conta</h2>
@@ -62,6 +62,7 @@ $garcom_id = $dadosUsuario['id'];
             <input type="number" name="mesa" placeholder="Número da mesa" required>
             <input type="hidden" name="garcom_id" value="<?php echo $garcom_id ?>" required>
             <button type="submit" name="abrir_conta" class="btn btn-primary">Abrir Conta</button>
+            <a href="ver_conta.php" class="btn-voltar">Visualizar contas</a>
         </form>
     </div>
 
@@ -91,7 +92,6 @@ $garcom_id = $dadosUsuario['id'];
                 <input type="number" name="quantidade" placeholder="Quantidade" min="1" value="1" required>
 
                 <button type="submit" name="associar_produto" class="btn btn-primary">Adicionar Produto</button>
-                <a href="ver_conta.php" class="btn-voltar">Visualizar contas</a>
             </form>
         </div>
 </body>

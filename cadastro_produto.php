@@ -80,9 +80,9 @@ if ($categoriaSelecionada) {
                     <label for="porcao">Porção do produto</label>
                     <select name="porcao" id="porcao" required>
                         <option value="">Escolha</option>
-                        <option value="grande" <?php echo isset($_POST['porcao']) && $_POST['porcao'] == 'grande' ? 'selected' : ''; ?>>Grande</option>
-                        <option value="media" <?php echo isset($_POST['porcao']) && $_POST['porcao'] == 'media' ? 'selected' : ''; ?>>Média</option>
-                        <option value="pequena" <?php echo isset($_POST['porcao']) && $_POST['porcao'] == 'pequena' ? 'selected' : ''; ?>>Pequena</option>
+                        <option value="Grande" <?php echo isset($_POST['porcao']) && $_POST['porcao'] == 'grande' ? 'selected' : ''; ?>>Grande</option>
+                        <option value="Media" <?php echo isset($_POST['porcao']) && $_POST['porcao'] == 'media' ? 'selected' : ''; ?>>Média</option>
+                        <option value="Pequena" <?php echo isset($_POST['porcao']) && $_POST['porcao'] == 'pequena' ? 'selected' : ''; ?>>Pequena</option>
                     </select>
                     <br>
                     
@@ -94,7 +94,7 @@ if ($categoriaSelecionada) {
                     
                     <div id="btn">
                         <button type="submit" name="cadastrar" class="btn btn-primary">ENVIAR</button>
-                        <a href="visualizar_produto.php"><button type="button" class="btn btn-primary">Visualizar Produtos</button></a>
+                        <a href="ver_produtos.php"><button type="button" class="btn btn-primary">Visualizar Produtos</button></a>
                     </div>
                 </form>
             </div>

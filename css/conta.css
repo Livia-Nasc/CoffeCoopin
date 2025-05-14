@@ -144,6 +144,7 @@ button, .btn {
 .btn-warning {
     background-color: var(--cor-fundo);
     color: var(--cor-secundaria);
+    font-family: var(--fonte-principal);
 }
 
 .btn-primary {

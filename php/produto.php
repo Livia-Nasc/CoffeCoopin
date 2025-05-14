@@ -72,7 +72,7 @@ function VisualizarProduto()
         $stmt->execute();
         $_SESSION['produto'] = $stmt->fetchAll();
     }
-    header("Location: ../visualizar_produto.php");
+    header("Location: ../ver_produtos.php");
     exit();
 }
 

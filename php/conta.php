@@ -1,30 +1,6 @@
 <?php
 require_once('conexao.php');
 
-function AbrirConta()
-{
-    $conn = getConexao();
-    $mesa = $_POST['mesa'];
-    $garcom_id = $_POST['garcom_id'];
-    // ! Abre uma conta nova
-    $sql = "INSERT INTO conta (mesa, garcom_id, data_abertura, status)
-            VALUES (:mesa, :garcom_id, NOW(), 'aberta')";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':mesa', $mesa);
-    $stmt->bindParam(':garcom_id', $garcom_id);
-    if ($stmt->execute()) {
-        echo "<script type='text/javascript'>
-                        alert('Conta aberta');
-                        window.location='../abrir_conta.php';
-                      </script>";
-    } else {
-        echo "<script type='text/javascript'>
-                        alert('Informações inexistentes');
-                        window.location='../abrir_conta.php';
-                      </script>";
-    }
-}
-
 function VerConta()
 {
     session_start();
@@ -50,6 +26,33 @@ function VerConta()
     $_SESSION['produtos'] = $stmt_produtos->fetchAll();
 
     header("Location: ../abrir_conta.php");
+}
+
+function AbrirConta()
+{
+    $conn = getConexao();
+    $mesa = $_POST['mesa'];
+    $garcom_id = $_POST['garcom_id'];
+    // ! Abre uma conta nova
+    $sql = "INSERT INTO conta (mesa, garcom_id, data_abertura, status)
+            VALUES (:mesa, :garcom_id, NOW(), 'aberta')";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':mesa', $mesa);
+    $stmt->bindParam(':garcom_id', $garcom_id);
+    if ($stmt->execute()) {
+        VerConta();
+        echo "<script type='text/javascript'>
+                        alert('Conta aberta');
+                        window.location='../abrir_conta.php';
+                      </script>";
+                      
+    } else {
+        echo "<script type='text/javascript'>
+                        alert('Informações inexistentes');
+                        window.location='../abrir_conta.php';
+                      </script>";
+    }
+
 }
 
 function FecharConta()

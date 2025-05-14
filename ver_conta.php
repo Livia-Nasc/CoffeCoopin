@@ -29,7 +29,7 @@ $filtro_status = isset($_GET['status']) ? $_GET['status'] : 'todas';
 
 $user_id = $_SESSION['usuario']['id'];
 
-//
+// Busca o id do garçom
 $sql_garcom = "SELECT id FROM garcom WHERE user_id = :user_id ";
 $stmt = $conn->prepare($sql_garcom);
 $stmt->bindParam(':user_id', $user_id);

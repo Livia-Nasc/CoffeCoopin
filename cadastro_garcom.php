@@ -65,7 +65,7 @@ if ($_SESSION['usuario']['tipo'] != 2) {
                     
                     <div id="btn">
                         <button type="submit" name="cadastrar_garcom" class="btn btn-primary">ENVIAR</button>
-                        <a href="visualizar_garcons.php"><button type="button" class="btn btn-primary">Visualizar Garçons</button></a>
+                        <a href="ver_garcons.php"><button type="button" class="btn btn-primary">Visualizar Garçons</button></a>
                     </div>
                 </form>
             </div>
