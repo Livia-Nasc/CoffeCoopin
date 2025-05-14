@@ -5,7 +5,6 @@
         exit();
     }
     $nome = $_SESSION['usuario']['nome'];
-
 ?>
 
 <!DOCTYPE html>
@@ -13,21 +12,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caixa</title>
+    <title>Painel do Gerente</title>
+    <link rel="stylesheet" href="css/conta.css">
+    <style>
+
+        .dashboard-menu {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .dashboard-menu a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            text-align: center;
+            height: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-menu {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-<div id="-logo-container">
-        <img src="img/logo.png" alt="">
+    <div class="-logo-container">
+        <img src="img/logo.png" alt="Logo" class="logo-img">
     </div>
-    <p>Olá <span id="colaborador"><?php echo $nome ?></span>, seja bem vindo!</p>
-            
-    <form action="php/usuario.php" method="post">
-        <button type="submit" name="sair">Sair</button>
-    </form>
-    <ul>
-        <li><a href="cadastro_garcom.php">Novo garçom</a></li>
-        <li><a href="cadastro_produto.php">Novo produto</a></li>
-        <form action="php/garcom.php" method="post"><button type="submit" name="calcular_comissao">Calcular comissão</button></form>
-    </ul>
+
+    <div id="container">
+        <div id="box">
+            <div class="cadastro">
+                <div class="form-container">
+                    <h2>Painel do Gerente</h2>
+                    <p style="text-align: center; margin-bottom: 20px;">Olá <span id="colaborador"><?php echo htmlspecialchars($nome) ?></span>, seja bem-vindo(a)!</p>
+                    
+                    <div class="dashboard-menu">
+                        <a href="cadastro_garcom.php" class="btn btn-primary">Novo Garçom</a>
+                        <a href="cadastro_produto.php" class="btn btn-primary">Novo Produto</a>
+                        <form action="php/garcom.php" method="post" class="btn-form">
+                            <button type="submit" name="calcular_comissao" class="btn btn-primary">Calcular Comissão</button>
+                        </form>
+                    </div>
+                    
+                    <form action="php/usuario.php" method="post" style="margin-top: 30px; text-align: center;">
+                        <button type="submit" name="sair" class="btn btn-warning">Sair</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?php if(isset($_SESSION['mensagem'])) { ?>
+        <div class="mensagem-alerta">
+            <?php 
+                echo $_SESSION['mensagem'];
+                unset($_SESSION['mensagem']); 
+            ?>
+        </div>
+    <?php } ?>
 </body>
 </html>
