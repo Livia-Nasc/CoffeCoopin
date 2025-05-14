@@ -3,9 +3,19 @@ require_once('php/conexao.php');
 session_start();
 
 // Verifica se o usuário está logado e é do tipo 3 (garçom)
-if (($_SESSION['usuario']['tipo'] != 3)) {
+$tiposAcesso = [1,3];
+$tipoUsuario = $_SESSION['usuario']['tipo'];
+if (!in_array($tipoUsuario, $tiposAcesso)) {
     header('location:login.php');
     exit();
+}
+switch ($tipoUsuario) {
+    case 1:
+        $arquivo = 'dashboard_admin.php';
+        break;
+    case 3:
+        $arquivo = 'dashboard_garcom.php';
+        break;
 }
 
 $conn = getConexao();
@@ -30,12 +40,14 @@ $filtro_status = isset($_GET['status']) ? $_GET['status'] : 'todas';
 $user_id = $_SESSION['usuario']['id'];
 
 //
+if($tipoUsuario == 3){
 $sql_garcom = "SELECT id FROM garcom WHERE user_id = :user_id ";
 $stmt = $conn->prepare($sql_garcom);
 $stmt->bindParam(':user_id', $user_id);
 $stmt->execute();
 $dadosUsuario = $stmt->fetch();
 $garcom_id = $dadosUsuario['id'];
+};
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +65,7 @@ $garcom_id = $dadosUsuario['id'];
         <img src="img/logo.png" alt="Logo" class="logo-img">
     </div>
     <!-- Botão de Voltar -->
-    <a href="dashboard_garcom.php" class="btn-voltar">Voltar</a>
+    <a href="<?php $arquivo?>" class="btn-voltar">Voltar</a>
 
     <div class="form-container">
         <h2>Abrir Nova Conta</h2>

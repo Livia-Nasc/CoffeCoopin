@@ -45,7 +45,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 70vh;
+    height: 80vh;
 }
 
 .btn-voltar {

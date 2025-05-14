@@ -2,10 +2,19 @@
 require_once('php/conexao.php');
 session_start();
 
-// Verifica se o usuário está logado e é do tipo 3 (garçom)
-if (($_SESSION['usuario']['tipo'] != 3)) {
+$tiposAcesso = [1,3];
+$tipoUsuario = $_SESSION['usuario']['tipo'];
+if (!in_array($tipoUsuario, $tiposAcesso)) {
     header('location:login.php');
     exit();
+}
+switch ($tipoUsuario) {
+    case 1:
+        $arquivo = 'dashboard_admin.php';
+        break;
+    case 3:
+        $arquivo = 'dashboard_garcom.php';
+        break;
 }
 
 $conn = getConexao();
@@ -53,7 +62,7 @@ $garcom_id = $dadosUsuario['id'];
         <img src="img/logo.png" alt="">
     </div>
     <!-- Botão de Voltar -->
-    <a href="garcom_dashboard.php" class="btn-voltar">Voltar</a>
+    <a href="<?php echo $arquivo?>" class="btn-voltar">Voltar</a>
 
     <div class="filtro-container">
         <h3>Filtrar Contas</h3>

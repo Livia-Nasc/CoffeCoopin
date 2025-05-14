@@ -1,8 +1,18 @@
 <?php
 session_start();
-if ($_SESSION['usuario']['tipo'] != 2) {
+$tiposAcesso = [1,2];
+$tipoUsuario = $_SESSION['usuario']['tipo'];
+if (!in_array($tipoUsuario, $tiposAcesso)) {
     header('location:login.php');
     exit();
+}
+switch ($tipoUsuario) {
+    case 1:
+        $arquivo = 'dashboard_admin.php';
+        break;
+    case 2:
+        $arquivo = 'dashboard_gerente.php';
+        break;
 }
 ?>
 
@@ -20,7 +30,7 @@ if ($_SESSION['usuario']['tipo'] != 2) {
     <div id="-logo-container">
         <img src="img/logo.png" alt="">
     </div>
-    <a href="gerente_dashboard.php" class="btn-voltar">Voltar</a>
+    <a href="<?php echo $arquivo?>" class="btn-voltar">Voltar</a>
 
     <div id="container">
         <div id="box">

@@ -36,9 +36,13 @@ $nome = $_SESSION['usuario']['nome'];
                     
                     <div class="dashboard-menu">
                         <a href="abrir_conta.php" class="btn btn-primary">Abrir Conta</a>
-                        <a href="visualizar_produto.php" class="btn btn-primary">Visualizar Produtos</a>
-                        <a href="cadastro_gerente.php" class="btn btn-primary">Cadastrar Gerente</a>
                         <a href="ver_conta.php" class="btn btn-primary">Ver Contas</a>
+                        <a href="cadastro_produto.php" class="btn btn-primary">Cadastrar Produto</a>
+                        <a href="ver_produtos.php" class="btn btn-primary">Ver Produtos</a>
+                        <a href="cadastro_gerente.php" class="btn btn-primary">Cadastrar Gerente</a>
+                        <a href="ver_gerentes.php" class="btn btn-primary">Ver Gerentes</a>
+                        <a href="cadastro_garcom.php" class="btn btn-primary">Cadastrar Garçom</a>
+                        <a href="ver_garcons.php" class="btn btn-primary">Ver Garçons</a>
                     </div>
                     
                     <form action="php/usuario.php" method="post" style="margin-top: 30px; text-align: center;">

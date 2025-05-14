@@ -1,9 +1,19 @@
 <?php
 session_start();
 // Verifica se o usuário está logado e é do tipo 2 (gerente)
-if ($_SESSION['usuario']['tipo'] != 2) {
-    header('Location: cadastro_produto.php');
+$tiposAcesso = [1,2];
+$tipoUsuario = $_SESSION['usuario']['tipo'];
+if (!in_array($tipoUsuario, $tiposAcesso)) {
+    header('location:login.php');
     exit();
+}
+switch ($tipoUsuario) {
+    case 1:
+        $arquivo = 'dashboard_admin.php';
+        break;
+    case 2:
+        $arquivo = 'dashboard_gerente.php';
+        break;
 }
 
 require_once 'php/conexao.php';
@@ -76,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoria_id']) && !i
     <div id="-logo-container">
         <img src="img/logo.png" alt="">
     </div>
-    
+    <a href="<?php $arquivo?>" class="btn-voltar">Voltar</a>
     <div id="container">
         <div id="box">
             <div class="cadastro">

@@ -1,18 +1,20 @@
 <?php
 session_start();
-if ($_SESSION['usuario']['tipo'] == 0) {
+$tiposAcesso = [1,2,3];
+$tipoUsuario = $_SESSION['usuario']['tipo'];
+if (!in_array($tipoUsuario, $tiposAcesso)) {
     header('location:login.php');
     exit();
 }
-switch ($_SESSION['usuario']['tipo']) {
+switch ($tipoUsuario) {
     case 1:
-        $arquivo = 'admin_dashboard.php';
+        $arquivo = 'dashboard_admin.php';
         break;
     case 2:
-        $arquivo = 'gerente_dashboard.php';
+        $arquivo = 'dashboard_gerente.php';
         break;
     case 3:
-        $arquivo = 'garcom_dashboard.php';
+        $arquivo = 'dashboard_garcom.php';
         break;
 }
 ?>
@@ -32,10 +34,10 @@ switch ($_SESSION['usuario']['tipo']) {
         <img src="img/logo.png" alt="">
     </div>
     <!-- Botão de Voltar -->
-    <a href="garcom_dashboard.php" class="btn-voltar">Voltar</a>
+    <a href="<?php echo $arquivo?>" class="btn-voltar">Voltar</a>
 
     <div id="produtos">
-         <?php if ($_SESSION['usuario']['tipo'] == 2) { ?>
+         <?php if ($_SESSION['usuario']['tipo'] != 3) { ?>
         <div style="text-align: center; margin-bottom: 20px;">
             <a href="cadastro_produto.php" class="btn btn-primary">Cadastrar Novo Produto</a>
         </div>
@@ -59,7 +61,7 @@ switch ($_SESSION['usuario']['tipo']) {
                 <th>Categoria</th>
                 <th>Subcategoria</th>
                 <th>Preço</th>
-                <?php if ($_SESSION['usuario']['tipo'] == 2) { ?>
+                <?php if ($_SESSION['usuario']['tipo'] != 3) { ?>
                 <th>Ações</th>
                 <?php } ?>
             </tr>

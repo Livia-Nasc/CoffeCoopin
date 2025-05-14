@@ -2,15 +2,24 @@
 require_once('php/conexao.php');
 session_start();
 
-// Verifica se o usuário está logado e é gerente (tipo 2)
-if ($_SESSION['usuario']['tipo'] != 2) {
+$tiposAcesso = [1,2];
+$tipoUsuario = $_SESSION['usuario']['tipo'];
+if (!in_array($tipoUsuario, $tiposAcesso)) {
     header('location:login.php');
     exit();
+}
+switch ($tipoUsuario) {
+    case 1:
+        $arquivo = 'dashboard_admin.php';
+        break;
+    case 2:
+        $arquivo = 'dashboard_gerente.php';
+        break;
 }
 
 $conn = getConexao();
 
-// Busca todos os gerentes
+// Busca todos os garcom
 $sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade 
         FROM usuario u
         JOIN garcom g ON u.id = g.user_id
@@ -18,7 +27,7 @@ $sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolari
 
 $stmt = $conn->prepare($sql);
 $stmt->execute();
-$gerentes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$garcons = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -75,7 +84,7 @@ $gerentes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="logo-container">
         <img src="img/logo.png" alt="Logo">
     </div>
-    <a href="gerente_dashboard.php" class="btn-voltar">Voltar</a>
+    <a href="<?php echo $arquivo?>" class="btn-voltar">Voltar</a>
     
     <div id="produtos">
         <h2>Lista de Garçons</h2>
@@ -89,31 +98,31 @@ $gerentes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <th>CPF</th>
                     <th>E-mail</th>
                     <th>Telefone</th>
-                    <th>Data Nasc.</th>
+                    <th>Data Nascimento</th>
                     <th>Escolaridade</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (empty($gerentes)): ?>
+                <?php if (empty($garcom)): ?>
                     <tr>
                         <td colspan="7" style="text-align: center;">Nenhum gerente cadastrado</td>
                     </tr>
                 <?php else: ?>
-                    <?php foreach ($gerentes as $gerente): ?>
+                    <?php foreach ($garcons as $garcom): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($gerente['nome']); ?></td>
-                            <td><?php echo htmlspecialchars($gerente['cpf']); ?></td>
-                            <td><?php echo htmlspecialchars($gerente['email']); ?></td>
-                            <td><?php echo htmlspecialchars($gerente['telefone']); ?></td>
-                            <td><?php echo date('d/m/Y', strtotime($gerente['data_nasc'])); ?></td>
-                            <td><?php echo htmlspecialchars($gerente['escolaridade']); ?></td>
+                            <td><?php echo htmlspecialchars($garcom['nome']); ?></td>
+                            <td><?php echo htmlspecialchars($garcom['cpf']); ?></td>
+                            <td><?php echo htmlspecialchars($garcom['email']); ?></td>
+                            <td><?php echo htmlspecialchars($garcom['telefone']); ?></td>
+                            <td><?php echo date('d/m/Y', strtotime($garcom['data_nasc'])); ?></td>
+                            <td><?php echo htmlspecialchars($garcom['escolaridade']); ?></td>
                             <td class="actions">
-                                <a href="editar_gerente.php?id=<?php echo $gerente['id']; ?>" class="btn btn-primary">Editar</a>
-                                <form method="post" action="php/gerente.php" style="display: inline;">
-                                    <input type="hidden" name="id" value="<?php echo $gerente['id']; ?>">
+                                <a href="editar_gerente.php?id=<?php echo $garcom['id']; ?>" class="btn btn-primary">Editar</a>
+                                <form method="post" action="php/garcom.php" style="display: inline;">
+                                    <input type="hidden" name="id" value="<?php echo $garcom['id']; ?>">
                                     <button type="submit" name="excluir_gerente" class="btn btn-warning" 
-                                            onclick="return confirm('Tem certeza que deseja excluir este gerente?')">
+                                            onclick="return confirm('Tem certeza que deseja excluir este garçom?')">
                                         Excluir
                                     </button>
                                 </form>
@@ -141,24 +150,15 @@ $gerentes = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </table>
     </div>
 
-    <?php if(isset($_SESSION['mensagem'])): ?>
-        <div class="mensagem-alerta">
-            <?php 
-                echo $_SESSION['mensagem'];
-                unset($_SESSION['mensagem']); 
-            ?>
-        </div>
-    <?php endif; ?>
-
-    <script>
+    <!-- <script>
         // Confirmação antes de excluir
         document.querySelectorAll('.btn-warning').forEach(button => {
             button.addEventListener('click', function(e) {
-                if (!confirm('Tem certeza que deseja excluir este gerente?')) {
+                if (!confirm('Tem certeza que deseja excluir este garçom?')) {
                     e.preventDefault();
                 }
             });
-        });
+        }); -->
     </script>
 </body>
 </html>
