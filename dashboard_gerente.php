@@ -37,6 +37,7 @@
                 grid-template-columns: 1fr;
             }
         }
+
     </style>
 </head>
 <body>
@@ -55,7 +56,9 @@
                         <a href="cadastro_garcom.php" class="btn btn-primary">Novo Garçom</a>
                         <a href="ver_garcons.php" class="btn btn-primary">Ver Garçom</a>
                         <a href="cadastro_produto.php" class="btn btn-primary">Novo Produto</a>
-                        <a type="submit" name="calcular_comissao" class="btn btn-primary">Calcular Comissão</a>
+                        <a href="ver_produtos.php" class="btn btn-primary">Ver Produto</a>
+                        <a href="calcular_comissao.php" class="btn btn-primary">Calcular Comissão</a>
+                        <a href="gerar_relatorio.php" class="btn btn-primary">Gerar Relatório</a>
                     </div>
                     
                     <form action="php/usuario.php" method="post" style="margin-top: 30px; text-align: center;">

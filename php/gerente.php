@@ -55,8 +55,56 @@ function CadastrarGerente()
     }
 }
 
-function CalcularComissao() {}
+// function CalcularComissao() {
+//     $conn = getConexao();
+//     $sql = 'SELECT SUM(valor_total) AS valor_final FROM conta WHERE garcom_id = 1';
+//     $stmt = $conn->prepare($sql);
+//     if ($stmt->execute()) {
+//         $result = $stmt->fetch();
+//         $valor_final = 0.1*$result['valor_final'];
+//         $salario = 1000.00;
+//         $comissao_salario = $salario + $valor_final;
+//         header('location:../calcular_comissao.php');
+//         echo number_format($comissao_salario, 2, ',', '.');
+        
+//     }
+    
+// }
 
-if (isset($_POST['cadastrar_gerente'])) {
+function CalcularComissao() {
+    $conn = getConexao();
+    session_start();
+    // Primeiro buscamos o valor total das contas do garçom
+    $sql = 'SELECT SUM(valor_total) AS valor_total FROM conta WHERE garcom_id = 1';
+    $stmt = $conn->prepare($sql);
+    
+    if ($stmt->execute()) {
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $valor_vendas = $result['valor_total'] ?? 0;
+        
+        // Calcula a comissão (10% do valor das vendas)
+        $comissao = 0.1 * $valor_vendas;
+        $salario = 1000.00;
+        $comissao_salario = $salario + $comissao;
+        
+        // Formata o valor para exibição
+        $valor_formatado = number_format($comissao_salario, 2, ',', '.');
+        
+        // Retorna o valor ou exibe como desejar
+        return $valor_formatado;
+        
+        // Se quiser redirecionar com o valor, você pode usar session
+        $_SESSION['comissao'] = $valor_formatado;
+        header('location: ../calcular_comissao.php');
+    } else {
+        // Tratamento de erro
+        return "Erro ao calcular comissão";
+    }
+}
+
+if (isset($_POST['calcular_comissao'])) {
+    CalcularComissao();
+}
+    if (isset($_POST['cadastrar_gerente'])) {
     CadastrarGerente();
 }
