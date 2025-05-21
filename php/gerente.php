@@ -55,56 +55,46 @@ function CadastrarGerente()
     }
 }
 
-// function CalcularComissao() {
-//     $conn = getConexao();
-//     $sql = 'SELECT SUM(valor_total) AS valor_final FROM conta WHERE garcom_id = 1';
-//     $stmt = $conn->prepare($sql);
-//     if ($stmt->execute()) {
-//         $result = $stmt->fetch();
-//         $valor_final = 0.1*$result['valor_final'];
-//         $salario = 1000.00;
-//         $comissao_salario = $salario + $valor_final;
-//         header('location:../calcular_comissao.php');
-//         echo number_format($comissao_salario, 2, ',', '.');
-        
-//     }
-    
-// }
-
 function CalcularComissao() {
     $conn = getConexao();
     session_start();
-    // Primeiro buscamos o valor total das contas do garçom
-    $sql = 'SELECT SUM(valor_total) AS valor_total FROM conta WHERE garcom_id = 1';
-    $stmt = $conn->prepare($sql);
+    unset($_SESSION['comissao']);
     
-    if ($stmt->execute()) {
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $valor_vendas = $result['valor_total'] ?? 0;
+        // Busca o valor total das contas do garçom
+        $sql = 'SELECT SUM(valor_total) AS valor_total FROM conta WHERE garcom_id = 1';
+        $stmt = $conn->prepare($sql);
         
-        // Calcula a comissão (10% do valor das vendas)
-        $comissao = 0.1 * $valor_vendas;
-        $salario = 1000.00;
-        $comissao_salario = $salario + $comissao;
-        
-        // Formata o valor para exibição
-        $valor_formatado = number_format($comissao_salario, 2, ',', '.');
-        
-        // Retorna o valor ou exibe como desejar
-        return $valor_formatado;
-        
-        // Se quiser redirecionar com o valor, você pode usar session
-        $_SESSION['comissao'] = $valor_formatado;
-        header('location: ../calcular_comissao.php');
-    } else {
-        // Tratamento de erro
-        return "Erro ao calcular comissão";
-    }
+        if ($stmt->execute()) {
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $valor_vendas = $result['valor_total'] ?? 0;
+            
+            // Calcula a comissão (10% do valor das vendas)
+            $comissao = 0.1 * $valor_vendas;
+            $salario_base = 1000.00;
+            $salario_total = $salario_base + $comissao;
+            
+            // Formata com separadores de milhar e mantém os centavos
+            $valor_formatado = 'R$ ' . number_format($salario_total, 2, ',', '.');
+            
+            // Armazena na sessão
+            $_SESSION['comissao'] = "Salário total: $valor_formatado<br>"
+                                  . "(Salário base: R$ " . number_format($salario_base, 2, ',', '.') . "<br>"
+                                  . "+ Comissão: R$ " . number_format($comissao, 2, ',', '.') . ")";
+            
+            header('Location: ../calcular_comissao.php');
+            exit();
+        } else {
+            $_SESSION['comissao'] = "Erro ao calcular comissão";
+            header('Location: ../calcular_comissao.php');
+            exit();
+        }
+
 }
 
 if (isset($_POST['calcular_comissao'])) {
     CalcularComissao();
 }
+
     if (isset($_POST['cadastrar_gerente'])) {
     CadastrarGerente();
 }

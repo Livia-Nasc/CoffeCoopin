@@ -54,39 +54,7 @@ function CadastrarGarcom()
     }
 }
 
-// Em php/garcom.php
-function CalcularComissao() {
-    // $conn = getConexao();
-    // $mes = $_POST['mes'];
-    
-    // $sql = "SELECT g.id, u.nome, 
-    //                SUM(p.preco * pd.quantidade) as total_vendido,
-    //                SUM(p.preco * pd.quantidade) * 0.1 as comissao
-    //         FROM garcom g
-    //         JOIN usuario u ON g.user_id = u.id
-    //         JOIN conta c ON c.garcom_id = g.id
-    //         JOIN pedido pd ON c.id = pd.conta_id
-    //         JOIN produto p ON pd.produto_id = p.id
-    //         WHERE MONTH(c.data_fechamento) = :mes
-    //         AND c.status = 'fechada'
-    //         GROUP BY g.id, u.nome";
-    
-    // $stmt = $conn->prepare($sql);
-    // $stmt->bindParam(':mes', $mes);
-    // $stmt->execute();
-    
-    
-    // // $_SESSION['relatorio_comissoes'] = $stmt->fetchAll();
-    // header("Location: ../relatorio_comissoes.php");
-    $salario = 1000.00;
-    $comissao_salario = $salario + 12;
-    echo number_format($comissao_salario, 2, ',', '.');
-}
-
 if (isset($_POST['cadastrar_garcom'])) {
     CadastrarGarcom();
-}
-if (isset($_POST['calcular_comissao'])) {
-    CalcularComissao();
 }
 ?>

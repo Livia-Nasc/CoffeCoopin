@@ -19,6 +19,10 @@
       <a href="#home">Home</a>
       <a href="#news">News</a>
       <a href="#contact">Contact</a>
+      <a href="#" onclick="document.getElementById('sair').submit(); return false;">Sair</a>
+        <form id="sair" action="php/usuario.php" method="post" style="display: none;">
+            <input type="hidden" name="sair" value="1">
+        </form> 
   </div>
 
 
@@ -40,11 +44,15 @@
       <div class="w3-content" style="max-width:900px">
         <div class="container">
           <div class="text-content">
+            <a href="bebidas.php" style='text-decoration:none;'>
             <h2 id="titulo-bebidas">Bebidas</h2>
             <p id="texto-p">Nossas bebidas são preparadas com <span class="highlight">carinho e atenção</span>, utilizando <span class="highlight">ingredientes frescos e de qualidade</span>, com o objetivo de proporcionar uma <span class="highlight">experiência acolhedora</span> e única. Oferecemos desde o clássico café expresso até opções mais sofisticadas, todas preparadas com técnicas cuidadosas em um ambiente rústico e humanizado.</p>
+            </a>
           </div>
           <div class="image-content">
-            <img src="img/bebidas.png" alt="Bebida deliciosa">
+            <a href="bebidas.php" style='text-decoration:none;'>
+            <img src="img/bebidas.png" alt="Bebida deliciosa" href="bebidas.php">
+            </a>
           </div>
         </div>
       </div>
@@ -57,11 +65,15 @@
       <div class="w3-content" style="max-width:900px">
         <div class="container">
           <div class="text-content">
+            <a href="bolos.php" style="text-decoration: none;">
             <h2 id="titulo-bolos">Bolos</h2>
             <p id="texto-p">Nossos bolos são feitos com <span class="highlight">ingredientes selecionados</span>, de forma <span class="highlight">artesanal</span>, preservando sua naturalidade e sabor autêntico. Cada receita é preparada com muito <span class="highlight">cuidado e dedicação</span>, utilizando apenas produtos frescos, sem aditivos ou conservantes, para garantir uma experiência genuína de sabor. </p>
+            </a>
           </div>
           <div class="image-content">
+            <a href="bolos.php">
             <img src="img/bolo.png" alt="Bolo delicioso">
+            </a>
           </div>
         </div>
       </div>

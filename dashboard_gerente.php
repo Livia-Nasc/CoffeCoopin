@@ -57,7 +57,7 @@
                         <a href="ver_garcons.php" class="btn btn-primary">Ver Garçom</a>
                         <a href="cadastro_produto.php" class="btn btn-primary">Novo Produto</a>
                         <a href="ver_produtos.php" class="btn btn-primary">Ver Produto</a>
-                        <a href="calcular_comissao.php" class="btn btn-primary">Calcular Comissão</a>
+                        <a href="calcular_comissao.php" class="btn btn-primary" <?php unset($_SESSION['comissao']);?>>Calcular Comissão</a>
                         <a href="gerar_relatorio.php" class="btn btn-primary">Gerar Relatório</a>
                     </div>
                     
