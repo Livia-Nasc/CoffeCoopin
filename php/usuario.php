@@ -108,7 +108,7 @@ function LoginUsuario()
 function SairUsuario()
 {
     session_start();
-    unset($_SESSION['usuario']);
+    session_unset();
     header('location:../login.php');
 }
 

@@ -54,7 +54,27 @@ function CadastrarGarcom()
     }
 }
 
+function VisualizarGarcom(){
+    session_start();
+    $conn = getConexao();
+    $sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade 
+        FROM usuario u 
+        JOIN garcom g 
+        ON u.id = g.user_id
+        WHERE u.tipo = 3"; // Tipo 3 = Garçom
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $_SESSION['garcom'] = $stmt->fetchAll();
+    
+    header("Location: ../ver_garcons.php");
+    exit();
+}
+
 if (isset($_POST['cadastrar_garcom'])) {
     CadastrarGarcom();
+}
+
+if (isset($_POST['visualizar'])) {
+    VisualizarGarcom();
 }
 ?>

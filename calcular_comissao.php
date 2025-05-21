@@ -1,6 +1,21 @@
 <?php
 session_start();
 $comissao = $_SESSION['comissao'] ?? 'Nenhum cálculo realizado ainda';
+
+$tiposAcesso = [1,2];
+$tipoUsuario = $_SESSION['usuario']['tipo'];
+if (!in_array($tipoUsuario, $tiposAcesso)) {
+    header('location:login.php');
+    exit();
+}
+switch ($tipoUsuario) {
+    case 1:
+        $arquivo = 'dashboard_admin.php';
+        break;
+    case 2:
+        $arquivo = 'dashboard_gerente.php';
+        break;
+}
 ?>
 
 <!DOCTYPE html>
@@ -9,13 +24,25 @@ $comissao = $_SESSION['comissao'] ?? 'Nenhum cálculo realizado ainda';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cálculo de Comissão</title>
-    <link rel="stylesheet" href="../css/conta.css">
+    <link rel="stylesheet" href="css/conta.css">
+
+    <style>
+        body{
+            overflow: hidden;   
+        }
+    </style>
 </head>
 <body>
-    <div class="logo-container">
-        <img src="../img/group 1.png" alt="Logo" class="logo-img">
+    <div class="-logo-container">
+        <img src="img/logo.png" alt="Logo" class="logo-img">
     </div>
+    <a href="<?php echo $arquivo?>" class="btn-voltar">Voltar</a>
 
+    <form action="php/produto.php" method="post">
+        <label for="nome">Pesquisar garçom</label> 
+        <input type="text" name="nome" placeholder="Insira o nome do produto" id="nome">
+        <button type="submit" name="visualizar" id="visualizar">Visualizar garçom</button>
+    </form>
     <div id="container">
         <div id="box">
             <div class="cadastro">

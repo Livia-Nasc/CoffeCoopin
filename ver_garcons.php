@@ -17,18 +17,6 @@ switch ($tipoUsuario) {
         break;
 }
 
-$conn = getConexao();
-
-// Busca todos os garcom
-$sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade 
-        FROM usuario u
-        JOIN garcom g ON u.id = g.user_id
-        WHERE u.tipo = 3"; // Tipo 3 = Garçom
-
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-$garcons = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +69,7 @@ $garcons = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </style>
 </head>
 <body>
-    <div class="logo-container">
+    <div class="-logo-container">
         <img src="img/logo.png" alt="Logo">
     </div>
     <a href="<?php echo $arquivo?>" class="btn-voltar">Voltar</a>
@@ -91,6 +79,11 @@ $garcons = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div style="margin-bottom: 20px;">
             <a href="cadastro_garcom.php" class="btn btn-primary">Cadastrar novo garçom</a>
         </div>
+        <form action="php/garcom.php" method="post">
+            <label for="nome">Pesquisar garçom</label> 
+            <input type="text" name="nome" placeholder="Insira o nome do garçom" id="nome">
+            <button type="submit" name="visualizar" id="visualizar">Visualizar garcom</button>
+        </form>
         <table>
             <thead>
                 <tr>
@@ -104,12 +97,8 @@ $garcons = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </tr>
             </thead>
             <tbody>
-                <?php if (empty($garcom)): ?>
-                    <tr>
-                        <td colspan="7" style="text-align: center;">Nenhum gerente cadastrado</td>
-                    </tr>
-                <?php else: ?>
-                    <?php foreach ($garcons as $garcom): ?>
+                <?php if(isset($_SESSION['garcom']) && !empty($_SESSION['garcom'])) { ?>
+                    <?php foreach($_SESSION['garcom'] as $garcom){ ?>
                         <tr>
                             <td><?php echo htmlspecialchars($garcom['nome']); ?></td>
                             <td><?php echo htmlspecialchars($garcom['cpf']); ?></td>
@@ -144,8 +133,12 @@ $garcons = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </td>
                         </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                    <?php } ?>
+                <?php } else { ?>
+                    <tr>
+                        <td colspan="7" style="text-align: center;">Nenhum garçom cadastrado</td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
     </div>
