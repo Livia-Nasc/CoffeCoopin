@@ -9,10 +9,10 @@ if (!in_array($tipoUsuario, $tiposAcesso)) {
 }
 switch ($tipoUsuario) {
     case 1:
-        $arquivo = 'dashboard_admin.php';
+        $arquivo = 'dashboard/admin.php';
         break;
     case 2:
-        $arquivo = 'dashboard_gerente.php';
+        $arquivo = 'dashboard/gerente.php';
         break;
 }
 
@@ -31,7 +31,7 @@ $stmtProduto->execute([$id]);
 $produto = $stmtProduto->fetch();
 
 if (!$produto) {
-    header('Location: visualizar_produto.php');
+    header('Location: visualização/produto.php');
     exit();
 }
 
@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoria_id']) && !i
                     
                     <div id="btn">
                         <button type="submit" name="alterar" class="btn btn-primary">SALVAR</button>
-                        <a href="visualizar_produto.php"><button type="button" class="btn btn-primary">CANCELAR</button></a>
+                        <a href="visualização/produto.php"><button type="button" class="btn btn-primary">CANCELAR</button></a>
                     </div>
                 </form>
             </div>

@@ -10,10 +10,10 @@ if (!in_array($tipoUsuario, $tiposAcesso)) {
 }
 switch ($tipoUsuario) {
     case 1:
-        $arquivo = 'dashboard_admin.php';
+        $arquivo = 'dashboard/admin.php';
         break;
     case 2:
-        $arquivo = 'dashboard_gerente.php';
+        $arquivo = 'dashboard/gerente.php';
         break;
 }
 ?>
@@ -58,7 +58,7 @@ switch ($tipoUsuario) {
                         <p><?php echo $comissao; ?></p>
                     </div>
                     
-                    <a href="dashboard_gerente.php" class="btn btn-warning">Voltar</a>
+                    <a href="dashboard/gerente.php" class="btn btn-warning">Voltar</a>
                 </div>
             </div>
         </div>

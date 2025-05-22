@@ -41,7 +41,7 @@ function CadastrarGerente()
             $stmt->bindParam(':rg', $rg);
             $stmt->bindParam(':user_id', $user_id);
             if ($stmt->execute()) {
-                header('location: ../admin_dashboard.php'); // ! Vai para a página de login
+                header('location: ../dashboard/admin.php'); // ! Vai para a página de login
                 exit();
             } else {
                 echo "Erro ao cadastrar usuário.";
@@ -50,7 +50,7 @@ function CadastrarGerente()
     } else {
         echo "<script type='text/javascript'>
                         alert('Informações já existentes');  // ! Se o CPF e o e-mail já existirem, exibe mensagem de erro na página cadastro.php
-                        window.location='../cadastro.php';
+                        window.location='../cadastro/cadastro.php';
                       </script>";
     }
 }

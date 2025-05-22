@@ -25,7 +25,7 @@ switch ($tipoUsuario) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualizar Gerentes</title>
-    <link rel="stylesheet" href="css/conta.css">
+    <link rel="stylesheet" href="css/cadastro_produto.css">
     <style>
         .actions {
             display: flex;
@@ -101,7 +101,7 @@ switch ($tipoUsuario) {
                     <?php foreach($_SESSION['garcom'] as $garcom){ ?>
                         <tr>
                             <td><?php echo htmlspecialchars($garcom['nome']); ?></td>
-                            <td><?php echo htmlspecialchars($garcom['cpf']); ?></td>
+                            <td class="cpf"><?php echo htmlspecialchars($garcom['cpf']); ?></td>
                             <td><?php echo htmlspecialchars($garcom['email']); ?></td>
                             <td><?php echo htmlspecialchars($garcom['telefone']); ?></td>
                             <td><?php echo date('d/m/Y', strtotime($garcom['data_nasc'])); ?></td>
@@ -143,15 +143,10 @@ switch ($tipoUsuario) {
         </table>
     </div>
 
-    <!-- <script>
-        // Confirmação antes de excluir
-        document.querySelectorAll('.btn-warning').forEach(button => {
-            button.addEventListener('click', function(e) {
-                if (!confirm('Tem certeza que deseja excluir este garçom?')) {
-                    e.preventDefault();
-                }
-            });
-        }); -->
+    <script>
+        $(document).ready(function () {
+        $(".cpf").mask("000.000.000-00");
+    });
     </script>
 </body>
 </html>

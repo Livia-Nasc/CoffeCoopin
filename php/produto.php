@@ -41,7 +41,7 @@ function CadastrarProduto()
     } else {
         $_SESSION['mensagem'] = "Categoria não selecionada";
     }
-    header('Location: ../cadastro_produto.php');
+    header('Location: ../cadastro/produto.php');
     exit();
 }
 
@@ -72,7 +72,7 @@ function VisualizarProduto()
         $stmt->execute();
         $_SESSION['produto'] = $stmt->fetchAll();
     }
-    header("Location: ../ver_produtos.php");
+    header("Location: ../visualização/produtos.php");
     exit();
 }
 
@@ -107,7 +107,7 @@ function ExcluirProduto()
     } else {
         $_SESSION['mensagem'] = "Erro ao excluir produto!";
     }
-    header('Location: ../visualizar_produto.php');
+    header('Location: ../visualização/produto.php');
     exit();
 }
 
@@ -155,7 +155,7 @@ function AlterarProduto()
     } else {
         $_SESSION['mensagem'] = "Erro ao atualizar produto!";
     }
-    header('Location: ../visualizar_produto.php');
+    header('Location: ../visualização/produto.php');
     exit();
 }
 

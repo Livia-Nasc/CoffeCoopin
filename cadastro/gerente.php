@@ -1,18 +1,8 @@
 <?php
 session_start();
-$tiposAcesso = [1,2];
-$tipoUsuario = $_SESSION['usuario']['tipo'];
-if (!in_array($tipoUsuario, $tiposAcesso)) {
+if ($_SESSION['usuario']['tipo'] != 1) {
     header('location:login.php');
     exit();
-}
-switch ($tipoUsuario) {
-    case 1:
-        $arquivo = 'dashboard_admin.php';
-        break;
-    case 2:
-        $arquivo = 'dashboard_gerente.php';
-        break;
 }
 ?>
 
@@ -22,21 +12,21 @@ switch ($tipoUsuario) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Garçom</title>
+    <title>Cadastrar Gerente</title>
     <link rel="stylesheet" href="css/conta.css">
 </head>
 
 <body>
-    <div id="-logo-container">
-        <img src="img/logo.png" alt="">
+    <div class="-logo-container">
+        <img src="img/logo.png" alt="Logo" class="logo-img">
     </div>
-    <a href="<?php echo $arquivo?>" class="btn-voltar">Voltar</a>
+    <a href="../dashboard/admin.php" class="btn-voltar">Voltar</a>
 
     <div id="container">
         <div id="box">
             <div class="cadastro">
-                <form action="php/garcom.php" method="post" class="form-container">
-                    <h2>CADASTRAR GARÇOM</h2>
+                <form action="../php/gerente.php" method="post" class="form-container">
+                    <h2>CADASTRAR GERENTE</h2>
                     <br>
                     
                     <label for="nome">Nome completo</label>
@@ -64,9 +54,9 @@ switch ($tipoUsuario) {
                                value="<?php echo isset($_POST['data_nasc']) ? htmlspecialchars($_POST['data_nasc']) : ''; ?>">
                     <br>
                     
-                    <label for="escolaridade">Escolaridade</label>
-                        <input type="text" id="escolaridade" required name="escolaridade" placeholder="Insira a escolaridade"
-                               value="<?php echo isset($_POST['escolaridade']) ? htmlspecialchars($_POST['escolaridade']) : ''; ?>">
+                    <label for="rg">RG</label>
+                        <input type="text" id="rg" required name="rg" placeholder="Insira o RG"
+                               value="<?php echo isset($_POST['rg']) ? htmlspecialchars($_POST['rg']) : ''; ?>">
                     <br>
                     
                     <label for="senha">Senha</label>
@@ -74,8 +64,8 @@ switch ($tipoUsuario) {
                     <br>
                     
                     <div id="btn">
-                        <button type="submit" name="cadastrar_garcom" class="btn btn-primary">ENVIAR</button>
-                        <a href="ver_garcons.php"><button type="button" class="btn btn-primary">Visualizar Garçons</button></a>
+                        <button type="submit" name="cadastrar_gerente" class="btn btn-primary">ENVIAR</button>
+                        <a href="../visualização/gerentes.php"><button type="button" class="btn btn-primary">Visualizar Gerentes</button></a>
                     </div>
                 </form>
             </div>

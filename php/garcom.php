@@ -40,7 +40,7 @@ function CadastrarGarcom()
             $stmt->bindParam(':escolaridade', $escolaridade);
             $stmt->bindParam(':user_id', $user_id);
             if ($stmt->execute()) {
-                header('location: ../gerente_dashboard.php'); // ! Vai para a página de login
+                header('location: ../dashboard/gerente.php'); // ! Vai para a página de login
                 exit();
             } else {
                 echo "Erro ao cadastrar usuário.";
@@ -49,7 +49,7 @@ function CadastrarGarcom()
     } else {
         echo "<script type='text/javascript'>
                     alert('Informações já existentes');  // ! Se o CPF e o e-mail já existirem, exibe mensagem de erro na página cadastro.php
-                    window.location='../cadastro.php';
+                    window.location='../cadastro/cadastro.php';
                   </script>";
     }
 }
@@ -66,7 +66,7 @@ function VisualizarGarcom(){
     $stmt->execute();
     $_SESSION['garcom'] = $stmt->fetchAll();
     
-    header("Location: ../ver_garcons.php");
+    header("Location: ../visualizar/garcons.php");
     exit();
 }
 

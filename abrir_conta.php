@@ -11,10 +11,10 @@ if (!in_array($tipoUsuario, $tiposAcesso)) {
 }
 switch ($tipoUsuario) {
     case 1:
-        $arquivo = 'dashboard_admin.php';
+        $arquivo = 'dashboard/admin.php';
         break;
     case 3:
-        $arquivo = 'dashboard_garcom.php';
+        $arquivo = 'dashboard/garcom.php';
         break;
 }
 
@@ -74,7 +74,7 @@ $garcom_id = $dadosUsuario['id'];
             <input type="number" name="mesa" placeholder="Número da mesa" required>
             <input type="hidden" name="garcom_id" value="<?php echo $garcom_id ?>" required>
             <button type="submit" name="abrir_conta" class="btn btn-primary">Abrir Conta</button>
-            <a href="ver_conta.php" class="btn-voltar">Visualizar contas</a>
+            <a href="visualização/conta.php" class="btn-voltar">Visualizar contas</a>
         </form>
     </div>
 
