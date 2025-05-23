@@ -1,5 +1,5 @@
 <?php
-require_once('php/conexao.php');
+require_once('../php/conexao.php');
 session_start();
 
 $tiposAcesso = [1,2];
@@ -10,10 +10,10 @@ if (!in_array($tipoUsuario, $tiposAcesso)) {
 }
 switch ($tipoUsuario) {
     case 1:
-        $arquivo = 'dashboard_admin.php';
+        $arquivo = '../dashboard/admin.php';
         break;
     case 2:
-        $arquivo = 'dashboard_gerente.php';
+        $arquivo = '../dashboard/gerente.php';
         break;
 }
 
@@ -25,7 +25,7 @@ switch ($tipoUsuario) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualizar Gerentes</title>
-    <link rel="stylesheet" href="css/cadastro_produto.css">
+    <link rel="stylesheet" href="../css/cadastro_produto.css">
     <style>
         .actions {
             display: flex;
@@ -70,7 +70,7 @@ switch ($tipoUsuario) {
 </head>
 <body>
     <div class="-logo-container">
-        <img src="img/logo.png" alt="Logo">
+        <img src="../img/logo.png" alt="Logo">
     </div>
     <a href="<?php echo $arquivo?>" class="btn-voltar">Voltar</a>
     
@@ -79,7 +79,7 @@ switch ($tipoUsuario) {
         <div style="margin-bottom: 20px;">
             <a href="cadastro_garcom.php" class="btn btn-primary">Cadastrar novo garçom</a>
         </div>
-        <form action="php/garcom.php" method="post">
+        <form action="../php/garcom.php" method="post">
             <label for="nome">Pesquisar garçom</label> 
             <input type="text" name="nome" placeholder="Insira o nome do garçom" id="nome">
             <button type="submit" name="visualizar" id="visualizar">Visualizar garcom</button>

@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel do Gerente</title>
-    <link rel="stylesheet" href="css/conta.css">
+    <link rel="stylesheet" href="../css/conta.css">
     <style>
 
         .dashboard-menu {
@@ -53,12 +53,12 @@
                     <p style="text-align: center; margin-bottom: 20px;">Olá <span id="colaborador"><?php echo htmlspecialchars($nome) ?></span>, seja bem-vindo(a)!</p>
                     
                     <div class="dashboard-menu">
-                        <a href="cadastro_garcom.php" class="btn btn-primary">Novo Garçom</a>
-                        <a href="ver_garcons.php" class="btn btn-primary">Ver Garçom</a>
-                        <a href="cadastro_produto.php" class="btn btn-primary">Novo Produto</a>
-                        <a href="ver_produtos.php" class="btn btn-primary">Ver Produto</a>
-                        <a href="calcular_comissao.php" class="btn btn-primary" <?php unset($_SESSION['comissao']);?>>Calcular Comissão</a>
-                        <a href="gerar_relatorio.php" class="btn btn-primary">Gerar Relatório</a>
+                        <a href="../cadastro/garcom.php" class="btn btn-primary">Novo Garçom</a>
+                        <a href="../visualização/garcons.php" class="btn btn-primary">Ver Garçom</a>
+                        <a href="../cadastro/produto.php" class="btn btn-primary">Novo Produto</a>
+                        <a href="../visualização/produtos.php" class="btn btn-primary">Ver Produto</a>
+                        <a href="../calcular_comissao.php" class="btn btn-primary" <?php unset($_SESSION['comissao']);?>>Calcular Comissão</a>
+                        <a href="../gerar_relatorio.php" class="btn btn-primary">Gerar Relatório</a>
                     </div>
                     
                     <form action="php/usuario.php" method="post" style="margin-top: 30px; text-align: center;">
