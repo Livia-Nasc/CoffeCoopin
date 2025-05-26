@@ -1,10 +1,10 @@
 <?php
-require_once('php/conexao.php');
+require_once('../php/conexao.php');
 session_start();
 
 // Verifica se o usuário está logado e é admin (tipo 1)
 if ($_SESSION['usuario']['tipo'] != 1) {
-    header('location:login.php');
+    header('location:../login.php');
     exit();
 }
 
@@ -30,7 +30,7 @@ $filtro_ativo = isset($_GET['status']) ? $_GET['status'] : 'todos';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualizar Gerentes</title>
-    <link rel="stylesheet" href="css/conta.css">
+    <link rel="stylesheet" href="../css/conta.css">
     <style>
         .actions {
             display: flex;
@@ -75,9 +75,9 @@ $filtro_ativo = isset($_GET['status']) ? $_GET['status'] : 'todos';
 </head>
 <body>
     <div class="logo-container">
-        <img src="img/logo.png" alt="Logo">
+        <img src="../img/logo.png" alt="Logo">
     </div>
-    <a href="admin_dashboard.php" class="btn-voltar">Voltar</a>
+    <a href="../dashboard/admin.php" class="btn-voltar">Voltar</a>
 
     <div class="filtro-container">
         <h3>Filtrar Gerentes</h3>
@@ -91,7 +91,7 @@ $filtro_ativo = isset($_GET['status']) ? $_GET['status'] : 'todos';
     <div id="produtos">
         <h2>Lista de Gerentes</h2>
         <div style="margin-bottom: 20px;">
-            <a href="cadastro_gerente.php" class="btn btn-primary">Cadastrar Novo Gerente</a>
+            <a href="../cadastro/gerente.php" class="btn btn-primary">Cadastrar Novo Gerente</a>
         </div>
         <table>
             <thead>

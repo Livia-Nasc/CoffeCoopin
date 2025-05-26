@@ -3,7 +3,7 @@ session_start();
 $tiposAcesso = [1,2];
 $tipoUsuario = $_SESSION['usuario']['tipo'];
 if (!in_array($tipoUsuario, $tiposAcesso)) {
-    header('location:login.php');
+    header('location:../login.php');
     exit();
 }
 switch ($tipoUsuario) {
@@ -23,12 +23,12 @@ switch ($tipoUsuario) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Garçom</title>
-    <link rel="stylesheet" href="css/conta.css">
+    <link rel="stylesheet" href="../css/conta.css">
 </head>
 
 <body>
     <div id="-logo-container">
-        <img src="img/logo.png" alt="">
+        <img src="../img/logo.png" alt="">
     </div>
     <a href="<?php echo $arquivo?>" class="btn-voltar">Voltar</a>
 

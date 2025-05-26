@@ -1,7 +1,7 @@
 <?php
 session_start();
 if ($_SESSION['usuario']['tipo'] != 1) {
-    header('location:login.php');
+    header('location:../login.php');
     exit();
 }
 ?>
@@ -13,12 +13,12 @@ if ($_SESSION['usuario']['tipo'] != 1) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Gerente</title>
-    <link rel="stylesheet" href="css/conta.css">
+    <link rel="stylesheet" href="../css/conta.css">
 </head>
 
 <body>
     <div class="-logo-container">
-        <img src="img/logo.png" alt="Logo" class="logo-img">
+        <img src="../img/logo.png" alt="Logo" class="logo-img">
     </div>
     <a href="../dashboard/admin.php" class="btn-voltar">Voltar</a>
 

@@ -3,18 +3,18 @@ session_start();
 $tiposAcesso = [1,2,3];
 $tipoUsuario = $_SESSION['usuario']['tipo'];
 if (!in_array($tipoUsuario, $tiposAcesso)) {
-    header('location:login.php');
+    header('location:../login.php');
     exit();
 }
 switch ($tipoUsuario) {
     case 1:
-        $arquivo = 'dashboard_admin.php';
+        $arquivo = 'dashboard/admin.php';
         break;
     case 2:
-        $arquivo = 'dashboard_gerente.php';
+        $arquivo = 'dashboard/gerente.php';
         break;
     case 3:
-        $arquivo = 'dashboard_garcom.php';
+        $arquivo = 'dashboard/garcom.php';
         break;
 }
 ?>
@@ -26,12 +26,12 @@ switch ($tipoUsuario) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualizar Produtos</title>
-    <link rel="stylesheet" href="css/cadastro_produto.css">
+    <link rel="stylesheet" href="../css/cadastro_produto.css">
 </head>
 
 <body>
     <div id="-logo-container">
-        <img src="img/logo.png" alt="">
+        <img src="../img/logo.png" alt="">
     </div>
     <!-- Botão de Voltar -->
     <a href="<?php echo $arquivo?>" class="btn-voltar">Voltar</a>
@@ -39,11 +39,11 @@ switch ($tipoUsuario) {
     <div id="produtos">
          <?php if ($_SESSION['usuario']['tipo'] != 3) { ?>
         <div style="text-align: center; margin-bottom: 20px;">
-            <a href="cadastro_produto.php" class="btn btn-primary">Cadastrar Novo Produto</a>
+            <a href="../cadastro/produto.php" class="btn btn-primary">Cadastrar Novo Produto</a>
         </div>
     <?php }?>
 
-        <form action="php/produto.php" method="post">
+        <form action="../php/produto.php" method="post">
             <label for="nome">Pesquisar produto</label> 
             <input type="text" name="nome" placeholder="Insira o nome do produto" id="nome">
             <button type="submit" name="visualizar" id="visualizar">Visualizar produtos</button>

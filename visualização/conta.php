@@ -1,19 +1,19 @@
 <?php
-require_once('php/conexao.php');
+require_once('../php/conexao.php');
 session_start();
 
 $tiposAcesso = [1,3];
 $tipoUsuario = $_SESSION['usuario']['tipo'];
 if (!in_array($tipoUsuario, $tiposAcesso)) {
-    header('location:login.php');
+    header('location:../login.php');
     exit();
 }
 switch ($tipoUsuario) {
     case 1:
-        $arquivo = 'dashboard_admin.php';
+        $arquivo = '../dashboard/admin.php';
         break;
     case 3:
-        $arquivo = 'dashboard_garcom.php';
+        $arquivo = '../dashboard/garcom.php';
         break;
 }
 
@@ -55,11 +55,11 @@ $garcom_id = $dadosUsuario['id'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/conta.css">
+    <link rel="stylesheet" href="../css/conta.css">
 </head>
 <body>
      <div id="-logo-container">
-        <img src="img/logo.png" alt="">
+        <img src="../img/logo.png" alt="">
     </div>
     <!-- Botão de Voltar -->
     <a href="<?php echo $arquivo?>" class="btn-voltar">Voltar</a>

@@ -1,161 +1,196 @@
-<?php
-require_once('php/conexao.php');
-session_start();
-
-// Verifica mensagens de status
-$sucesso = $_SESSION['sucesso'] ?? null;
-$erro = $_SESSION['erro'] ?? null;
-
-// Limpa as mensagens após exibir
-unset($_SESSION['sucesso']);
-unset($_SESSION['erro']);
-?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Cálculo de Comissões - Restaurante</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style>
+        /* ESTILOS COM CORES DIRETAS - SEM VARIÁVEIS */
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
+            font-family: "Muvia", "Poppins", sans-serif;
+            background-color: #f9f0dd; /* COR FUNDO */
+            color: #333; /* COR TEXTO */
+            font-size: 12pt;
+            line-height: 1.5;
+            margin: 0;
             padding: 20px;
+            letter-spacing: 0.9px;
         }
-        .form-box {
-            border: 1px solid #ccc;
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #C19770; /* COR PRINCIPAL */
+        }
+        
+        .header h1 {
+            color: #C19770; /* COR PRINCIPAL */
+            font-size: 24pt;
+            margin: 0;
+        }
+        
+        .header .subtitle {
+            color: #d5b895; /* COR SECUNDÁRIA */
+            font-size: 14pt;
+            margin-top: 5px;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        .content-box {
+            background-color: #C19770; /* COR PRINCIPAL */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        
+        .inner-content {
+            background-color: white;
             padding: 20px;
-            border-radius: 5px;
-            background: #f9f9f9;
-            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+        
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
+            font-family: "Poppins", sans-serif;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+        
+        table th {
+            background-color: #C19770; /* COR PRINCIPAL */
+            color: white;
+            padding: 12px;
             text-align: left;
+            border: 1px solid #d5b895; /* COR SECUNDÁRIA */
         }
-        th {
-            background-color: #f2f2f2;
-        }
-        .total-row {
-            font-weight: bold;
-            background-color: #e6e6e6;
-        }
-        .alert {
+        
+        table td {
             padding: 10px;
-            margin: 10px 0;
+            border: 1px solid #ddd;
+            color: #333; /* COR TEXTO */
+        }
+        
+        table tr:nth-child(even) {
+            background-color: #f9f0dd; /* COR FUNDO */
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 10pt;
+            color: #d5b895; /* COR SECUNDÁRIA */
+            border-top: 1px solid #d5b895; /* COR SECUNDÁRIA */
+            padding-top: 10px;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        .btn {
+            padding: 10px 15px;
+            margin: 10px 5px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: "Poppins", sans-serif;
+            display: inline-block;
+            min-width: 150px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: #C19770; /* COR PRINCIPAL */
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #d5b895; /* COR SECUNDÁRIA */
+        }
+        
+        h2, h3 {
+            color: #333; /* COR TEXTO */
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+        
+        p {
+            font-family: "Poppins", sans-serif;
+            margin-bottom: 15px;
+        }
+        
+        .highlight {
+            background-color: #f8dbc7; /* COR SOMBRA */
+            padding: 5px 10px;
             border-radius: 4px;
         }
-        .alert-success {
-            background-color: #dff0d8;
-            color: #3c763d;
-            border: 1px solid #d6e9c6;
+        
+        .text-right {
+            text-align: right;
         }
-        .alert-error {
-            background-color: #f2dede;
-            color: #a94442;
-            border: 1px solid #ebccd1;
+        
+        .bold {
+            font-weight: bold;
         }
-        .btn {
-            padding: 8px 16px;
-            margin-right: 10px;
-            cursor: pointer;
+        
+        .total-row {
+            font-weight: bold;
+            font-size: 1.1em;
+            border-top: 2px solid #ddd;
+            color: #C19770; /* COR PRINCIPAL */
+        }
+        
+        .total-row td {
+            background-color: #f9f0dd; /* COR FUNDO */
         }
     </style>
 </head>
 <body>
-    <h1>Cálculo de Comissões</h1>
-    
-    <?php if($sucesso): ?>
-        <div class="alert alert-success"><?php echo $sucesso; ?></div>
-    <?php endif; ?>
-    
-    <?php if($erro): ?>
-        <div class="alert alert-error"><?php echo $erro; ?></div>
-    <?php endif; ?>
-    
-    <div class="form-box">
-        <h2>Calcular Comissões</h2>
-        <form method="post" action="php/teste.php">
-            <div style="margin-bottom: 15px;">
-                <label for="mes" style="display: block; margin-bottom: 5px;">Mês:</label>
-                <select name="mes" id="mes" required style="padding: 8px; width: 100%;">
-                    <option value="">Selecione</option>
-                    <?php for($i=1; $i<=12; $i++): ?>
-                        <option value="<?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?>">
-                            <?php echo date('F', mktime(0, 0, 0, $i, 1)); ?>
-                        </option>
-                    <?php endfor; ?>
-                </select>
-            </div>
-            
-            <div style="margin-bottom: 15px;">
-                <label for="ano" style="display: block; margin-bottom: 5px;">Ano:</label>
-                <input type="number" name="ano" id="ano" min="2020" max="2030" 
-                       value="<?php echo date('Y'); ?>" required 
-                       style="padding: 8px; width: 100%;">
-            </div>
-            
-            <div style="margin-bottom: 15px;">
-                <label for="garcom_id" style="display: block; margin-bottom: 5px;">Garçom (opcional):</label>
-                <select name="garcom_id" id="garcom_id" style="padding: 8px; width: 100%;">
-                    <option value="">Todos os Garçons</option>
-                    <?php
-                    try {
-                        $conn = getConexao();
-                        $stmt = $conn->query("SELECT u.id, u.nome FROM usuario u INNER JOIN garcom g ON u.id = g.user_id");
-                        while($garcom = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo '<option value="'.$garcom['id'].'">'.$garcom['nome'].'</option>';
-                        }
-                    } catch(PDOException $e) {
-                        echo "<!-- Erro ao carregar garçons: ".$e->getMessage()." -->";
-                    }
-                    ?>
-                </select>
-            </div>
-            
-            <div>
-                <button type="submit" name="calcular" class="btn">Calcular Comissões</button>
-            </div>
-        </form>
+    <div class="header">
+        <h1>Relatório Financeiro</h1>
+        <div class="subtitle">Gerado em '.$dataFormatada.' (Horário Local)</div>
     </div>
     
-    <?php if(isset($_SESSION['comissoes']) && !empty($_SESSION['comissoes'])): ?>
-        <h2>Resultado das Comissões</h2>
-        <p>Período: <?php echo date('d/m/Y', strtotime($_SESSION['periodo']['inicio'])).' a '.date('d/m/Y', strtotime($_SESSION['periodo']['fim'])); ?></p>
-        
-        <table>
-            <thead>
-                <tr>
-                    <th>Garçom</th>
-                    <th>Total Vendido</th>
-                    <th>Comissão (10%)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach($_SESSION['comissoes'] as $comissao): ?>
+    <div class="content-box">
+        <div class="inner-content">
+            <h2>Comissão Calculada</h2>
+            
+            <table>
+                <thead>
                     <tr>
-                        <td><?php echo htmlspecialchars($comissao['nome']); ?></td>
-                        <td>R$ <?php echo number_format($comissao['total'], 2, ',', '.'); ?></td>
-                        <td>R$ <?php echo number_format($comissao['comissao'], 2, ',', '.'); ?></td>
+                        <th>Item</th>
+                        <th class="text-right">Valor</th>
                     </tr>
-                <?php endforeach; ?>
-                <tr class="total-row">
-                    <td colspan="2"><strong>Total Geral em Comissões</strong></td>
-                    <td><strong>R$ <?php echo number_format($_SESSION['periodo']['total_geral'], 2, ',', '.'); ?></strong></td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <form method="post" action="calcular_comissoes.php" style="margin-top: 20px;">
-            <button type="submit" name="salvar" class="btn">Salvar Comissões</button>
-            <button type="button" onclick="window.print()" class="btn">Imprimir Relatório</button>
-        </form>
-    <?php endif; ?>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Salário Base</td>
+                        <td class="text-right">R$ 1.000,00</td>
+                    </tr>
+                    <tr>
+                        <td>Comissão (10% das vendas)</td>
+                        <td class="text-right">R$ 99.999.999,97</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>Total a Receber</td>
+                        <td class="text-right highlight">R$ 100.000.999,97</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p>Observações: O valor da comissão é calculado sobre o total de vendas realizadas no período.</p>
+            
+            <div style="text-align: center;">
+                <button class="btn btn-primary">Imprimir Relatório</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        Sistema de Comissões - © '.date('Y').' Todos os direitos reservados
+    </div>
 </body>
 </html>

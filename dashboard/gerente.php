@@ -1,7 +1,7 @@
 <?php
     session_start();
     if ($_SESSION['usuario']['tipo'] != 2) {
-        header('location:login.php');
+        header('location:../index.php');
         exit();
     }
     $nome = $_SESSION['usuario']['nome'];
@@ -42,7 +42,7 @@
 </head>
 <body>
     <div class="-logo-container">
-        <img src="img/logo.png" alt="Logo" class="logo-img">
+        <img src="../img/logo.png" alt="Logo" class="logo-img">
     </div>
 
     <div id="container">
@@ -61,7 +61,7 @@
                         <a href="../gerar_relatorio.php" class="btn btn-primary">Gerar Relatório</a>
                     </div>
                     
-                    <form action="php/usuario.php" method="post" style="margin-top: 30px; text-align: center;">
+                    <form action="../php/usuario.php" method="post" style="margin-top: 30px; text-align: center;">
                         <button type="submit" name="sair" class="btn btn-warning">Sair</button>
                     </form>
                 </div>

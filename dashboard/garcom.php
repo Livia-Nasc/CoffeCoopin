@@ -1,7 +1,7 @@
 <?php
     session_start();
     if ($_SESSION['usuario']['tipo'] != 3) {
-        header('location:login.php');
+        header('location:index.php');
         exit();
     }
     $nome = $_SESSION['usuario']['nome'];
@@ -43,7 +43,7 @@
 
 <body>
     <div class="-logo-container">
-        <img src="img/logo.png" alt="Logo" class="logo-img">
+        <img src="../img/logo.png" alt="Logo" class="logo-img">
     </div>
 
     <div id="container">
@@ -54,11 +54,11 @@
                     <p style="text-align: center; margin-bottom: 20px;">Olá <span id="colaborador"><?php echo htmlspecialchars($nome) ?></span>, seja bem-vindo(a)!</p>
                     
                     <div class="dashboard-menu">
-                        <a href="abrir_conta.php" class="btn btn-primary">Abrir conta</a>
-                        <a href="ver_produtos.php" class="btn btn-primary">Visualizar produto</a>
+                        <a href="../abrir_conta.php" class="btn btn-primary">Abrir conta</a>
+                        <a href="../visualização/produtos.php" class="btn btn-primary">Visualizar produto</a>
                     </div>
                     
-                    <form action="php/usuario.php" method="post" style="margin-top: 30px; text-align: center;">
+                    <form action="../php/usuario.php" method="post" style="margin-top: 30px; text-align: center;">
                         <button type="submit" name="sair" class="btn btn-warning">Sair</button>
                     </form>
                 </div>

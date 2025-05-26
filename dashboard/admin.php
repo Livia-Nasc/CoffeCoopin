@@ -1,7 +1,7 @@
 <?php
 session_start();
 if ($_SESSION['usuario']['tipo'] != 1) {
-    header('location:login.php');
+    header('location:../index.php');
     exit();
 }
 $nome = $_SESSION['usuario']['nome'];
@@ -24,7 +24,7 @@ $nome = $_SESSION['usuario']['nome'];
 
 <body>
     <div class="-logo-container">
-        <img src="img/logo.png" alt="Logo" class="logo-img">
+        <img src="../img/logo.png" alt="Logo" class="logo-img">
     </div>
 
     <div id="container">
@@ -35,17 +35,17 @@ $nome = $_SESSION['usuario']['nome'];
                     <p style="text-align: center; margin-bottom: 20px;">Olá <span id="colaborador"><?php echo htmlspecialchars($nome) ?></span>, seja bem-vindo(a)!</p>
                     
                     <div class="dashboard-menu">
-                        <a href="abrir_conta.php" class="btn btn-primary">Abrir Conta</a>
-                        <a href="ver_conta.php" class="btn btn-primary">Ver Contas</a>
-                        <a href="cadastro_produto.php" class="btn btn-primary">Cadastrar Produto</a>
-                        <a href="ver_produtos.php" class="btn btn-primary">Ver Produtos</a>
-                        <a href="cadastro_gerente.php" class="btn btn-primary">Cadastrar Gerente</a>
-                        <a href="ver_gerentes.php" class="btn btn-primary">Ver Gerentes</a>
-                        <a href="cadastro_garcom.php" class="btn btn-primary">Cadastrar Garçom</a>
-                        <a href="ver_garcons.php" class="btn btn-primary">Ver Garçons</a>
+                        <a href="../abrir_conta.php" class="btn btn-primary">Abrir Conta</a>
+                        <a href="../visualização/conta.php" class="btn btn-primary">Ver Contas</a>
+                        <a href="../cadastro/produto.php" class="btn btn-primary">Cadastrar Produto</a>
+                        <a href="../visualização/produtos.php" class="btn btn-primary">Ver Produtos</a>
+                        <a href="../cadastro/gerente.php" class="btn btn-primary">Cadastrar Gerente</a>
+                        <a href="../visualização/gerentes.php" class="btn btn-primary">Ver Gerentes</a>
+                        <a href="../cadastro/garcom.php" class="btn btn-primary">Cadastrar Garçom</a>
+                        <a href="../visualização/garcons.php" class="btn btn-primary">Ver Garçons</a>
                     </div>
                     
-                    <form action="php/usuario.php" method="post" style="margin-top: 30px; text-align: center;">
+                    <form action="../php/usuario.php" method="post" style="margin-top: 30px; text-align: center;">
                         <button type="submit" name="sair" class="btn btn-warning">Sair</button>
                     </form>
                 </div>

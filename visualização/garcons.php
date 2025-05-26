@@ -5,7 +5,7 @@ session_start();
 $tiposAcesso = [1,2];
 $tipoUsuario = $_SESSION['usuario']['tipo'];
 if (!in_array($tipoUsuario, $tiposAcesso)) {
-    header('location:login.php');
+    header('location:../login.php');
     exit();
 }
 switch ($tipoUsuario) {
@@ -77,7 +77,7 @@ switch ($tipoUsuario) {
     <div id="produtos">
         <h2>Lista de Garçons</h2>
         <div style="margin-bottom: 20px;">
-            <a href="cadastro_garcom.php" class="btn btn-primary">Cadastrar novo garçom</a>
+            <a href="../cadastro/garcom.php" class="btn btn-primary">Cadastrar novo garçom</a>
         </div>
         <form action="../php/garcom.php" method="post">
             <label for="nome">Pesquisar garçom</label> 

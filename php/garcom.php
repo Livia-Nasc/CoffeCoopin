@@ -66,7 +66,7 @@ function VisualizarGarcom(){
     $stmt->execute();
     $_SESSION['garcom'] = $stmt->fetchAll();
     
-    header("Location: ../visualizar/garcons.php");
+    header("Location: ../visualização/garcons.php");
     exit();
 }
 

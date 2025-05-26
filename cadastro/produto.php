@@ -3,15 +3,15 @@ session_start();
 $tiposAcesso = [1,2];
 $tipoUsuario = $_SESSION['usuario']['tipo'];
 if (!in_array($tipoUsuario, $tiposAcesso)) {
-    header('location:login.php');
+    header('location:../login.php');
     exit();
 }
 switch ($tipoUsuario) {
     case 1:
-        $arquivo = 'dashboard_admin.php';
+        $arquivo = '../dashboard/admin.php';
         break;
     case 2:
-        $arquivo = 'dashboard_gerente.php';
+        $arquivo = '../dashboard/gerente.php';
         break;
 }
 
@@ -39,19 +39,19 @@ if ($categoriaSelecionada) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Produto</title>
-    <link rel="stylesheet" href="css/conta.css">
+    <link rel="stylesheet" href="../css/conta.css">
 </head>
 
 <body>
     <div class="-logo-container">
-        <img src="img/logo.png" alt="Logo" class="logo-img">
+        <img src="../img/logo.png" alt="Logo" class="logo-img">
     </div>
     <a href="<?php echo $arquivo?>" class="btn-voltar">Voltar</a>
     
     <div id="container">
         <div id="box">
             <div class="cadastro">
-                <form action="php/produto.php" method="post" class="form-container" id="formProduto">
+                <form action="php/../produto.php" method="post" class="form-container" id="formProduto">
                     <h2>CADASTRAR PRODUTO</h2>
                     <br>
                     
