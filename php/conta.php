@@ -176,12 +176,12 @@ function AssociarProduto()
     if ($result) {
         echo "<script type='text/javascript'>
                         alert('Produto associado com sucesso');
-                        window.location='../abrir_conta.php';
+                        window.location='../visualizar/conta.php';
                       </script>";
     } else {
         echo "<script type='text/javascript'>
                         alert('Erro ao associar produto');
-                        window.location='../abrir_conta.php';
+                        window.location='../visualizar/conta.php';
                       </script>";
     }
 }

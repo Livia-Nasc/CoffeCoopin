@@ -208,7 +208,7 @@ table {
 th, td {
     border: 1px solid #ddd;
     padding: 12px;
-    text-align: left;
+    text-align: center;
     color: var(--cor-texto);
     font-family: var(--fonte-secundaria);
 }
@@ -225,6 +225,7 @@ th {
     background-color: #f9f9f9;
     padding: 15px;
     border-radius: 5px;
+    text-align: left;
 }
 
 .produto-item {

@@ -122,11 +122,9 @@ $garcom_id = $dadosUsuario['id'];
                             <td><?php echo $id; ?></td>
                             <td>
                                 <?php if ($status == 'aberta') { ?>
-                                    <form method="post" action="php/conta.php" style="display: inline;">
+                                    <form method="post" action="../php/conta.php" style="display: inline;">
                                         <input type="hidden" name="conta_id" value="<?php echo $id; ?>">
                                         <button type="submit" name="fechar_conta" class="btn btn-warning">Fechar Conta</button>
-                                    </form>
-                                    <form method="post" action="php/conta.php" style="display: inline;">
                                         <input type="hidden" name="conta_id" value="<?php echo $id; ?>">
                                         <button type="submit" name="cancelar_conta" class="btn btn-primary">Cancelar Conta</button>
                                     </form>
