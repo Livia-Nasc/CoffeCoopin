@@ -17,6 +17,16 @@ switch ($tipoUsuario) {
         break;
 }
 
+$conn = getConexao();
+$sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade 
+    FROM usuario u 
+    JOIN garcom g 
+    ON u.id = g.user_id
+    WHERE u.tipo = 3"; // Tipo 3 = Garçom
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$_SESSION['garcom'] = $stmt->fetchAll();
+
 ?>
 
 <!DOCTYPE html>
@@ -84,6 +94,11 @@ switch ($tipoUsuario) {
             <input type="text" name="nome" placeholder="Insira o nome do garçom" id="nome">
             <button type="submit" name="visualizar" id="visualizar">Visualizar garcom</button>
         </form>
+        
+         <?php if(isset($_SESSION['mensagem'])) { ?>
+            <div class="mensagem"><?php echo $_SESSION['mensagem']; unset($_SESSION['mensagem']); ?></div>
+        <?php } ?>
+
         <table>
             <thead>
                 <tr>
@@ -93,7 +108,6 @@ switch ($tipoUsuario) {
                     <th>Telefone</th>
                     <th>Data Nascimento</th>
                     <th>Escolaridade</th>
-                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -106,16 +120,6 @@ switch ($tipoUsuario) {
                             <td><?php echo htmlspecialchars($garcom['telefone']); ?></td>
                             <td><?php echo date('d/m/Y', strtotime($garcom['data_nasc'])); ?></td>
                             <td><?php echo htmlspecialchars($garcom['escolaridade']); ?></td>
-                            <td class="actions">
-                                <a href="editar_gerente.php?id=<?php echo $garcom['id']; ?>" class="btn btn-primary">Editar</a>
-                                <form method="post" action="php/garcom.php" style="display: inline;">
-                                    <input type="hidden" name="id" value="<?php echo $garcom['id']; ?>">
-                                    <button type="submit" name="excluir_gerente" class="btn btn-warning" 
-                                            onclick="return confirm('Tem certeza que deseja excluir este garçom?')">
-                                        Excluir
-                                    </button>
-                                </form>
-                            </td>
                         </tr>
                         <!-- Linha adicional para informações extras se necessário -->
                         <tr>

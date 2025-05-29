@@ -1,6 +1,16 @@
 <?php
 require_once('conexao.php');
-
+session_start();
+$tiposAcesso = [1,2];
+$tipoUsuario = $_SESSION['usuario']['tipo'];
+switch ($tipoUsuario) {
+    case 1:
+        $arquivo = '../dashboard/admin.php';
+        break;
+    case 2:
+        $arquivo = '../dashboard/gerente.php';
+        break;
+}
 function CadastrarGarcom()
 {
     $conn = getConexao();
@@ -55,18 +65,35 @@ function CadastrarGarcom()
 }
 
 function VisualizarGarcom(){
-    session_start();
-    $conn = getConexao();
-    $sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade 
-        FROM usuario u 
-        JOIN garcom g 
-        ON u.id = g.user_id
-        WHERE u.tipo = 3"; // Tipo 3 = Garçom
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    $_SESSION['garcom'] = $stmt->fetchAll();
-    
-    header("Location: ../visualização/garcons.php");
+    $nome = strtoupper($_POST['nome'] ?? '');
+
+    if ($nome != '') {
+        session_start();
+        $conn = getConexao();
+        $sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade 
+            FROM usuario u 
+            JOIN garcom g 
+            ON u.id = g.user_id
+            WHERE u.tipo = 3 AND u.nome LIKE :nome" ; // Tipo 3 = Garçom
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':nome', "%$nome%");
+        $stmt->execute();
+        
+        $_SESSION['garcom'] = $stmt->fetchAll();
+        $_SESSION['mensagem'] = $stmt->rowCount() ? "" : "Nenhum garçom encontrado";
+    } else{
+        $conn = getConexao();
+        $sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade 
+            FROM usuario u 
+            JOIN garcom g 
+            ON u.id = g.user_id
+            WHERE u.tipo = 3"; // Tipo 3 = Garçom
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $_SESSION['garcom'] = $stmt->fetchAll();
+        
+    }
+    header('location: ../visualização/garcons.php'); 
     exit();
 }
 

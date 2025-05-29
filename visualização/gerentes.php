@@ -102,16 +102,15 @@ $filtro_ativo = isset($_GET['status']) ? $_GET['status'] : 'todos';
                     <th>Telefone</th>
                     <th>Data Nasc.</th>
                     <th>RG</th>
-                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (empty($gerentes)): ?>
+                <?php if (empty($gerentes)){ ?>
                     <tr>
                         <td colspan="7" style="text-align: center;">Nenhum gerente cadastrado</td>
                     </tr>
-                <?php else: ?>
-                    <?php foreach ($gerentes as $gerente): ?>
+                <?php }else{ ?>
+                    <?php foreach ($gerentes as $gerente){ ?>
                         <tr>
                             <td><?php echo htmlspecialchars($gerente['nome']); ?></td>
                             <td><?php echo htmlspecialchars($gerente['cpf']); ?></td>
@@ -119,35 +118,9 @@ $filtro_ativo = isset($_GET['status']) ? $_GET['status'] : 'todos';
                             <td><?php echo htmlspecialchars($gerente['telefone']); ?></td>
                             <td><?php echo date('d/m/Y', strtotime($gerente['data_nasc'])); ?></td>
                             <td><?php echo htmlspecialchars($gerente['rg']); ?></td>
-                            <td class="actions">
-                                <a href="editar_gerente.php?id=<?php echo $gerente['id']; ?>" class="btn btn-primary">Editar</a>
-                                <form method="post" action="php/gerente.php" style="display: inline;">
-                                    <input type="hidden" name="id" value="<?php echo $gerente['id']; ?>">
-                                    <button type="submit" name="excluir_gerente" class="btn btn-warning" 
-                                            onclick="return confirm('Tem certeza que deseja excluir este gerente?')">
-                                        Excluir
-                                    </button>
-                                </form>
-                            </td>
                         </tr>
-                        <!-- Linha adicional para informações extras se necessário -->
-                        <tr>
-                            <td colspan="7" style="padding: 0;">
-                                <div class="produtos-conta">
-                                    <strong>Informações Adicionais:</strong>
-                                    <div class="produto-item">
-                                        <span>Último Acesso:</span>
-                                        <span>12/05/2023</span> <!-- Substituir por dados reais -->
-                                    </div>
-                                    <div class="produto-item">
-                                        <span>Contas Gerenciadas:</span>
-                                        <span>15</span> <!-- Substituir por dados reais -->
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                    <?php } ?>
+                <?php } ?>
             </tbody>
         </table>
     </div>

@@ -8,13 +8,13 @@ if (!in_array($tipoUsuario, $tiposAcesso)) {
 }
 switch ($tipoUsuario) {
     case 1:
-        $arquivo = 'dashboard/admin.php';
+        $arquivo = '../dashboard/admin.php';
         break;
     case 2:
-        $arquivo = 'dashboard/gerente.php';
+        $arquivo = '../dashboard/gerente.php';
         break;
     case 3:
-        $arquivo = 'dashboard/garcom.php';
+        $arquivo = '../dashboard/garcom.php';
         break;
 }
 ?>

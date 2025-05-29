@@ -27,8 +27,8 @@ switch ($tipoUsuario) {
 </head>
 
 <body>
-    <div id="-logo-container">
-        <img src="../img/logo.png" alt="">
+    <div class="-logo-container">
+        <img src="../img/logo.png" alt="logo" class="logo-img">
     </div>
     <a href="<?php echo $arquivo?>" class="btn-voltar">Voltar</a>
 
@@ -40,33 +40,27 @@ switch ($tipoUsuario) {
                     <br>
                     
                     <label for="nome">Nome completo</label>
-                        <input type="text" id="nome" required name="nome" placeholder="Insira o nome completo"
-                               value="<?php echo isset($_POST['nome']) ? htmlspecialchars($_POST['nome']) : ''; ?>">
+                        <input type="text" id="nome" required name="nome" placeholder="Insira o nome completo">
                     <br>
                     
                     <label for="cpf">CPF</label>
-                        <input oninput="mascara(this)" type="text" id="cpf" required name="cpf" placeholder="Insira o CPF"
-                               value="<?php echo isset($_POST['cpf']) ? htmlspecialchars($_POST['cpf']) : ''; ?>">
+                        <input oninput="mascara(this)" type="text" id="cpf" required name="cpf" placeholder="Insira o CPF">
                     <br>
                     
                     <label for="email">E-mail</label>
-                        <input type="email" id="email" required name="email" placeholder="Insira o e-mail"
-                               value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
+                        <input type="email" id="email" required name="email" placeholder="Insira o e-mail">
                     <br>
                     
                     <label for="telefone">Telefone</label>
-                        <input type="tel" id="telefone" required name="telefone" placeholder="Insira o telefone"
-                               value="<?php echo isset($_POST['telefone']) ? htmlspecialchars($_POST['telefone']) : ''; ?>">
+                        <input type="tel" id="telefone" required name="telefone" placeholder="Insira o telefone">
                     <br>
                     
                     <label for="data_nasc">Data de nascimento</label>
-                        <input type="date" id="data_nasc" required name="data_nasc"
-                               value="<?php echo isset($_POST['data_nasc']) ? htmlspecialchars($_POST['data_nasc']) : ''; ?>">
+                        <input type="date" id="data_nasc" required name="data_nasc">
                     <br>
                     
                     <label for="escolaridade">Escolaridade</label>
-                        <input type="text" id="escolaridade" required name="escolaridade" placeholder="Insira a escolaridade"
-                               value="<?php echo isset($_POST['escolaridade']) ? htmlspecialchars($_POST['escolaridade']) : ''; ?>">
+                        <input type="text" id="escolaridade" required name="escolaridade" placeholder="Insira a escolaridade">
                     <br>
                     
                     <label for="senha">Senha</label>
