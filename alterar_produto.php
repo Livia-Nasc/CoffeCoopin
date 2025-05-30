@@ -31,7 +31,7 @@ $stmtProduto->execute([$id]);
 $produto = $stmtProduto->fetch();
 
 if (!$produto) {
-    header('Location: visualização/produto.php');
+    header('Location: visualização/produtos.php');
     exit();
 }
 
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoria_id']) && !i
     <div id="container">
         <div id="box">
             <div class="cadastro">
-                <form action="php/produto.php" method="post" class="form-container" id="formProduto">
+                <form action="../php/produto.php" method="post" class="form-container" id="formProduto">
                     <h2>ALTERAR PRODUTO</h2>
                     <br>
                     
@@ -137,9 +137,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoria_id']) && !i
                     <label for="porcao">Porção do produto</label>
                     <select name="porcao" id="porcao" required>
                         <option value="">Escolha</option>
-                        <option value="grande" <?php echo $porcao == 'grande' ? 'selected' : ''; ?>>Grande</option>
-                        <option value="media" <?php echo $porcao == 'media' ? 'selected' : ''; ?>>Média</option>
-                        <option value="pequena" <?php echo $porcao == 'pequena' ? 'selected' : ''; ?>>Pequena</option>
+                        <option value="Grande" <?php echo $porcao == 'Grande' ? 'selected' : ''; ?>>Grande</option>
+                        <option value="Media" <?php echo $porcao == 'Media' ? 'selected' : ''; ?>>Média</option>
+                        <option value="Pequena" <?php echo $porcao == 'Pequena' ? 'selected' : ''; ?>>Pequena</option>
                     </select>
                     
                     <br>
@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoria_id']) && !i
                     
                     <div id="btn">
                         <button type="submit" name="alterar" class="btn btn-primary">SALVAR</button>
-                        <a href="visualização/produto.php"><button type="button" class="btn btn-primary">CANCELAR</button></a>
+                        <a href="visualização/produtos.php"><button type="button" class="btn btn-primary">CANCELAR</button></a>
                     </div>
                 </form>
             </div>

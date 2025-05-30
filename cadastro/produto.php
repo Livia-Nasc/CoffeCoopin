@@ -15,7 +15,7 @@ switch ($tipoUsuario) {
         break;
 }
 
-require_once 'php/conexao.php';
+require_once '../php/conexao.php';
 $conn = getConexao();
 
 // Pegar todas as categorias
@@ -51,7 +51,7 @@ if ($categoriaSelecionada) {
     <div id="container">
         <div id="box">
             <div class="cadastro">
-                <form action="php/../produto.php" method="post" class="form-container" id="formProduto">
+                <form action="../php/produto.php" method="post" class="form-container" id="formProduto">
                     <h2>CADASTRAR PRODUTO</h2>
                     <br>
                     
@@ -101,29 +101,28 @@ if ($categoriaSelecionada) {
                                value="<?php echo isset($_POST['qtd_estoque']) ? htmlspecialchars($_POST['qtd_estoque']) : ''; ?>">
                     
                     <br>
+                     <?php if(isset($_SESSION['mensagem'])) { ?>
+                        <div class="mensagem-alerta">
+                            <?php 
+                                echo $_SESSION['mensagem'];
+                                unset($_SESSION['mensagem']); 
+                            ?>
+                        </div>
+                    <?php } ?>
                     
                     <div id="btn">
                         <button type="submit" name="cadastrar" class="btn btn-primary">ENVIAR</button>
-                        <a href="ver_produtos.php"><button type="button" class="btn btn-primary">Visualizar Produtos</button></a>
+                        <a href="../visualização/produtos.php"><button type="button" class="btn btn-primary">Visualizar Produtos</button></a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <?php if(isset($_SESSION['mensagem'])) { ?>
-        <div class="mensagem-alerta">
-            <?php 
-                echo $_SESSION['mensagem'];
-                unset($_SESSION['mensagem']); 
-            ?>
-        </div>
-    <?php } ?>
-
     <script>
         // Função mínima apenas para submeter o formulário quando a categoria muda
         document.getElementById('categoria').onchange = function() {
-            document.getElementById('formProduto').action = 'cadastro_produto.php';
+            document.getElementById('formProduto').action = 'produto.php';
             document.getElementById('formProduto').submit();
         };
     </script>

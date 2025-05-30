@@ -78,7 +78,7 @@ $garcom_id = $dadosUsuario['id'];
         <h2>Lista de Contas</h2>
         <form method="post">
             <button type="submit" name="visualizar" id="visualizar" class="btn btn-primary">Atualizar Lista de Contas</button>
-            <a href="abrir_conta.php" class="btn-voltar">Criar conta</a>
+            <a href="../abrir_conta.php" class="btn-voltar">Criar conta</a>
         </form>
         <table>
             <thead>

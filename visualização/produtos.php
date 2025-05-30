@@ -77,7 +77,7 @@ switch ($tipoUsuario) {
                         
                                 <?php if ($_SESSION['usuario']['tipo'] == 2) { ?>
                         <td>
-                            <form action="alterar_produto.php" method="post" style="display:inline;">
+                            <form action="../alterar_produto.php" method="post" style="display:inline;">
                                 <input type="hidden" name="id" value="<?php echo $produto['id']; ?>">
                                 <input type="hidden" name="nome" value="<?php echo htmlspecialchars($produto['nome']); ?>">
                                 <input type="hidden" name="preco" value="<?php echo $produto['preco']; ?>">
@@ -87,9 +87,13 @@ switch ($tipoUsuario) {
                                 <input type="hidden" name="qtd_estoque" value="<?php echo $produto['qtd_estoque']; ?>">
                                 <button type="submit" name="alterar" class="btn-alterar">Alterar</button>
                                 <input type="hidden" name="id" value="<?php echo $produto['id']; ?>">
-                                <button type="submit" name="excluir" class="btn btn-primary">Excluir</button>
-                                <?php } ?>
+                                
+                                
                             </form>
+                            <form action="../php/produto.php" method="post" style="display:inline;">
+                                <button type="submit" name="excluir" class="btn btn-primary">Excluir</button>
+                            </form>
+                            <?php } ?>
                         </td>
                     </tr>
                 <?php } ?>

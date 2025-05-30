@@ -118,8 +118,9 @@ body{
     
 }
 
-#logo-container{
-  margin-right: 50px;
+#-logo-container{
+    display: flex;
+    justify-content: center;
 }
 
 #btn .btn-warning{

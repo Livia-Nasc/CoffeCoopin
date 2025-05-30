@@ -64,7 +64,6 @@ $garcom_id = $dadosUsuario['id'];
     <div class="-logo-container">
         <img src="img/logo.png" alt="Logo" class="logo-img">
     </div>
-    <!-- Botão de Voltar -->
     <a href="<?php $arquivo?>" class="btn-voltar">Voltar</a>
 
     <div class="form-container">
