@@ -17,15 +17,10 @@ switch ($tipoUsuario) {
         break;
 }
 
-// Conexão com o banco de dados e consulta dos garçons
-require_once('php/conexao.php'); // Arquivo com a conexão PDO
-$garcons = [];
+require_once('php/conexao.php');
 $conn = getConexao();
 
-$sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade 
-        FROM usuario u 
-        JOIN garcom g 
-        ON u.id = g.user_id";
+$sql = "SELECT g.id, u.nome FROM usuario u JOIN garcom g ON u.id = g.user_id";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $garcons = $stmt->fetchAll();
@@ -40,9 +35,6 @@ $garcons = $stmt->fetchAll();
     <link rel="stylesheet" href="css/conta.css">
 
     <style>
-        body{
-            overflow: hidden;   
-        }
         button{
             padding: 12px 20px;
             margin: 5px 0;
@@ -105,30 +97,13 @@ $garcons = $stmt->fetchAll();
                     
                     <form action="php/gerente.php" method="post" id="comissaoForm">
                         <label for="garcom">Selecione um ou mais garçons</label>
-                        <select name="garcom_id[]" id="garcom" multiple required>
-                            <?php foreach ($garcons as $garcom): ?>
-                                <option value="<?php echo $garcom['id']; ?>"
-                                    <?php echo (isset($_SESSION['garcons_selecionados']) && in_array($garcom['id'], $_SESSION['garcons_selecionados'])) ? 'selected' : ''; ?>>
-                                    <?php echo htmlspecialchars($garcom['nome']); ?>
+                        <select name="garcom_ids[]" id="garcom" multiple required>
+                            <?php foreach ($garcons as $garcom){ ?>
+                                <option value="<?= $garcom['id'] ?>">
+                                    <?= htmlspecialchars($garcom['nome']) ?>
                                 </option>
-                            <?php endforeach; ?>
+                            <?php } ?>
                         </select>
-                        
-                        <div class="selected-garcons" id="selectedGarcons">
-                            <h4>Garçons selecionados:</h4>
-                            <?php if(isset($_SESSION['garcons_selecionados']) && is_array($_SESSION['garcons_selecionados'])): ?>
-                                <?php foreach($_SESSION['garcons_selecionados'] as $id): 
-                                    $garcom = array_filter($garcons, function($g) use ($id) { return $g['id'] == $id; });
-                                    if (!empty($garcom)) {
-                                        $garcom = reset($garcom);
-                                    ?>
-                                    <div class="selected-garcon">
-                                        <?php echo htmlspecialchars($garcom['nome']); ?>
-                                        <input type="hidden" name="garcom_id[]" value="<?php echo $id; ?>">
-                                    </div>
-                                <?php } endforeach; ?>
-                            <?php endif; ?>
-                        </div>
                         
                         <button type="submit" name="calcular_comissao" class="btn btn-primary">
                             Calcular Comissão
@@ -137,8 +112,12 @@ $garcons = $stmt->fetchAll();
                     
                     <div class="resultado-comissao">
                         <h3>Resultado:</h3>
-                        <p><?php echo $comissao; ?></p>
+                        <p><?= $comissao ?></p>
                     </div>
+                    
+                    <?php if(!empty($_SESSION['comissao'])){ ?>
+                        <a href="gerar_relatorio.php" class="btn btn-primary">Gerar Relatório</a>
+                    <?php } ?>
                 </div>
             </div>
         </div>

@@ -90,9 +90,9 @@ if ($categoriaSelecionada) {
                     <label for="porcao">Porção do produto</label>
                     <select name="porcao" id="porcao" required>
                         <option value="">Escolha</option>
-                        <option value="Grande" <?php echo isset($_POST['porcao']) && $_POST['porcao'] == 'grande' ? 'selected' : ''; ?>>Grande</option>
-                        <option value="Media" <?php echo isset($_POST['porcao']) && $_POST['porcao'] == 'media' ? 'selected' : ''; ?>>Média</option>
-                        <option value="Pequena" <?php echo isset($_POST['porcao']) && $_POST['porcao'] == 'pequena' ? 'selected' : ''; ?>>Pequena</option>
+                        <option value="Grande" <?php echo isset($_POST['porcao']) && $_POST['porcao'] == 'Grande' ? 'selected' : ''; ?>>Grande</option>
+                        <option value="Média" <?php echo isset($_POST['porcao']) && $_POST['porcao'] == 'Média' ? 'selected' : ''; ?>>Média</option>
+                        <option value="Pequena" <?php echo isset($_POST['porcao']) && $_POST['porcao'] == 'Pequena' ? 'selected' : ''; ?>>Pequena</option>
                     </select>
                     <br>
                     
@@ -123,7 +123,7 @@ if ($categoriaSelecionada) {
     <script>
         // Função mínima apenas para submeter o formulário quando a categoria muda
         document.getElementById('categoria').onchange = function() {
-            document.getElementById('formProduto').action = 'cadastro_produto.php';
+            document.getElementById('formProduto').action = 'produto.php';
             document.getElementById('formProduto').submit();
         };
     </script>

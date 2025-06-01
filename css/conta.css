@@ -114,7 +114,7 @@ input,input::placeholder, select {
     text-align: center;
 }
 input,select{
-    box-shadow: 5px 5px 5px var(--cor-principal);
+    box-shadow: 2px 1px 3px var(--cor-principal);
 }
 
 input:focus, select:focus {

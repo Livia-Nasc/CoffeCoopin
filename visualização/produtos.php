@@ -77,7 +77,7 @@ switch ($tipoUsuario) {
                         
                                 <?php if ($_SESSION['usuario']['tipo'] == 2) { ?>
                         <td>
-                            <form action="alterar_produto.php" method="post" style="display:inline;">
+                            <form action="../alterar_produto.php" method="post" style="display:inline;">
                                 <input type="hidden" name="id" value="<?php echo $produto['id']; ?>">
                                 <input type="hidden" name="nome" value="<?php echo htmlspecialchars($produto['nome']); ?>">
                                 <input type="hidden" name="preco" value="<?php echo $produto['preco']; ?>">

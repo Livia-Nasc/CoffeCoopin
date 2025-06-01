@@ -44,7 +44,7 @@ $stmt = $conn->prepare($sql_garcom);
 $stmt->bindParam(':user_id', $user_id);
 $stmt->execute();
 $dadosUsuario = $stmt->fetch();
-$garcom_id = $dadosUsuario['id'];
+$garcom_id = $dadosUsuario ? $dadosUsuario['id'] : null;
 
 
 ?>
@@ -93,7 +93,7 @@ $garcom_id = $dadosUsuario['id'];
             </thead>
             <tbody>
                 <?php
-                if (isset($_SESSION['conta'])) {
+                if (!empty($_SESSION['conta']) && is_array($_SESSION['conta'])) {
                     foreach ($_SESSION['conta'] as $conta) {
                         if ($filtro_status != 'todas' && $conta['status'] != $filtro_status) {
                             continue;
@@ -176,7 +176,9 @@ $garcom_id = $dadosUsuario['id'];
                         </tr>
                 <?php
                     }
-                }
+                } else {
+        echo '<tr><td colspan="6">Nenhuma conta encontrada</td></tr>';
+    }
                 ?>
             </tbody>
         </table>

@@ -6,7 +6,7 @@ function CadastrarProduto()
     session_start();
     $conn = getConexao();
     
-    $nome = strtoupper($_POST['nome']);
+    $nome = ucwords(strtolower($_POST['nome']));
     $preco = $_POST['preco'];
     $categoria_id = $_POST['categoria_id'];
     $subcategoria_id = isset($_POST['subcategoria_id']) ? $_POST['subcategoria_id'] : null;
@@ -56,7 +56,8 @@ function VisualizarProduto()
                 FROM produto p
                 JOIN categoria c ON p.categoria_id = c.id
                 LEFT JOIN subcategoria sc ON p.subcategoria_id = sc.id
-                WHERE p.nome LIKE :nome";
+                WHERE p.nome LIKE :nome
+                ORDER BY p.nome";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':nome', "%$nome%");
         $stmt->execute();
@@ -67,7 +68,8 @@ function VisualizarProduto()
         $sql = "SELECT p.id, p.nome, c.nome as categoria, sc.nome as subcategoria, p.preco, p.porcao, p.qtd_estoque 
                 FROM produto p
                 JOIN categoria c ON p.categoria_id = c.id
-                LEFT JOIN subcategoria sc ON p.subcategoria_id = sc.id";
+                LEFT JOIN subcategoria sc ON p.subcategoria_id = sc.id
+                ORDER BY p.nome";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $_SESSION['produto'] = $stmt->fetchAll();
@@ -155,7 +157,7 @@ function AlterarProduto()
     } else {
         $_SESSION['mensagem'] = "Erro ao atualizar produto!";
     }
-    header('Location: ../visualização/produto.php');
+    header('Location: ../visualização/produtos.php');
     exit();
 }
 

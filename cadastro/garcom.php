@@ -60,7 +60,18 @@ switch ($tipoUsuario) {
                     <br>
                     
                     <label for="escolaridade">Escolaridade</label>
-                        <input type="text" id="escolaridade" required name="escolaridade" placeholder="Insira a escolaridade">
+                        <select id="escolaridade" required name="escolaridade">
+                            <option value="">Selecione a escolaridade</option>
+                            <option value="Ensino Fundamental Incompleto">Ensino Fundamental Incompleto</option>
+                            <option value="Ensino Fundamental Completo">Ensino Fundamental Completo</option>
+                            <option value="Ensino Médio Incompleto">Ensino Médio Incompleto</option>
+                            <option value="Ensino Médio Completo">Ensino Médio Completo</option>
+                            <option value="Ensino Superior Incompleto">Ensino Superior Incompleto</option>
+                            <option value="Ensino Superior Completo">Ensino Superior Completo</option>
+                            <option value="Pós-graduação">Pós-graduação</option>
+                            <option value="Mestrado">Mestrado</option>
+                            <option value="Doutorado">Doutorado</option>
+                        </select>
                     <br>
                     
                     <label for="senha">Senha</label>
