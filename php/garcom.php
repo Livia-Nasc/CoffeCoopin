@@ -1,6 +1,7 @@
 <?php
 require_once('conexao.php');
 session_start();
+
 $tiposAcesso = [1,2];
 $tipoUsuario = $_SESSION['usuario']['tipo'];
 switch ($tipoUsuario) {
@@ -11,8 +12,8 @@ switch ($tipoUsuario) {
         $arquivo = '../dashboard/gerente.php';
         break;
 }
-function CadastrarGarcom()
-{
+
+function CadastrarGarcom() {
     $conn = getConexao();
 
     $nome = $_POST['nome'];
@@ -23,16 +24,16 @@ function CadastrarGarcom()
     $cpf = $_POST['cpf'];
     $escolaridade = $_POST['escolaridade'];
 
-    $sql = 'SELECT * FROM usuario WHERE cpf = :cpf OR email = :email'; // ! Seleciona dados usando o CPF e o email do usuário a ser cadastrado
+    $sql = 'SELECT * FROM usuario WHERE cpf = :cpf OR email = :email';
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':cpf', $cpf);
     $stmt->execute();
 
-    if ($stmt->rowcount() == 0) { // ! Verifica se o CPF e o e-mail não estão registrados
-
+    if ($stmt->rowCount() == 0) {
         $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-        $cadastro = 'INSERT INTO usuario(nome, telefone, data_nasc, email, senha, cpf, tipo) VALUES( :nome, :telefone, :data_nasc,:email, :senha, :cpf, 3)'; // ! Insere dados passados no formulário contido na página cadastro.php na tabela usuario
+        $cadastro = 'INSERT INTO usuario(nome, telefone, data_nasc, email, senha, cpf, tipo) 
+                     VALUES(:nome, :telefone, :data_nasc, :email, :senha, :cpf, 3)';
         $stmt = $conn->prepare($cadastro);
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':telefone', $telefone);
@@ -44,59 +45,58 @@ function CadastrarGarcom()
         if ($stmt->execute()) {
             $user_id = $conn->lastInsertId();
 
-            // ! Insere os dados na tabela gerente
             $cadastroGarcom = 'INSERT INTO garcom(escolaridade, user_id) VALUES(:escolaridade, :user_id)';
             $stmt = $conn->prepare($cadastroGarcom);
             $stmt->bindParam(':escolaridade', $escolaridade);
             $stmt->bindParam(':user_id', $user_id);
+            
             if ($stmt->execute()) {
-                header('location: ../dashboard/gerente.php'); // ! Vai para a página de login
+                header('location: ../cadastro/garcom.php');
                 exit();
-            } else {
-                echo "Erro ao cadastrar usuário.";
             }
         }
+        echo "Erro ao cadastrar usuário.";
     } else {
         echo "<script type='text/javascript'>
-                    alert('Informações já existentes');  // ! Se o CPF e o e-mail já existirem, exibe mensagem de erro na página cadastro.php
-                    window.location='../cadastro/cadastro.php';
-                  </script>";
+                alert('Informações já existentes');
+                window.location='../cadastro/cadastro.php';
+              </script>";
     }
 }
 
-function VisualizarGarcom(){
+function VisualizarGarcom() {
     $nome = strtoupper($_POST['nome'] ?? '');
+    $conn = getConexao();
 
-    if ($nome != '') {
-        session_start();
-        $conn = getConexao();
-        $sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade 
+    $sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade, 
+            (SELECT COUNT(*) FROM conta WHERE garcom_id = g.id) as contas_gerenciadas
             FROM usuario u 
-            JOIN garcom g 
-            ON u.id = g.user_id
-            WHERE u.tipo = 3 AND u.nome LIKE :nome" ; // Tipo 3 = Garçom
-        $stmt = $conn->prepare($sql);
-        $stmt->bindValue(':nome', "%$nome%");
-        $stmt->execute();
-        
-        $_SESSION['garcom'] = $stmt->fetchAll();
-        $_SESSION['mensagem'] = $stmt->rowCount() ? "" : "Nenhum garçom encontrado";
-    } else{
-        $conn = getConexao();
-        $sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade 
-            FROM usuario u 
-            JOIN garcom g 
-            ON u.id = g.user_id
-            WHERE u.tipo = 3"; // Tipo 3 = Garçom
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $_SESSION['garcom'] = $stmt->fetchAll();
-        
+            JOIN garcom g ON u.id = g.user_id
+            WHERE u.tipo = 3";  // Tipo 3 = Garçom
+
+    // Adiciona filtro por nome se fornecido
+    if (!empty($nome)) {
+        $sql .= " AND UPPER(u.nome) LIKE :nome";
     }
+
+    $sql .= " ORDER BY u.nome";
+
+    $stmt = $conn->prepare($sql);
+    
+    if (!empty($nome)) {
+        $stmt->bindValue(':nome', "%$nome%");
+    }
+    
+    $stmt->execute();
+    
+    $_SESSION['garcom'] = $stmt->fetchAll();
+    $_SESSION['mensagem'] = $stmt->rowCount() ? "" : "Nenhum garçom encontrado";
+    
     header('location: ../visualização/garcons.php'); 
     exit();
 }
 
+// Processamento das ações
 if (isset($_POST['cadastrar_garcom'])) {
     CadastrarGarcom();
 }
@@ -104,4 +104,3 @@ if (isset($_POST['cadastrar_garcom'])) {
 if (isset($_POST['visualizar'])) {
     VisualizarGarcom();
 }
-?>

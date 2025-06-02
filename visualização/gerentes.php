@@ -78,15 +78,6 @@ $filtro_ativo = isset($_GET['status']) ? $_GET['status'] : 'todos';
         <img src="../img/logo.png" alt="Logo">
     </div>
     <a href="../dashboard/admin.php" class="btn-voltar">Voltar</a>
-
-    <div class="filtro-container">
-        <h3>Filtrar Gerentes</h3>
-        <div>
-            <a href="?status=todos" class="filtro-btn <?php echo $filtro_ativo == 'todos' ? 'active' : ''; ?>">Todos</a>
-            <a href="?status=ativo" class="filtro-btn <?php echo $filtro_ativo == 'ativo' ? 'active' : ''; ?>">Ativos</a>
-            <a href="?status=inativo" class="filtro-btn <?php echo $filtro_ativo == 'inativo' ? 'active' : ''; ?>">Inativos</a>
-        </div>
-    </div>
     
     <div id="produtos">
         <h2>Lista de Gerentes</h2>

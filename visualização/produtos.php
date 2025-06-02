@@ -49,10 +49,6 @@ switch ($tipoUsuario) {
             <button type="submit" name="visualizar" id="visualizar">Visualizar produtos</button>
         </form>
 
-        <?php if(isset($_SESSION['mensagem'])) { ?>
-            <div class="mensagem"><?php echo $_SESSION['mensagem']; unset($_SESSION['mensagem']); ?></div>
-        <?php } ?>
-
         <table>
             <tr>
                 <th>Nome</th>

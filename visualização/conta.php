@@ -2,6 +2,7 @@
 require_once('../php/conexao.php');
 session_start();
 
+// Verifica se o usuário está logado e é do tipo 3 (garçom)
 $tiposAcesso = [1,3];
 $tipoUsuario = $_SESSION['usuario']['tipo'];
 if (!in_array($tipoUsuario, $tiposAcesso)) {
@@ -44,7 +45,7 @@ $stmt = $conn->prepare($sql_garcom);
 $stmt->bindParam(':user_id', $user_id);
 $stmt->execute();
 $dadosUsuario = $stmt->fetch();
-$garcom_id = $dadosUsuario['id'];
+$garcom_id = $dadosUsuario ? $dadosUsuario['id'] : null;
 
 
 ?>
@@ -93,7 +94,7 @@ $garcom_id = $dadosUsuario['id'];
             </thead>
             <tbody>
                 <?php
-                if (isset($_SESSION['conta'])) {
+                if (isset($_SESSION['conta']) && !empty($_SESSION['conta'])) {
                     foreach ($_SESSION['conta'] as $conta) {
                         if ($filtro_status != 'todas' && $conta['status'] != $filtro_status) {
                             continue;
@@ -122,7 +123,7 @@ $garcom_id = $dadosUsuario['id'];
                             <td><?php echo $id; ?></td>
                             <td>
                                 <?php if ($status == 'aberta') { ?>
-                                    <form method="post" action="php/conta.php" style="display: inline;">
+                                    <form method="post" action="../php/conta.php" style="display: inline;">
                                         <input type="hidden" name="conta_id" value="<?php echo $id; ?>">
                                         <button type="submit" name="fechar_conta" class="btn btn-warning">Fechar Conta</button>
                                     </form>
@@ -174,10 +175,12 @@ $garcom_id = $dadosUsuario['id'];
                                 </div>
                             </td>
                         </tr>
-                <?php
-                    }
-                }
-                ?>
+                <?php }
+            } else { ?>
+                <tr>
+                    <td colspan="7">Nenhum produto cadastrado</td>
+                </tr>
+            <?php } ?>
             </tbody>
         </table>
     </div>

@@ -138,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoria_id']) && !i
                     <select name="porcao" id="porcao" required>
                         <option value="">Escolha</option>
                         <option value="Grande" <?php echo $porcao == 'Grande' ? 'selected' : ''; ?>>Grande</option>
-                        <option value="Media" <?php echo $porcao == 'Media' ? 'selected' : ''; ?>>Média</option>
+                        <option value="Média" <?php echo $porcao == 'Média' ? 'selected' : ''; ?>>Média</option>
                         <option value="Pequena" <?php echo $porcao == 'Pequena' ? 'selected' : ''; ?>>Pequena</option>
                     </select>
                     

@@ -118,9 +118,13 @@ body{
     
 }
 
-#-logo-container{
+.-logo-container{
     display: flex;
+    align-items: center;
+    align-self: center;
     justify-content: center;
+    justify-self: center;
+    width: 100vw;
 }
 
 #btn .btn-warning{

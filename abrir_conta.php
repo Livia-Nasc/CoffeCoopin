@@ -6,7 +6,7 @@ session_start();
 $tiposAcesso = [1,3];
 $tipoUsuario = $_SESSION['usuario']['tipo'];
 if (!in_array($tipoUsuario, $tiposAcesso)) {
-    header('location:login.php');
+    header('location:../login.php');
     exit();
 }
 switch ($tipoUsuario) {
@@ -64,7 +64,8 @@ $garcom_id = $dadosUsuario['id'];
     <div class="-logo-container">
         <img src="img/logo.png" alt="Logo" class="logo-img">
     </div>
-    <a href="<?php $arquivo?>" class="btn-voltar">Voltar</a>
+    <!-- Botão de Voltar -->
+    <a href="<?php echo $arquivo?>" class="btn-voltar">Voltar</a>
 
     <div class="form-container">
         <h2>Abrir Nova Conta</h2>

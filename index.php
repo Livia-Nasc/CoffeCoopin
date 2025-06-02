@@ -90,7 +90,9 @@
             <p id="texto-p">Nossos salgados são preparados com ingredientes frescos e de qualidade, garantindo <span class="highlight">sabores autênticos e irresistíveis</span>. Oferecemos opções tradicionais e criativas, todas feitas com <span class="highlight">cuidado e dedicação</span>, em um ambiente acolhedor e cheio de personalidade.</p>
           </div>
           <div class="image-content">
-            <img src="img/salgados.png" alt="Salgado">
+            <a href="salgados.php">
+              <img src="img/salgados.png" alt="Salgado">
+            </a>
           </div>
         </div>
       </div>

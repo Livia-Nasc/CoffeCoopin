@@ -18,15 +18,6 @@ switch ($tipoUsuario) {
 }
 
 $conn = getConexao();
-$sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade 
-    FROM usuario u 
-    JOIN garcom g 
-    ON u.id = g.user_id
-    WHERE u.tipo = 3"; // Tipo 3 = Garçom
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-$_SESSION['garcom'] = $stmt->fetchAll();
-
 ?>
 
 <!DOCTYPE html>
@@ -86,16 +77,18 @@ $_SESSION['garcom'] = $stmt->fetchAll();
     
     <div id="produtos">
         <h2>Lista de Garçons</h2>
+        
         <div style="margin-bottom: 20px;">
             <a href="../cadastro/garcom.php" class="btn btn-primary">Cadastrar novo garçom</a>
         </div>
+
         <form action="../php/garcom.php" method="post">
             <label for="nome">Pesquisar garçom</label> 
             <input type="text" name="nome" placeholder="Insira o nome do garçom" id="nome">
             <button type="submit" name="visualizar" id="visualizar">Visualizar garcom</button>
         </form>
         
-         <?php if(isset($_SESSION['mensagem'])) { ?>
+        <?php if(isset($_SESSION['mensagem'])) { ?>
             <div class="mensagem"><?php echo $_SESSION['mensagem']; unset($_SESSION['mensagem']); ?></div>
         <?php } ?>
 
@@ -121,18 +114,27 @@ $_SESSION['garcom'] = $stmt->fetchAll();
                             <td><?php echo date('d/m/Y', strtotime($garcom['data_nasc'])); ?></td>
                             <td><?php echo htmlspecialchars($garcom['escolaridade']); ?></td>
                         </tr>
-                        <!-- Linha adicional para informações extras se necessário -->
                         <tr>
                             <td colspan="7" style="padding: 0;">
                                 <div class="produtos-conta">
                                     <strong>Informações Adicionais:</strong>
                                     <div class="produto-item">
-                                        <span>Último Acesso:</span>
-                                        <span>12/05/2023</span> <!-- Substituir por dados reais -->
+                                        <span>Contas Gerenciadas:</span>
+                                        <span><?php echo $garcom['contas_gerenciadas']; ?></span>
                                     </div>
                                     <div class="produto-item">
-                                        <span>Contas Gerenciadas:</span>
-                                        <span>15</span> <!-- Substituir por dados reais -->
+                                        <span>Total em Vendas:</span>
+                                        <span>R$ <?php 
+                                            // Query to get total sales
+                                            $sql_vendas = "SELECT SUM(valor_total) as total_vendas 
+                                                          FROM conta 
+                                                          WHERE garcom_id = :garcom_id";
+                                            $stmt_vendas = $conn->prepare($sql_vendas);
+                                            $stmt_vendas->bindParam(':garcom_id', $garcom['id']);
+                                            $stmt_vendas->execute();
+                                            $total_vendas = $stmt_vendas->fetch();
+                                            echo number_format($total_vendas['total_vendas'] ?? 0, 2, ',', '.');
+                                        ?></span>
                                     </div>
                                 </div>
                             </td>

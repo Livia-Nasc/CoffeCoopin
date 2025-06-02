@@ -58,7 +58,7 @@
                         <a href="../cadastro/produto.php" class="btn btn-primary">Novo Produto</a>
                         <a href="../visualização/produtos.php" class="btn btn-primary">Ver Produto</a>
                         <a href="../calcular_comissao.php" class="btn btn-primary" <?php unset($_SESSION['comissao']);?>>Calcular Comissão</a>
-                        <a href="../gerar_relatorio.php" class="btn btn-primary">Gerar Relatório</a>
+                        
                     </div>
                     
                     <form action="../php/usuario.php" method="post" style="margin-top: 30px; text-align: center;">
