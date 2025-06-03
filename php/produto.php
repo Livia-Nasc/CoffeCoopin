@@ -41,7 +41,7 @@ function CadastrarProduto()
     } else {
         $_SESSION['mensagem'] = "Categoria não selecionada";
     }
-    header('Location: ../cadastro/produto.php');
+    header("Location: ../visualização/produtos.php");
     exit();
 }
 

@@ -18,14 +18,6 @@ switch ($tipoUsuario) {
 }
 
 $conn = getConexao();
-$sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade, 
-        (SELECT COUNT(*) FROM conta WHERE garcom_id = u.id) as contas_gerenciadas
-        FROM usuario u 
-        JOIN garcom g ON u.id = g.user_id
-        WHERE u.tipo = 3"; // Tipo 3 = Garçom
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-$_SESSION['garcom'] = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +25,7 @@ $_SESSION['garcom'] = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualizar Gerentes</title>
+    <title>Visualizar Garçons</title>
     <link rel="stylesheet" href="../css/cadastro_produto.css">
     <style>
         .actions {
@@ -128,12 +120,12 @@ $_SESSION['garcom'] = $stmt->fetchAll();
                                     <strong>Informações Adicionais:</strong>
                                     <div class="produto-item">
                                         <span>Contas Gerenciadas:</span>
-                                        <span><?php echo $garcom['contas_gerenciadas']; ?></span>
+                                        <span><?php echo isset($garcom['contas_gerenciadas']) ? $garcom['contas_gerenciadas'] : '0';?>
                                     </div>
                                     <div class="produto-item">
                                         <span>Total em Vendas:</span>
                                         <span>R$ <?php 
-                                            // Query to get total sales
+                                            // Query para calcular o total de vendas do garçom
                                             $sql_vendas = "SELECT SUM(valor_total) as total_vendas 
                                                           FROM conta 
                                                           WHERE garcom_id = :garcom_id";

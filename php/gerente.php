@@ -41,7 +41,7 @@ function CadastrarGerente()
             $stmt->bindParam(':rg', $rg);
             $stmt->bindParam(':user_id', $user_id);
             if ($stmt->execute()) {
-                header('location: ../dashboard/admin.php'); // ! Vai para a página de login
+                header('location: ../cadastro/gerente.php'); // ! Vai para a página de login
                 exit();
             } else {
                 echo "Erro ao cadastrar usuário.";
@@ -50,9 +50,41 @@ function CadastrarGerente()
     } else {
         echo "<script type='text/javascript'>
                         alert('Informações já existentes');  // ! Se o CPF e o e-mail já existirem, exibe mensagem de erro na página cadastro.php
-                        window.location='../cadastro/cadastro.php';
+                        window.location='../cadastro/gerente.php';
                       </script>";
     }
+}
+
+function VisualizarGerente(){
+    $nome = strtoupper($_POST['nome'] ?? '');
+
+    if ($nome != '') {
+        session_start();
+        $conn = getConexao();
+        $sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.rg
+            FROM usuario u 
+            JOIN gerente g 
+            ON u.id = g.user_id
+            WHERE u.nome LIKE :nome" ;
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':nome', "%$nome%");
+        $stmt->execute();
+        
+        $_SESSION['gerente'] = $stmt->fetchAll();
+        $_SESSION['mensagem'] = $stmt->rowCount() ? "" : "Nenhum gerente encontrado";
+    } else{
+        $conn = getConexao();
+        $sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.rg 
+            FROM usuario u 
+            JOIN gerente g 
+            ON u.id = g.user_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $_SESSION['gerente'] = $stmt->fetchAll();
+        
+    }
+    header('location: ../visualização/gerentes.php'); 
+    exit();
 }
 
 function CalcularComissao() {
@@ -141,6 +173,10 @@ function CalcularComissao() {
 
 if (isset($_POST['calcular_comissao'])) {
     CalcularComissao();
+}
+
+if (isset($_POST['visualizar'])) {
+    VisualizarGerente();
 }
 
     if (isset($_POST['cadastrar_gerente'])) {

@@ -50,7 +50,7 @@ function CadastrarGarcom()
             $stmt->bindParam(':escolaridade', $escolaridade);
             $stmt->bindParam(':user_id', $user_id);
             if ($stmt->execute()) {
-                header('location: ../dashboard/gerente.php'); // ! Vai para a página de login
+                header('location: ../visualização/garcons.php'); // ! Vai para a página de login
                 exit();
             } else {
                 echo "Erro ao cadastrar usuário.";
@@ -59,7 +59,7 @@ function CadastrarGarcom()
     } else {
         echo "<script type='text/javascript'>
                     alert('Informações já existentes');  // ! Se o CPF e o e-mail já existirem, exibe mensagem de erro na página cadastro.php
-                    window.location='../cadastro/cadastro.php';
+                    window.location='../cadastro/garcom.php';
                   </script>";
     }
 }
@@ -74,7 +74,7 @@ function VisualizarGarcom(){
             FROM usuario u 
             JOIN garcom g 
             ON u.id = g.user_id
-            WHERE u.tipo = 3 AND u.nome LIKE :nome" ; // Tipo 3 = Garçom
+            WHERE u.nome LIKE :nome" ; // Tipo 3 = Garçom
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':nome', "%$nome%");
         $stmt->execute();

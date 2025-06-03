@@ -65,7 +65,7 @@ $garcom_id = $dadosUsuario['id'];
         <img src="img/logo.png" alt="Logo" class="logo-img">
     </div>
     <!-- Botão de Voltar -->
-    <a href="<?php $arquivo?>" class="btn-voltar">Voltar</a>
+    <a href="<?php echo $arquivo?>" class="btn-voltar">Voltar</a>
 
     <div class="form-container">
         <h2>Abrir Nova Conta</h2>

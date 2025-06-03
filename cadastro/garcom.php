@@ -80,7 +80,7 @@ switch ($tipoUsuario) {
                     
                     <div id="btn">
                         <button type="submit" name="cadastrar_garcom" class="btn btn-primary">ENVIAR</button>
-                        <a href="../visualizaçao/garcons.php"><button type="button" class="btn btn-primary">Visualizar Garçons</button></a>
+                        <a href="../visualização/garcons.php"><button type="button" class="btn btn-primary">Visualizar Garçons</button></a>
                     </div>
                 </form>
             </div>

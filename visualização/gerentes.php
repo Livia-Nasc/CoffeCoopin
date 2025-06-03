@@ -2,26 +2,19 @@
 require_once('../php/conexao.php');
 session_start();
 
-// Verifica se o usuário está logado e é admin (tipo 1)
-if ($_SESSION['usuario']['tipo'] != 1) {
+$tiposAcesso = [1];
+$tipoUsuario = $_SESSION['usuario']['tipo'];
+if (!in_array($tipoUsuario, $tiposAcesso)) {
     header('location:../login.php');
     exit();
 }
+switch ($tipoUsuario) {
+    case 1:
+        $arquivo = '../dashboard/admin.php';
+        break;
+}
 
 $conn = getConexao();
-
-// Busca todos os gerentes
-$sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.rg 
-        FROM usuario u
-        JOIN gerente g ON u.id = g.user_id
-        WHERE u.tipo = 2"; // Tipo 2 = Gerente
-
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-$gerentes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Definir filtro padrão (se necessário)
-$filtro_ativo = isset($_GET['status']) ? $_GET['status'] : 'todos';
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +23,7 @@ $filtro_ativo = isset($_GET['status']) ? $_GET['status'] : 'todos';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualizar Gerentes</title>
-    <link rel="stylesheet" href="../css/conta.css">
+    <link rel="stylesheet" href="../css/cadastro_produto.css">
     <style>
         .actions {
             display: flex;
@@ -77,13 +70,25 @@ $filtro_ativo = isset($_GET['status']) ? $_GET['status'] : 'todos';
     <div class="logo-container">
         <img src="../img/logo.png" alt="Logo">
     </div>
-    <a href="../dashboard/admin.php" class="btn-voltar">Voltar</a>
+    <a href="<?php echo $arquivo?>" class="btn-voltar">Voltar</a>
     
     <div id="produtos">
         <h2>Lista de Gerentes</h2>
+        
         <div style="margin-bottom: 20px;">
             <a href="../cadastro/gerente.php" class="btn btn-primary">Cadastrar Novo Gerente</a>
         </div>
+
+        <form action="../php/gerente.php" method="post">
+            <label for="nome">Pesquisar gerente</label> 
+            <input type="text" name="nome" placeholder="Insira o nome do gerente" id="nome">
+            <button type="submit" name="visualizar" id="visualizar">Visualizar gerente</button>
+        </form>
+        
+        <?php if(isset($_SESSION['mensagem'])) { ?>
+            <div class="mensagem"><?php echo $_SESSION['mensagem']; unset($_SESSION['mensagem']); ?></div>
+        <?php } ?>
+
         <table>
             <thead>
                 <tr>
@@ -91,48 +96,34 @@ $filtro_ativo = isset($_GET['status']) ? $_GET['status'] : 'todos';
                     <th>CPF</th>
                     <th>E-mail</th>
                     <th>Telefone</th>
-                    <th>Data Nasc.</th>
+                    <th>Data Nascimento</th>
                     <th>RG</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (empty($gerentes)){ ?>
-                    <tr>
-                        <td colspan="7" style="text-align: center;">Nenhum gerente cadastrado</td>
-                    </tr>
-                <?php }else{ ?>
-                    <?php foreach ($gerentes as $gerente){ ?>
+                <?php if(isset($_SESSION['gerente']) && !empty($_SESSION['gerente'])) { ?>
+                    <?php foreach($_SESSION['gerente'] as $gerente){ ?>
                         <tr>
                             <td><?php echo htmlspecialchars($gerente['nome']); ?></td>
-                            <td><?php echo htmlspecialchars($gerente['cpf']); ?></td>
+                            <td class="cpf"><?php echo htmlspecialchars($gerente['cpf']); ?></td>
                             <td><?php echo htmlspecialchars($gerente['email']); ?></td>
                             <td><?php echo htmlspecialchars($gerente['telefone']); ?></td>
                             <td><?php echo date('d/m/Y', strtotime($gerente['data_nasc'])); ?></td>
                             <td><?php echo htmlspecialchars($gerente['rg']); ?></td>
                         </tr>
                     <?php } ?>
+                <?php } else { ?>
+                    <tr>
+                        <td colspan="7" style="text-align: center;">Nenhum gerente cadastrado</td>
+                    </tr>
                 <?php } ?>
             </tbody>
         </table>
     </div>
 
-    <?php if(isset($_SESSION['mensagem'])): ?>
-        <div class="mensagem-alerta">
-            <?php 
-                echo $_SESSION['mensagem'];
-                unset($_SESSION['mensagem']); 
-            ?>
-        </div>
-    <?php endif; ?>
-
     <script>
-        // Confirmação antes de excluir
-        document.querySelectorAll('.btn-warning').forEach(button => {
-            button.addEventListener('click', function(e) {
-                if (!confirm('Tem certeza que deseja excluir este gerente?')) {
-                    e.preventDefault();
-                }
-            });
+        $(document).ready(function () {
+            $(".cpf").mask("000.000.000-00");
         });
     </script>
 </body>

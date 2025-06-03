@@ -15,12 +15,12 @@ switch ($tipoUsuario) {
         break;
 }
 
-require_once 'php/conexao.php';
+require_once '../php/conexao.php';
 $conn = getConexao();
 
 // Pegar todas as categorias
 $stmtCategorias = $conn->query("SELECT id, nome FROM categoria");
-$categorias = $stmtCategorias->fetchAll(PDO::FETCH_ASSOC);
+$categorias = $stmtCategorias->fetchAll();
 
 $categoriaSelecionada = isset($_POST['categoria_id']) ? $_POST['categoria_id'] : (isset($_GET['categoria_id']) ? $_GET['categoria_id'] : null);
 
@@ -51,7 +51,7 @@ if ($categoriaSelecionada) {
     <div id="container">
         <div id="box">
             <div class="cadastro">
-                <form action="php/../produto.php" method="post" class="form-container" id="formProduto">
+                <form action="../php/produto.php" method="post" class="form-container" id="formProduto">
                     <h2>CADASTRAR PRODUTO</h2>
                     <br>
                     
@@ -104,7 +104,7 @@ if ($categoriaSelecionada) {
                     
                     <div id="btn">
                         <button type="submit" name="cadastrar" class="btn btn-primary">ENVIAR</button>
-                        <a href="ver_produtos.php"><button type="button" class="btn btn-primary">Visualizar Produtos</button></a>
+                        <a href="../visualização/produtos.php"><button type="button" class="btn btn-primary">Visualizar Produtos</button></a>
                     </div>
                 </form>
             </div>
