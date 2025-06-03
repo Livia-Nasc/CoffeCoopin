@@ -2,6 +2,7 @@
 require_once('../php/conexao.php');
 session_start();
 
+// Verifica se o usuário está logado e é do tipo 3 (garçom)
 $tiposAcesso = [1,3];
 $tipoUsuario = $_SESSION['usuario']['tipo'];
 if (!in_array($tipoUsuario, $tiposAcesso)) {
@@ -78,7 +79,7 @@ $garcom_id = $dadosUsuario ? $dadosUsuario['id'] : null;
         <h2>Lista de Contas</h2>
         <form method="post">
             <button type="submit" name="visualizar" id="visualizar" class="btn btn-primary">Atualizar Lista de Contas</button>
-            <a href="abrir_conta.php" class="btn-voltar">Criar conta</a>
+            <a href="../abrir_conta.php" class="btn-voltar">Criar conta</a>
         </form>
         <table>
             <thead>
@@ -93,7 +94,7 @@ $garcom_id = $dadosUsuario ? $dadosUsuario['id'] : null;
             </thead>
             <tbody>
                 <?php
-                if (!empty($_SESSION['conta']) && is_array($_SESSION['conta'])) {
+                if (isset($_SESSION['conta']) && !empty($_SESSION['conta'])) {
                     foreach ($_SESSION['conta'] as $conta) {
                         if ($filtro_status != 'todas' && $conta['status'] != $filtro_status) {
                             continue;
@@ -122,7 +123,7 @@ $garcom_id = $dadosUsuario ? $dadosUsuario['id'] : null;
                             <td><?php echo $id; ?></td>
                             <td>
                                 <?php if ($status == 'aberta') { ?>
-                                    <form method="post" action="php/conta.php" style="display: inline;">
+                                    <form method="post" action="../php/conta.php" style="display: inline;">
                                         <input type="hidden" name="conta_id" value="<?php echo $id; ?>">
                                         <button type="submit" name="fechar_conta" class="btn btn-warning">Fechar Conta</button>
                                     </form>
@@ -174,12 +175,12 @@ $garcom_id = $dadosUsuario ? $dadosUsuario['id'] : null;
                                 </div>
                             </td>
                         </tr>
-                <?php
-                    }
-                } else {
-        echo '<tr><td colspan="6">Nenhuma conta encontrada</td></tr>';
-    }
-                ?>
+                <?php }
+            } else { ?>
+                <tr>
+                    <td colspan="7">Nenhum produto cadastrado</td>
+                </tr>
+            <?php } ?>
             </tbody>
         </table>
     </div>

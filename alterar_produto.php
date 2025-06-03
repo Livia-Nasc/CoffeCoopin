@@ -31,7 +31,7 @@ $stmtProduto->execute([$id]);
 $produto = $stmtProduto->fetch();
 
 if (!$produto) {
-    header('Location: visualização/produto.php');
+    header('Location: visualização/produtos.php');
     exit();
 }
 
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoria_id']) && !i
     <div id="container">
         <div id="box">
             <div class="cadastro">
-                <form action="php/produto.php" method="post" class="form-container" id="formProduto">
+                <form action="../php/produto.php" method="post" class="form-container" id="formProduto">
                     <h2>ALTERAR PRODUTO</h2>
                     <br>
                     

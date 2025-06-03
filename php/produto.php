@@ -109,7 +109,7 @@ function ExcluirProduto()
     } else {
         $_SESSION['mensagem'] = "Erro ao excluir produto!";
     }
-    header('Location: ../visualização/produto.php');
+    header('Location: ../visualização/produtos.php');
     exit();
 }
 

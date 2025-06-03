@@ -101,6 +101,14 @@ if ($categoriaSelecionada) {
                                value="<?php echo isset($_POST['qtd_estoque']) ? htmlspecialchars($_POST['qtd_estoque']) : ''; ?>">
                     
                     <br>
+                     <?php if(isset($_SESSION['mensagem'])) { ?>
+                        <div class="mensagem-alerta">
+                            <?php 
+                                echo $_SESSION['mensagem'];
+                                unset($_SESSION['mensagem']); 
+                            ?>
+                        </div>
+                    <?php } ?>
                     
                     <div id="btn">
                         <button type="submit" name="cadastrar" class="btn btn-primary">ENVIAR</button>
@@ -110,15 +118,6 @@ if ($categoriaSelecionada) {
             </div>
         </div>
     </div>
-
-    <?php if(isset($_SESSION['mensagem'])) { ?>
-        <div class="mensagem-alerta">
-            <?php 
-                echo $_SESSION['mensagem'];
-                unset($_SESSION['mensagem']); 
-            ?>
-        </div>
-    <?php } ?>
 
     <script>
         // Função mínima apenas para submeter o formulário quando a categoria muda

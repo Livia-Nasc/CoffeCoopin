@@ -33,7 +33,7 @@ body {
     color: var(--cor-texto);
 }
 
-#-logo-container{
+.-logo-container{
     display: flex;
     align-items: center;
     align-self: center;
