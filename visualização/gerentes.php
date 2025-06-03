@@ -120,11 +120,37 @@ $conn = getConexao();
             </tbody>
         </table>
     </div>
-
     <script>
-        $(document).ready(function () {
-            $(".cpf").mask("000.000.000-00");
-        });
+        // Função para aplicar máscara de CPF
+        function aplicarMascaraCPF() {
+            // Seleciona todos os elementos com a classe 'cpf'
+            const camposCPF = document.querySelectorAll('.cpf');
+            
+            camposCPF.forEach(cpf => {
+                // Remove qualquer formatação existente
+                let valor = cpf.textContent.replace(/\D/g, '');
+                
+                // Aplica a máscara
+                if (valor.length > 3) {
+                    valor = valor.replace(/^(\d{3})/, '$1.');
+                }
+                if (valor.length > 7) {
+                    valor = valor.replace(/^(\d{3})\.(\d{3})/, '$1.$2.');
+                }
+                if (valor.length > 11) {
+                    valor = valor.replace(/^(\d{3})\.(\d{3})\.(\d{3})/, '$1.$2.$3-');
+                }
+                
+                // Limita a 11 dígitos (tamanho do CPF)
+                valor = valor.substring(0, 14);
+                
+                // Atualiza o conteúdo da célula
+                cpf.textContent = valor;
+            });
+        }
+
+        // Executa quando o DOM estiver totalmente carregado
+        document.addEventListener('DOMContentLoaded', aplicarMascaraCPF);
     </script>
 </body>
 </html>

@@ -13,11 +13,12 @@ function CadastrarGerente()
     $senha = $_POST['senha'];
     $cpf = $_POST['cpf'];
     $rg = $_POST['rg'];
+    $cpf_novo = preg_replace('/[^0-9]/', '', $cpf);
 
     $sql = 'SELECT * FROM usuario WHERE cpf = :cpf OR email = :email'; // ! Seleciona dados usando o CPF e o email do usuário a ser cadastrado
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':cpf', $cpf);
+    $stmt->bindParam(':cpf', $cpf_novo);
     $stmt->execute();
 
     if ($stmt->rowcount() == 0) { // ! Verifica se o CPF e o e-mail não estão registrados
@@ -30,7 +31,7 @@ function CadastrarGerente()
         $stmt->bindParam(':data_nasc', $data_nasc);
         $stmt->bindParam(':senha', $senhaHash);
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':cpf', $cpf);
+        $stmt->bindParam(':cpf', $cpf_novo);
 
         if ($stmt->execute()) {
             $user_id = $conn->lastInsertId();
@@ -57,10 +58,9 @@ function CadastrarGerente()
 
 function VisualizarGerente(){
     $nome = strtoupper($_POST['nome'] ?? '');
-
+    session_start();
+    $conn = getConexao();
     if ($nome != '') {
-        session_start();
-        $conn = getConexao();
         $sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.rg
             FROM usuario u 
             JOIN gerente g 

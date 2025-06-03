@@ -23,11 +23,12 @@ function CadastrarGarcom() {
     $senha = $_POST['senha'];
     $cpf = $_POST['cpf'];
     $escolaridade = $_POST['escolaridade'];
+    $cpf_novo = preg_replace('/[^0-9]/', '', $cpf);
 
     $sql = 'SELECT * FROM usuario WHERE cpf = :cpf OR email = :email';
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':cpf', $cpf);
+    $stmt->bindParam(':cpf', $cpf_novo);
     $stmt->execute();
 
     if ($stmt->rowCount() == 0) {
@@ -40,7 +41,7 @@ function CadastrarGarcom() {
         $stmt->bindParam(':data_nasc', $data_nasc);
         $stmt->bindParam(':senha', $senhaHash);
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':cpf', $cpf);
+        $stmt->bindParam(':cpf', $cpf_novo);
 
         if ($stmt->execute()) {
             $user_id = $conn->lastInsertId();

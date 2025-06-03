@@ -6,7 +6,7 @@ session_start();
 $tiposAcesso = [1,3];
 $tipoUsuario = $_SESSION['usuario']['tipo'];
 if (!in_array($tipoUsuario, $tiposAcesso)) {
-    header('location:../login.php');
+    header('location:login.php');
     exit();
 }
 switch ($tipoUsuario) {
@@ -21,7 +21,7 @@ switch ($tipoUsuario) {
 $conn = getConexao();
 
 // Busca produtos
-$sql = "SELECT id, nome, preco, porcao, qtd_estoque FROM produto";
+$sql = "SELECT id, nome, preco, porcao, qtd_estoque FROM produto ORDER BY nome";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $_SESSION['produtos'] = $stmt->fetchAll();
