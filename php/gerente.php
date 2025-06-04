@@ -2,6 +2,7 @@
 require_once("conexao.php");
 require("usuario.php");
 
+session_start();
 function CadastrarGerente()
 {
     $conn = getConexao();
@@ -57,6 +58,7 @@ function CadastrarGerente()
 }
 
 function VisualizarGerente(){
+    unset($_SESSION['gerente']);
     $nome = strtoupper($_POST['nome'] ?? '');
     session_start();
     $conn = getConexao();
@@ -89,7 +91,6 @@ function VisualizarGerente(){
 
 function CalcularComissao() {
     $conn = getConexao();
-    session_start();
     unset($_SESSION['comissao']);
     $garcom_ids = $_POST['garcom_ids'] ?? [];
     

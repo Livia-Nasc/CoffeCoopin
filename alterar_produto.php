@@ -62,8 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoria_id']) && !i
     $stmtSubcategorias->execute([$categoria_id]);
     $subcategorias = $stmtSubcategorias->fetchAll(PDO::FETCH_ASSOC);
     
+    // ! AO SELECIONAR A CATEGORIA NO "escolha" O CODIGO ESTÁ QUEBRANDO
     // Preencher o select de subcategorias
-    echo '<option value="">Selecione</option>';
     foreach ($subcategorias as $subcategoria) {
         $selected = ($subcategoria_id == $subcategoria['id']) ? 'selected' : '';
         echo '<option value="'.$subcategoria['id'].'" '.$selected.'>'.htmlspecialchars($subcategoria['nome']).'</option>';

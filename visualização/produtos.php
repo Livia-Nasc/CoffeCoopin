@@ -87,7 +87,7 @@ switch ($tipoUsuario) {
                                 
                             </form>
                             <form action="../php/produto.php" method="post" style="display:inline;">
-                                <button type="submit" name="excluir" class="btn btn-primary">Excluir</button>
+                                <button type="submit" name="excluir" class="btn btn-primary" id="excluir">Excluir</button>
                             </form>
                             <?php } ?>
                         </td>
@@ -100,5 +100,15 @@ switch ($tipoUsuario) {
             <?php } ?>
         </table>
     </div>
+    <script>
+        // Confirmação antes de excluir
+        document.querySelectorAll('#excluir').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (!confirm('Tem certeza que deseja excluir este produto?')) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

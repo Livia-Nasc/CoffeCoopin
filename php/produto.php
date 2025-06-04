@@ -1,9 +1,9 @@
 <?php
 require_once('conexao.php');
 
+session_start();
 function CadastrarProduto()
 {
-    session_start();
     $conn = getConexao();
     
     $nome = ucwords(strtolower($_POST['nome']));
@@ -47,7 +47,8 @@ function CadastrarProduto()
 
 function VisualizarProduto()
 {
-    session_start();
+    //
+    unset($_SESSION['produto']);
     $conn = getConexao();
     $nome = strtoupper($_POST['nome'] ?? '');
 
@@ -80,7 +81,6 @@ function VisualizarProduto()
 
 function ExcluirProduto()
 {
-    session_start();
     $conn = getConexao();
     $id = $_POST['id'];
     
@@ -101,7 +101,8 @@ function ExcluirProduto()
                 p.porcao, p.qtd_estoque 
                 FROM produto p
                 JOIN categoria c ON p.categoria_id = c.id
-                LEFT JOIN subcategoria sc ON p.subcategoria_id = sc.id";
+                LEFT JOIN subcategoria sc ON p.subcategoria_id = sc.id
+                ORDER BY p.nome";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $_SESSION['produto'] = $stmt->fetchAll();
@@ -115,7 +116,6 @@ function ExcluirProduto()
 
 function AlterarProduto()
 {
-    session_start();
     $conn = getConexao();
     $id = $_POST['id'];
     $nome = strtoupper($_POST['nome']);
