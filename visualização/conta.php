@@ -125,11 +125,11 @@ $garcom_id = $dadosUsuario ? $dadosUsuario['id'] : null;
                                 <?php if ($status == 'aberta') { ?>
                                     <form method="post" action="../php/conta.php" style="display: inline;">
                                         <input type="hidden" name="conta_id" value="<?php echo $id; ?>">
-                                        <button type="submit" name="fechar_conta" class="btn btn-warning">Fechar Conta</button>
+                                        <button type="submit" name="fechar_conta" class="btn btn-warning" onclick="return confirm('Tem certeza que deseja fechar essa conta?')">Fechar Conta</button>
                                     </form>
                                     <form method="post" action="php/conta.php" style="display: inline;">
                                         <input type="hidden" name="conta_id" value="<?php echo $id; ?>">
-                                        <button type="submit" name="cancelar_conta" class="btn btn-primary">Cancelar Conta</button>
+                                        <button type="submit" name="cancelar_conta" class="btn btn-primary" onclick="return confirm('Tem certeza que deseja cancelar essa conta?')">Cancelar Conta</button>
                                     </form>
                                 <?php } ?>
                             </td>
@@ -184,17 +184,5 @@ $garcom_id = $dadosUsuario ? $dadosUsuario['id'] : null;
             </tbody>
         </table>
     </div>
-
-
-    <script>
-        // Confirmação antes de excluir
-        document.querySelectorAll('.btn-excluir').forEach(button => {
-            button.addEventListener('click', function(e) {
-                if (!confirm('Tem certeza que deseja excluir este item?')) {
-                    e.preventDefault();
-                }
-            });
-        });
-    </script>
 </body>
 </html>

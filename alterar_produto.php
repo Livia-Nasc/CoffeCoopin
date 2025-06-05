@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoria_id']) && !i
                     <br>
                     
                     <div id="btn">
-                        <button type="submit" name="alterar" class="btn btn-primary">SALVAR</button>
+                        <button type="submit" name="alterar" class="btn btn-primary" onclick="return confirm('Tem certeza que deseja alterar este produto?')">SALVAR</button>
                         <a href="visualização/produtos.php"><button type="button" class="btn btn-primary">CANCELAR</button></a>
                     </div>
                 </form>

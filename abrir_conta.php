@@ -39,7 +39,7 @@ $filtro_status = isset($_GET['status']) ? $_GET['status'] : 'todas';
 
 $user_id = $_SESSION['usuario']['id'];
 
-//
+// Busca id do garçom
 if($tipoUsuario == 3){
 $sql_garcom = "SELECT id FROM garcom WHERE user_id = :user_id ";
 $stmt = $conn->prepare($sql_garcom);

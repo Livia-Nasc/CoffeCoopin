@@ -97,6 +97,7 @@ function ExcluirProduto()
 
     if ($stmt->execute()) {
         // Atualiza a lista de produtos com as categorias e subcategorias
+        unset($_SESSION['produto']);
         $sql = "SELECT p.id, p.nome, p.preco, c.nome as categoria, sc.nome as subcategoria, 
                 p.porcao, p.qtd_estoque 
                 FROM produto p
