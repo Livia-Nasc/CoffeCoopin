@@ -2,21 +2,10 @@
 require_once('conexao.php');
 session_start();
 
-$tiposAcesso = [1,2];
-$tipoUsuario = $_SESSION['usuario']['tipo'];
-switch ($tipoUsuario) {
-    case 1:
-        $arquivo = '../dashboard/admin.php';
-        break;
-    case 2:
-        $arquivo = '../dashboard/gerente.php';
-        break;
-}
-
 function CadastrarGarcom() {
     $conn = getConexao();
 
-    $nome = $_POST['nome'];
+    $nome = ucwords(strtolower($_POST['nome']));
     $telefone = $_POST['telefone'];
     $data_nasc = $_POST['data_nasc'];
     $email = $_POST['email'];
@@ -70,28 +59,29 @@ function VisualizarGarcom() {
     $conn = getConexao();
 if (!empty($nome)) {
         // Se o nome for informado, busca os garçons com base no nome
-        $nome = strtoupper($nome);
+        $nomeBusca = '%' . $nome . '%';
         
         // Consulta para buscar garçons com o nome informado
-    $sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade, 
-            (SELECT COUNT(*) FROM conta WHERE garcom_id = g.id) as contas_gerenciadas
+    $sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade, COUNT(c.id) as contas_gerenciadas
             FROM usuario u 
-            JOIN garcom g 
-            ON u.id = g.user_id
-            WHERE u.nome LIKE :nome" ; // Tipo 3 = Garçom
+            JOIN garcom g ON u.id = g.user_id
+            LEFT JOIN conta c ON c.garcom_id = g.id
+            WHERE u.nome LIKE :nome
+            GROUP BY g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade" ; // Tipo 3 = Garçom
         $stmt = $conn->prepare($sql);
-        $stmt->bindValue(':nome', "%$nome%");
+        $stmt->bindValue(':nome', $nomeBusca);
         $stmt->execute();
         
         $_SESSION['garcom'] = $stmt->fetchAll();
         $_SESSION['mensagem'] = $stmt->rowCount() ? "" : "Nenhum garçom encontrado";
     } else{
         $conn = getConexao();
-        $sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade 
+        $sql = "SELECT g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade, COUNT(c.id) AS contas_gerenciadas
             FROM usuario u 
-            JOIN garcom g 
-            ON u.id = g.user_id
-            WHERE u.tipo = 3"; // Tipo 3 = Garçom
+            JOIN garcom g ON u.id = g.user_id
+            LEFT JOIN conta c ON c.garcom_id = g.id
+            WHERE u.tipo = 3
+            GROUP BY g.id, u.nome, u.cpf, u.email, u.telefone, u.data_nasc, g.escolaridade"; // Tipo 3 = Garçom
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $_SESSION['garcom'] = $stmt->fetchAll();
