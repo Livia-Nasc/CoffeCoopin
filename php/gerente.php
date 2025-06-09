@@ -7,7 +7,7 @@ function CadastrarGerente()
 {
     $conn = getConexao();
 
-    $nome = $_POST['nome'];
+    $nome = ucwords(strtolower($_POST['nome']));
     $telefone = $_POST['telefone'];
     $data_nasc = $_POST['data_nasc'];
     $email = $_POST['email'];

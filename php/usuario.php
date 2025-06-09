@@ -8,7 +8,7 @@ function CadastrarUsuario()
 
 
     // ! Pega os dados do formulário
-    $nome = strtoupper($_POST['nome']);
+    $nome = ucwords(strtolower($_POST['nome']));
     $telefone = $_POST['telefone'];
     $data_nasc = $_POST['data_nasc'];
     $email = strtolower($_POST['email']);

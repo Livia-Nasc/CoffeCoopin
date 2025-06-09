@@ -15,30 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel garçom</title>
     <link rel="stylesheet" href="../css/conta.css">
-    <style>
-
-        .dashboard-menu {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .dashboard-menu a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            text-align: center;
-            height: 100%;
-        }
-        
-        @media (max-width: 768px) {
-            .dashboard-menu {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 
 <body>
