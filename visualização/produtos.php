@@ -71,7 +71,7 @@ switch ($tipoUsuario) {
                         <td><?php echo htmlspecialchars($produto['subcategoria']); ?></td>
                         <td>R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?></td>
                         
-                                <?php if ($_SESSION['usuario']['tipo'] == 2) { ?>
+                                <?php if ($_SESSION['usuario']['tipo'] != 3) { ?>
                         <td>
                             <form action="../alterar_produto.php" method="post" style="display:inline;">
                                 <input type="hidden" name="id" value="<?php echo $produto['id']; ?>">

@@ -19,17 +19,28 @@ switch ($tipoUsuario) {
 }
 
 $conn = getConexao();
+$user_id = $_SESSION['usuario']['id'];
+// Busca id do garçom
+if($tipoUsuario == 3){
+$sql_garcom = "SELECT id FROM garcom WHERE user_id = :user_id ";
+$stmt = $conn->prepare($sql_garcom);
+$stmt->bindParam(':user_id', $user_id);
+$stmt->execute();
+$dadosUsuario = $stmt->fetch();
+$garcom_id = $dadosUsuario['id'];
+};
 
 // Busca produtos
-$sql = "SELECT id, nome, preco, porcao, qtd_estoque FROM produto";
+$sql = "SELECT id, nome, preco, porcao, qtd_estoque FROM produto ORDER BY nome";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $_SESSION['produtos'] = $stmt->fetchAll();
 
 // Busca contas
 if (isset($_POST['visualizar'])) {
-    $sql = "SELECT * FROM conta";
+    $sql = "SELECT * FROM conta WHERE garcom_id = :id";
     $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':id', $user_id);
     $stmt->execute();
     $_SESSION['conta'] = $stmt->fetchAll();
 }
@@ -39,13 +50,7 @@ $filtro_status = isset($_GET['status']) ? $_GET['status'] : 'todas';
 
 $user_id = $_SESSION['usuario']['id'];
 
-// Busca o id do garçom
-$sql_garcom = "SELECT id FROM garcom WHERE user_id = :user_id ";
-$stmt = $conn->prepare($sql_garcom);
-$stmt->bindParam(':user_id', $user_id);
-$stmt->execute();
-$dadosUsuario = $stmt->fetch();
-$garcom_id = $dadosUsuario ? $dadosUsuario['id'] : null;
+
 
 
 ?>

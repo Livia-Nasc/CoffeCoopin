@@ -58,7 +58,7 @@ if ($_SESSION['usuario']['tipo'] != 1) {
                     <br>
                     
                     <div id="btn">
-                        <button type="submit" name="cadastrar_gerente" class="btn btn-primary">ENVIAR</button>
+                        <button type="submit" name="cadastrar_gerente" class="btn btn-primary" onclick="return confirm('Os dados estão corretos?')"></button>>ENVIAR</button>
                         <a href="../visualização/gerentes.php"><button type="button" class="btn btn-primary">Visualizar Gerentes</button></a>
                     </div>
                 </form>

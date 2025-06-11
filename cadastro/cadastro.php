@@ -52,7 +52,7 @@ if ((isset($_SESSION['usuario']) == true)) {
                     </label>
                     <br><br>
                     <div id="btn">
-                        <button type="submit" name="cadastrar" class="btn btn-warning">ENVIAR</button>
+                        <button type="submit" name="cadastrar" class="btn btn-warning" onclick="return confirm('Os dados estão corretos?')">ENVIAR</button>
                     </div>
                 </form>
             </div>

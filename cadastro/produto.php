@@ -111,7 +111,7 @@ if ($categoriaSelecionada) {
                     <?php } ?>
                     
                     <div id="btn">
-                        <button type="submit" name="cadastrar" class="btn btn-primary">ENVIAR</button>
+                        <button type="submit" name="cadastrar" class="btn btn-primary" onclick="return confirm('Os dados estão corretos?')">ENVIAR</button>
                         <a href="../visualização/produtos.php"><button type="button" class="btn btn-primary">Visualizar Produtos</button></a>
                     </div>
                 </form>
