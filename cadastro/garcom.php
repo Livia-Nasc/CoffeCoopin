@@ -79,7 +79,7 @@ switch ($tipoUsuario) {
                     <br>
                     
                     <div id="btn">
-                        <button type="submit" name="cadastrar_garcom" class="btn btn-primary" onclick="return confirm('Os dados estão corretos?')"></button>>ENVIAR</button>
+                        <button type="submit" name="cadastrar_garcom" class="btn btn-primary" onclick="return confirm('Os dados estão corretos?')">ENVIAR</button>
                         <a href="../visualização/garcons.php"><button type="button" class="btn btn-primary">Visualizar Garçons</button></a>
                     </div>
                 </form>

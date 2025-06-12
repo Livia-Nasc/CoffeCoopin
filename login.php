@@ -40,6 +40,7 @@ if ((isset($_SESSION['usuario']) == true)) {
                         <button type="submit" name="login" class="btn btn-warning">LOGAR</button>
                     </div>
                 </form>
+                <a href="cadastro/cadastro.php">Criar conta</a>
             </div>
 
         </div>

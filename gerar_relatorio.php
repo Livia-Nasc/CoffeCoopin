@@ -219,7 +219,7 @@ $html .= '
     </div>
     
     <div class="footer">
-        Sistema de Comissões - © '.date('Y').' Todos os direitos reservados
+        CoopinCooffe - © '.date('Y').' Todos os direitos reservados
     </div>
 </body>
 </html>';

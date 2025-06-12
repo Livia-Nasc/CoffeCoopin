@@ -1,7 +1,7 @@
 <?php
 require_once("conexao.php");
 require("usuario.php");
-
+date_default_timezone_set('America/Sao_Paulo');
 session_start();
 function CadastrarGerente()
 {

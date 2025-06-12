@@ -55,6 +55,7 @@ if ((isset($_SESSION['usuario']) == true)) {
                         <button type="submit" name="cadastrar" class="btn btn-warning" onclick="return confirm('Os dados estão corretos?')">ENVIAR</button>
                     </div>
                 </form>
+                <a href="../login.php">Fazer login</a>
             </div>
 
         </div>

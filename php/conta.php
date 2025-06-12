@@ -1,8 +1,9 @@
 <?php
 require_once('conexao.php');
-
+date_default_timezone_set('America/Sao_Paulo');
 function VerConta()
 {
+    unset($_SESSION['conta']);
     session_start();
     $conn = getConexao();
 
@@ -25,7 +26,7 @@ function VerConta()
     $stmt_produtos->execute();
     $_SESSION['produtos'] = $stmt_produtos->fetchAll();
 
-    header("Location: ../abrir_conta.php");
+    header("Location: ../visualização/conta.php");
 }
 
 function AbrirConta()
@@ -34,8 +35,8 @@ function AbrirConta()
     $mesa = $_POST['mesa'];
     $garcom_id = $_POST['garcom_id'];
     // ! Abre uma conta nova
-    $sql = "INSERT INTO conta (mesa, garcom_id, data_abertura, status)
-            VALUES (:mesa, :garcom_id, NOW(), 'aberta')";
+    $sql = "INSERT INTO conta (mesa, garcom_id, data_abertura,hora_abertura, status)
+            VALUES (:mesa, :garcom_id, NOW(), NOW(), 'aberta')";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':mesa', $mesa);
     $stmt->bindParam(':garcom_id', $garcom_id);
@@ -61,7 +62,7 @@ function FecharConta()
     $conn = getConexao();
     $conta_id = $_POST['conta_id'];
     // ! Muda o status da conta de "aberta" para "fechada"
-    $sql = "UPDATE conta SET status = 'fechada', data_fechamento = NOW() WHERE id = :id";
+    $sql = "UPDATE conta SET status = 'fechada', data_fechamento = NOW(), hora_fechamento =  NOW() WHERE id = :id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':id', $conta_id);
 
@@ -244,7 +245,6 @@ function ExcluirPedido()
     }
 }
 
-// Em php/conta.php
 function GerarRelatorioOcupacao() {
     $conn = getConexao();
     $data_inicio = $_POST['data_inicio'];

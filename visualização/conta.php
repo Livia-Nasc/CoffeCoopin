@@ -38,6 +38,7 @@ $_SESSION['produtos'] = $stmt->fetchAll();
 
 // Busca contas
 if (isset($_POST['visualizar'])) {
+    unset($_SESSION['conta']);
     $sql = "SELECT * FROM conta WHERE garcom_id = :id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':id', $user_id);
@@ -82,7 +83,7 @@ $user_id = $_SESSION['usuario']['id'];
     
     <div id="produtos">
         <h2>Lista de Contas</h2>
-        <form method="post">
+        <form method="post" >
             <button type="submit" name="visualizar" id="visualizar" class="btn btn-primary">Atualizar Lista de Contas</button>
             <a href="../abrir_conta.php" class="btn-voltar">Criar conta</a>
         </form>
