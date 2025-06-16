@@ -95,39 +95,34 @@ function SalvarComissao() {
     
     if (!isset($_SESSION['relatorio_comissao'])) {
         $_SESSION['mensagem'] = "Nenhum cálculo de comissão para salvar";
-        header('Location: ../calcular_comissao.php');
+        header('Location: ../comissao/calcular.php');
         exit();
     }
     
     $dados = $_SESSION['relatorio_comissao'];
-    
-    try {
-        $conn->beginTransaction();
+
+    foreach ($dados['resultados'] as $resultado) {
+        $mes_referencia = date('Y-m-01', strtotime($dados['mes_referencia']));
         
-        foreach ($dados['resultados'] as $resultado) {
-            $sql = "INSERT INTO historico_comissao 
-                    (garcom_id, mes_referencia, total_vendido, valor_comissao, data_calculo) 
-                    VALUES (:garcom_id, :mes_referencia, :total_vendido, :valor_comissao, NOW())";
-            
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':garcom_id', $resultado['id']);
-            $stmt->bindParam(':mes_referencia', $_SESSION['mes_referencia']);
-            $stmt->bindParam(':total_vendido', $resultado['valor_vendas']);
-            $stmt->bindParam(':valor_comissao', $resultado['comissao']);
-            
-            if (!$stmt->execute()) {
-                throw new Exception("Erro ao salvar comissão do garçom {$resultado['nome']}");
-            }
+        $sql = "INSERT INTO historico_comissao 
+                (garcom_id, mes_referencia, total_vendido, valor_comissao, data_calculo) 
+                VALUES (:garcom_id, :mes_referencia, :total_vendido, :valor_comissao, NOW())";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':garcom_id', $resultado['id']);
+        $stmt->bindParam(':mes_referencia', $mes_referencia);
+        $stmt->bindParam(':total_vendido', $resultado['valor_vendas']);
+        $stmt->bindParam(':valor_comissao', $resultado['comissao']);
+        
+        if (!$stmt->execute()) {
+            $_SESSION['mensagem'] = "Erro ao salvar comissão do garçom {$resultado['nome']}";
+            header('Location: ../comissao/calcular.php');
+            exit();
         }
-        
-        $conn->commit();
-        $_SESSION['mensagem'] = "Comissões salvas no histórico com sucesso!";
-    } catch (Exception $e) {
-        $conn->rollBack();
-        $_SESSION['mensagem'] = $e->getMessage();
     }
     
-    header('Location: ../calcular_comissao.php');
+    $_SESSION['mensagem'] = "Comissões salvas no histórico com sucesso!";
+    header('Location: ../comissao/calcular.php');
     exit();
 }
 
@@ -145,7 +140,7 @@ function CalcularComissao() {
     
     if (empty($garcom_ids)) {
         $_SESSION['comissao'] = "Nenhum garçom selecionado";
-        header('Location: ../calcular_comissao.php');
+        header('Location: ../comissao/calcular.php');
         exit();
     }
     
@@ -206,7 +201,8 @@ function CalcularComissao() {
         'resultados' => $resultados,
         'total_comissao' => $total_comissao,
         'total_salario' => $total_salario,
-        'data' => date('d/m/Y H:i:s')
+        'data' => date('d/m/Y H:i:s'),
+        'mes_referencia' => $mes_referencia
     ];
     
     // Cria mensagem para exibir na página

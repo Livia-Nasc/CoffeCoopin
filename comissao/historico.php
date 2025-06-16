@@ -20,8 +20,9 @@ switch ($tipoUsuario) {
 
 $conn = getConexao();
 
-// Busca histórico de comissões
-$sql = "SELECT h.id, u.nome as garcom_nome, h.mes_referencia, 
+// Busca histórico de comissões (consulta modificada)
+$sql = "SELECT h.id, u.nome as garcom_nome, 
+               h.mes_referencia,
                h.total_vendido, h.valor_comissao, h.data_calculo
         FROM historico_comissao h
         JOIN garcom g ON h.garcom_id = g.id
