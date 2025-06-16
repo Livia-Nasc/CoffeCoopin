@@ -1,4 +1,4 @@
-# CoopinCoffe ☕
+# CoffeCoopin ☕
 
 O CoopinCoffe é um sistema de gerenciamento para cafeterias, criado para facilitar o controle de pedidos, produtos e comissões. Ele oferece uma navegação simples e funções voltadas tanto para os funcionários quanto para os administradores da cafeteria.
 
