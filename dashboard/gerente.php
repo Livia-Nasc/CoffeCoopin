@@ -33,8 +33,9 @@
                         <a href="../visualização/garcons.php" class="btn btn-primary">Ver Garçom</a>
                         <a href="../cadastro/produto.php" class="btn btn-primary">Novo Produto</a>
                         <a href="../visualização/produtos.php" class="btn btn-primary">Ver Produto</a>
-                        <a href="../calcular_comissao.php" class="btn btn-primary" <?php unset($_SESSION['comissao']);?>>Calcular Comissão</a>
-                        <a href="" class="btn btn-primary" <?php unset($_SESSION['relatorio_mesas']);?>>Relatório de mesas</a>
+                        <a href="../comissao/calcular.php" class="btn btn-primary" <?php unset($_SESSION['comissao']);?>>Calcular Comissão</a>
+                        <a href="../relatorio_mesas.php" class="btn btn-primary" <?php unset($_SESSION['relatorio_mesas']);?>>Relatório de mesas</a>
+                        <a href="../comissao/historico.php" class="btn btn-primary">Histórico de Comissões</a>
                         
                     </div>
                     

@@ -1,0 +1,70 @@
+.container-comissao {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9f0dd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        select, input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #C19770;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        input, input::placeholder, select{
+            background-color: white;
+        }
+        
+        select[multiple] {
+            height: 150px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            background-color: #C19770;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        
+        .resultado-comissao {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 4px;
+            border-left: 4px solid #C19770;
+        }
+        
+        .selected-garcons {
+            margin: 10px 0;
+            padding: 10px;
+            background: #fff;
+            border-radius: 4px;
+        }
+        
+        .selected-garcon {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 5px 10px;
+            background: #c19770;
+            border-radius: 4px;
+            color: white;
+            font-family: sans-serif;
+        }

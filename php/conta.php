@@ -3,30 +3,45 @@ require_once('conexao.php');
 date_default_timezone_set('America/Sao_Paulo');
 function VerConta()
 {
-    unset($_SESSION['conta']);
     session_start();
     $conn = getConexao();
 
     $user_id = $_SESSION['usuario']['id'];
+    
+    // Busca o ID do garçom
     $sql_garcom = "SELECT id FROM garcom WHERE user_id = :user_id";
     $stmt_garcom = $conn->prepare($sql_garcom);
-    $stmt_garcom->bindParam(':user_id',$user_id);
+    $stmt_garcom->bindParam(':user_id', $user_id);
     $stmt_garcom->execute();
-    $garcom_id = $stmt_garcom->fetchAll();
+    $garcom = $stmt_garcom->fetch();
+    
+    if (!$garcom) {
+        $_SESSION['mensagem'] = "Garçom não encontrado";
+        header("Location: ../visualização/conta.php");
+        exit();
+    }
+    
+    $garcom_id = $garcom['id'];
 
-    $sql = "SELECT id, mesa, garcom_id, data_abertura, status FROM conta WHERE garcom_id = :garcom_id";
+    // Busca contas do garçom
+    $sql = "SELECT id, mesa, garcom_id, data_abertura, status, valor_total 
+            FROM conta 
+            WHERE garcom_id = :garcom_id
+            ORDER BY data_abertura DESC";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':garcom_id', $garcom_id);
     $stmt->execute();
-    $_SESSION['conta'] = $stmt->fetchAll();
+    
+    $_SESSION['contas'] = $stmt->fetchAll();
 
-    // ! Busca produtos também 
-    $sql_produtos = "SELECT id, nome, preco FROM produto";
+    // Busca produtos
+    $sql_produtos = "SELECT id, nome, preco FROM produto ORDER BY nome";
     $stmt_produtos = $conn->prepare($sql_produtos);
     $stmt_produtos->execute();
     $_SESSION['produtos'] = $stmt_produtos->fetchAll();
 
     header("Location: ../visualização/conta.php");
+    exit();
 }
 
 function AbrirConta()

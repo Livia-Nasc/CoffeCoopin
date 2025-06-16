@@ -89,19 +89,66 @@ function VisualizarGerente(){
     exit();
 }
 
+// Adicione esta função ao arquivo gerente.php
+function SalvarComissao() {
+    $conn = getConexao();
+    
+    if (!isset($_SESSION['relatorio_comissao'])) {
+        $_SESSION['mensagem'] = "Nenhum cálculo de comissão para salvar";
+        header('Location: ../calcular_comissao.php');
+        exit();
+    }
+    
+    $dados = $_SESSION['relatorio_comissao'];
+    
+    try {
+        $conn->beginTransaction();
+        
+        foreach ($dados['resultados'] as $resultado) {
+            $sql = "INSERT INTO historico_comissao 
+                    (garcom_id, mes_referencia, total_vendido, valor_comissao, data_calculo) 
+                    VALUES (:garcom_id, :mes_referencia, :total_vendido, :valor_comissao, NOW())";
+            
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':garcom_id', $resultado['id']);
+            $stmt->bindParam(':mes_referencia', $_SESSION['mes_referencia']);
+            $stmt->bindParam(':total_vendido', $resultado['valor_vendas']);
+            $stmt->bindParam(':valor_comissao', $resultado['comissao']);
+            
+            if (!$stmt->execute()) {
+                throw new Exception("Erro ao salvar comissão do garçom {$resultado['nome']}");
+            }
+        }
+        
+        $conn->commit();
+        $_SESSION['mensagem'] = "Comissões salvas no histórico com sucesso!";
+    } catch (Exception $e) {
+        $conn->rollBack();
+        $_SESSION['mensagem'] = $e->getMessage();
+    }
+    
+    header('Location: ../calcular_comissao.php');
+    exit();
+}
+
+// Atualize a função CalcularComissao para incluir o mês de referência
 function CalcularComissao() {
     $conn = getConexao();
     unset($_SESSION['comissao']);
-    $garcom_ids = $_POST['garcom_ids'] ?? [];
+    unset($_SESSION['relatorio_comissao']);
     
-    // Verifica se há garçons selecionados
+    $garcom_ids = $_POST['garcom_ids'] ?? [];
+    $mes_referencia = $_POST['mes_referencia'] ?? date('Y-m');
+    
+    // Armazena o mês de referência na sessão para uso posterior
+    $_SESSION['mes_referencia'] = $mes_referencia;
+    
     if (empty($garcom_ids)) {
         $_SESSION['comissao'] = "Nenhum garçom selecionado";
         header('Location: ../calcular_comissao.php');
         exit();
     }
     
-    // Array para armazenar os resultados de cada garçom
     $resultados = [];
     $total_comissao = 0;
     $total_salario = 0;
@@ -114,17 +161,23 @@ function CalcularComissao() {
         $stmt_nome->execute();
         $garcom_nome = $stmt_nome->fetchColumn();
         
-        // Busca o valor total das contas do garçom
-        $sql_vendas = "SELECT SUM(valor_total) AS valor_total FROM conta WHERE garcom_id = :garcom_id";
+        // Busca o valor total das contas do garçom no mês selecionado
+        $sql_vendas = "SELECT SUM(valor_total) AS valor_total 
+                       FROM conta 
+                       WHERE garcom_id = :garcom_id 
+                       AND DATE_FORMAT(data_abertura, '%Y-%m') = :mes_referencia
+                       AND status = 'fechada'";
+        
         $stmt_vendas = $conn->prepare($sql_vendas);
         $stmt_vendas->bindParam(':garcom_id', $garcom_id);
+        $stmt_vendas->bindParam(':mes_referencia', $mes_referencia);
         $stmt_vendas->execute();
         $result = $stmt_vendas->fetch(PDO::FETCH_ASSOC);
         $valor_vendas = $result['valor_total'] ?? 0;
         
         // Calcula a comissão (10% do valor das vendas)
         $comissao = 0.1 * $valor_vendas;
-        $salario_base = 1000.00;
+        $salario_base = 1000.00; // Valor fixo do salário base
         $salario_total = $salario_base + $comissao;
         
         // Formata os valores
@@ -132,7 +185,6 @@ function CalcularComissao() {
         $comissao_formatado = number_format($comissao, 2, ',', '.');
         $salario_total_formatado = number_format($salario_total, 2, ',', '.');
         
-        // Armazena os resultados
         $resultados[] = [
             'id' => $garcom_id,
             'nome' => $garcom_nome,
@@ -157,19 +209,36 @@ function CalcularComissao() {
         'data' => date('d/m/Y H:i:s')
     ];
     
-    // Cria mensagem de resumo para exibir na página
-    $mensagem = "Cálculo realizado para " . count($garcom_ids) . " garçon(s)<br>";
+    // Cria mensagem para exibir na página
+    
+    
+    // Cria mensagem de resumo
+    $mensagem = "<h4>Comissões para o mês de ".date('m/Y', strtotime($mes_referencia.'-01'))."</h4>";
+    $mensagem .= "<p>Cálculo realizado para " . count($garcom_ids) . " garçon(s)</p>";
+    
     foreach ($resultados as $resultado) {
-        $mensagem .= "<br><strong>{$resultado['nome']}:</strong><br>"
-                   . "Vendas: R$ {$resultado['valor_vendas_formatado']}<br>"
-                   . "Comissão: R$ {$resultado['comissao_formatado']}<br>"
-                   . "Total: R$ {$resultado['salario_total_formatado']}<br>";
+        $mensagem .= "<div style='margin-bottom: 15px; padding: 10px; background: #f9f9f9; border-radius: 5px;'>";
+        $mensagem .= "<strong>{$resultado['nome']}:</strong><br>";
+        $mensagem .= "Vendas: R$ {$resultado['valor_vendas_formatado']}<br>";
+        $mensagem .= "Comissão (10%): R$ {$resultado['comissao_formatado']}<br>";
+        $mensagem .= "Salário Base: R$ ".number_format($resultado['salario_base'], 2, ',', '.')."<br>";
+        $mensagem .= "<strong>Total a Receber: R$ {$resultado['salario_total_formatado']}</strong>";
+        $mensagem .= "</div>";
     }
-    $mensagem .= "<br><strong>Total geral:</strong> R$ " . number_format($total_salario, 2, ',', '.');
+    
+    $mensagem .= "<div style='margin-top: 20px; padding: 10px; background: #f0f0f0; border-radius: 5px;'>";
+    $mensagem .= "<strong>Total em Comissões: R$ ".number_format($total_comissao, 2, ',', '.')."</strong><br>";
+    $mensagem .= "<strong>Total Geral a Pagar: R$ ".number_format($total_salario, 2, ',', '.')."</strong>";
+    $mensagem .= "</div>";
     
     $_SESSION['comissao'] = $mensagem;
-    header('Location: ../calcular_comissao.php');
+    
+    header('Location: ../comissao/calcular.php');
     exit();
+}
+
+if (isset($_POST['salvar_comissao'])) {
+    SalvarComissao();
 }
 
 if (isset($_POST['calcular_comissao'])) {

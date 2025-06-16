@@ -25,7 +25,6 @@
 }
 
 body {
-    font-family: var(--fonte-principal);
     background-color: var(--cor-fundo);
     margin: 0;
     padding: 20px;
@@ -34,6 +33,7 @@ body {
 
 .-logo-container{
     margin-top: 10px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     align-self: center;
@@ -54,6 +54,7 @@ body {
     display: inline-block;
     padding: 11px 8px;
     margin: 20px 0;
+    font-family: var(--fonte-principal);
     background-color: var(--cor-principal);
     color: white;
     text-decoration: none;
@@ -123,7 +124,7 @@ input:focus, select:focus {
     outline: none;
 }
 
-label {
+label, h1, h2, h3 {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
