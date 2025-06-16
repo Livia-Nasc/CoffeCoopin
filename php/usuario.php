@@ -44,11 +44,11 @@ function CadastrarUsuario()
             header('Location: ../login.php?success=Cadastro realizado!');
             exit();
         } else {
-            header('Location: ../cadastro.php?erro=Erro no cadastro');
+            header('Location: ../cadastro/cadastro.php?erro=Erro no cadastro');
             exit();
         }
     } else {
-        header('Location: ../cadastro.php?erro=Usuário já existe');
+        header('Location: ../cadastro/cadastro.php?erro=Usuário já existe');
         exit();
     }
 }

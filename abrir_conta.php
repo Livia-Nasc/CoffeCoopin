@@ -34,12 +34,10 @@ if($tipoUsuario == 3){
 }
 
 // Busca produtos
-if (!isset($_SESSION['produtos']) || empty($_SESSION['produtos'])) {
     $sql = "SELECT id, nome, preco, porcao, qtd_estoque FROM produto ORDER BY nome";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $_SESSION['produtos'] = $stmt->fetchAll();
-}
 
 // Busca contas abertas para o garçom
 $contas_abertas = [];
@@ -81,30 +79,30 @@ if ($garcom_id) {
         </form>
     </div>
 
-    <?php if (!empty($contas_abertas)): ?>
+    <?php if (!empty($contas_abertas)){ ?>
         <div class="form-container">
             <h3>Adicionar Produto a Conta Aberta</h3>
             <form method="post" action="php/conta.php">
                 <label for="conta_id">Selecione a Conta</label>
                 <select name="conta_id" required>
                     <option value="">-- Selecione --</option>
-                    <?php foreach ($contas_abertas as $conta): ?>
+                    <?php foreach ($contas_abertas as $conta){ ?>
                         <option value="<?php echo $conta['id']; ?>">
                             Mesa <?php echo $conta['mesa']; ?> (ID: <?php echo $conta['id']; ?>)
                         </option>
-                    <?php endforeach; ?>
+                    <?php }?>
                 </select>
 
                 <label for="produto_id">Selecione o Produto</label>
                 <select name="produto_id" required>
                     <option value="">-- Selecione --</option>
-                    <?php foreach ($_SESSION['produtos'] as $produto): ?>
-                        <option value="<?php echo $produto['id']; ?>">
-                            <?php echo htmlspecialchars($produto['nome']); ?> 
+                    <?php foreach ($_SESSION['produtos'] as $produto){ ?>
+                    <option value="<?= $produto['id'] ?>">
+                        <?php echo htmlspecialchars($produto['nome']); ?> 
                             - R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?>
                             (Estoque: <?php echo $produto['qtd_estoque']; ?>)
                         </option>
-                    <?php endforeach; ?>
+                    <?php } ?>
                 </select>
 
                 <label for="quantidade">Quantidade</label>
@@ -113,6 +111,6 @@ if ($garcom_id) {
                 <button type="submit" name="associar_produto" class="btn btn-primary">Adicionar Produto</button>
             </form>
         </div>
-    <?php endif; ?>
+    <?php } ?>
 </body>
 </html>
