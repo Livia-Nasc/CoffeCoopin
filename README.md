@@ -1,138 +1,52 @@
-Segue um modelo bem estruturado para o `README.md` do repositório **CoopinCoffe**, adaptado ao conteúdo e tecnologias aparentes:
+# CoopinCoffe ☕
 
----
+O CoopinCoffe é um sistema de gerenciamento para cafeterias, criado para facilitar o controle de pedidos, produtos e comissões. Ele oferece uma navegação simples e funções voltadas tanto para os funcionários quanto para os administradores da cafeteria.
 
-```markdown
-# ☕ CoopinCoffe
+## Primeiros passos do usuário e como usar:
 
-Sistema de gestão para cafeteria, desenvolvido em PHP com funcionalidades para cadastro, login, controle de produtos, vendas, relatórios e dashboard.
+Assim que os usuários acessam o sistema, eles são direcionados para a tela de login. Caso ainda não tenham uma conta, precisam ser cadastrados por um administrador. Após preencher o login e a senha corretamente, o sistema verifica as permissões do usuário e libera as funcionalidades de acordo com o tipo de acesso. ( login e senha do administrador -> email: admin@admin.com; senha: admin )
 
-## 🛠 Tecnologias
+## Após finalizar o login:
 
-- **PHP** (versão recomendada ≥7.1)
-- **Composer** para autoload e dependências
-- **Banco de dados** (MySQL ou similar)
-- **Bibliotecas**:
-  - `vendor/` com dependências externas
-  - Fontes: diretório `fonts/`
-- Front-end: JavaScript, CSS e possivelmente hack (curiosidade no repo)
+Ao fazer login, o usuário verá a página principal (dashboard), onde é possível acessar as opções disponíveis como:
 
-## 🚀 Funcionalidades principais
+- Abrir uma nova conta (mesa)
+- Registrar produtos consumidos
+- Fechar conta e calcular comissões
+- Visualizar relatórios de vendas
 
-- Cadastro e autenticação de usuários
-- Registro de produtos: bebidas, salgado, bolos
-- Relatórios de vendas por mesa/pedido (`relatorio_mesas.php`)
-- Dashboard com visualização de dados
-- Vendas e comissões (armazenadas em `comissao`)
-- Geração de PDF com Dompdf (se integrado)
-  
-## 📁 Estrutura de diretórios
+Cada função é acessada pelo menu superior ou pelas páginas principais com botões de acesso rápido.
 
-```
+## Controle de produtos:
 
-/
-├── AUTHORS.md            # Colaboradores
-├── LICENSE.LGPL          # Licença LGPL 2.1
-├── composer.json         # Dependências PHP
-├── vendor/               # Pacotes instalados pelo Composer
-├── css/                  # Estilos
-├── js/                   # Scripts JavaScript
-├── fonts/                # Fontes usadas no sistema
-├── img/                  # Imagens da interface
-├── banco/ ou database/   # Scripts e conexões com BD
-├── php/                  # Classes PHP (models/controllers)
-├── bebidas.php          # CRUD de bebidas
-├── salgados.php          # CRUD de salgados
-├── bolos.php             # CRUD de bolos
-├── relatorio\_mesas.php   # Relatórios por mesa
-├── dashboard/            # Telas de visualização
-├── login.php             # Página de login
-├── index.php            # Página principal (dashboard)
-├── abrir\_conta.php       # Exemplo de abertura de conta/pedido
-└── alterar\_produto.php   # Editar produtos
+Na área de produtos, é possível cadastrar e gerenciar:
 
-```
+- Bebidas
+- Bolos
+- Salgados
 
-## ⚙️ Instalação
+O administrador pode adicionar, editar ou remover qualquer item. Também é possível visualizar o estoque atual de cada produto.
 
-1. Clone o repositório:
-```
+## Relatórios e comissões:
 
-git clone [https://github.com/Livia-Nasc/CoopinCoffe.git](https://github.com/Livia-Nasc/CoopinCoffe.git)
+O sistema permite que o administrador veja relatórios de:
 
-```
-2. Acesse a pasta do projeto:
-```
+- Mesas atendidas
+- Comissões dos garçons
 
-cd CoopinCoffe
+Esses relatórios ajudam na organização financeira e na tomada de decisões dentro da cafeteria.
 
-```
-3. Instale dependências:
-```
+## Administradores:
 
-composer install
+Usuários com perfil de administrador têm acesso total ao sistema. Podem:
 
-````
-4. Configure o banco de dados:
-- Crie um banco (`coopcaffeine`, por exemplo)
-- Importe scripts de criação (na pasta `database/` ou `banco/`)
-- Configure acesso em `autoload.inc.php` ou outro arquivo
-5. Ajuste permissões se necessário:
-```bash
-chmod -R 755 css js img fonts
-````
+- Cadastrar novos usuários (funcionários)
+- Gerenciar produtos e categorias
+- Acompanhar vendas e gerar relatórios
+- Editar ou excluir contas ativas
 
-## ▶️ Execução
+O painel de administração foi feito para ser objetivo e funcional, focando no dia a dia da gestão.
 
-* Inicie o servidor PHP:
+## Créditos:
 
-  ```bash
-  php -S localhost:8000
-  ```
-* Acesse `http://localhost:8000/index.php` no navegador
-* Faça login para acessar o dashboard e as seções de produto, relatórios etc.
-
-## 🧩 Extensões possíveis
-
-* Integração com Dompdf para emissão de PDF de relatórios
-* Melhorar UX com AJAX e rotas REST
-* Implantação via Docker para ambiente uniformizado
-* Testes automatizados (PHPUnit)
-* Controle de permissões e papeis de usuário
-
-## 📝 Licença
-
-Este projeto está licenciado sob a **LGPL‑2.1** — veja o arquivo `LICENSE.LGPL` para detalhes.
-
----
-
-## 🧡 Contribuição
-
-1. Faça um *fork*
-2. Crie uma branch (`git checkout -b feature/nome-da-funcionalidade`)
-3. Faça commits (`git commit -m 'Adiciona nova funcionalidade'`)
-4. Envie para a branch (`git push origin feature/nome-da-funcionalidade`)
-5. Abra um *Pull Request*
-
----
-
-## 👤 Autores
-
-Consulte o arquivo [AUTHORS.md](AUTHORS.md) para ver quem contribuiu até aqui.
-
----
-
-## 💬 Contato
-
-Dúvidas, sugestões e feedback? Entre em contato pelo e‑mail: [seu.email@example.com](mailto:seu.email@example.com)
-
----
-
-### 📌 Observações
-
-* Este README é um ponto de partida: ajuste conforme o escopo real do projeto.
-* Atualize instruções de instalação/executação conforme sua infraestrutura ou framework.
-
----
-
-Este modelo fornece visão clara e organizada do **CoopinCoffe**, facilitando o entendimento e facilitando contribuições. Pode ajustar conforme necessidades específicas!
+Os créditos de desenvolvimento estão disponíveis no rodapé das páginas principais e também no arquivo AUTHORS.md dentro do repositório. Agradecimentos especiais a todos os envolvidos no projeto.

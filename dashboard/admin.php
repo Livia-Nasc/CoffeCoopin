@@ -39,6 +39,9 @@ $nome = $_SESSION['usuario']['nome'];
                         <a href="../visualização/gerentes.php" class="btn btn-primary">Ver Gerentes</a>
                         <a href="../cadastro/garcom.php" class="btn btn-primary">Cadastrar Garçom</a>
                         <a href="../visualização/garcons.php" class="btn btn-primary">Ver Garçons</a>
+                        <a href="../comissao/calcular.php" class="btn btn-primary" <?php unset($_SESSION['comissao']);?>>Calcular Comissão</a>
+                        <a href="../relatorio_mesas.php" class="btn btn-primary" <?php unset($_SESSION['relatorio_mesas']);?>>Relatório de mesas</a>
+                        <a href="../comissao/historico.php" class="btn btn-primary">Histórico de Comissões</a>
                     </div>
                     
                     <form action="../php/usuario.php" method="post" style="margin-top: 30px; text-align: center;">
