@@ -1,7 +1,7 @@
 <?php
 require '../vendor/autoload.php';
 use Dompdf\Dompdf;
-
+date_default_timezone_set('America/Sao_Paulo');
 session_start();
 
 $tiposAcesso = [1,2];
@@ -218,4 +218,4 @@ $html .= '
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
-$dompdf->stream("relatorio_comissao.pdf", array("Attachment" => false));
+$dompdf->stream("relatorio_mesas.pdf", array("Attachment" => false));

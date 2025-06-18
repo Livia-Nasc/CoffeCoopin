@@ -19,9 +19,9 @@ switch ($tipoUsuario) {
 require_once('php/conexao.php');
 $conn = getConexao();
 
-$data_inicio = $_POST['data_inicio'] ?? date('Y-m-01');
-$data_fim = $_POST['data_fim'] ?? date('Y-m-t');
-$tipo_relatorio = $_POST['tipo_relatorio'] ?? 'historico';
+$data_inicio = $_GET['data_inicio'] ?? date('Y-m-01');
+$data_fim = $_GET['data_fim'] ?? date('Y-m-t');
+$tipo_relatorio = $_GET['tipo_relatorio'] ?? 'historico';
 
 if ($tipo_relatorio == 'historico') {
     $sql = "SELECT c.mesa, u.nome as garcom, 
@@ -66,6 +66,101 @@ $total_vendido = array_sum(array_column($mesas, 'total_vendido'));
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório de Mesas</title>
     <link rel="stylesheet" href="css/conta.css">
+    <style>
+        #container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        #box {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        
+        .form-container {
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="date"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .btn {
+            padding: 10px 15px;
+            background-color: #C19770;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        
+        .btn:hover {
+            background-color: #b08a5f;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        table th {
+            background-color: #C19770;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .total-row {
+            font-weight: bold;
+            background-color: #f5f5f5;
+        }
+        
+        .-logo-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .logo-img {
+            max-width: 200px;
+        }
+        
+        .btn-voltar {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px 15px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        
+        .btn-voltar:hover {
+            background-color: #5a6268;
+        }
+    </style>
 </head>
 <body>
     <div class="-logo-container">
@@ -78,7 +173,7 @@ $total_vendido = array_sum(array_column($mesas, 'total_vendido'));
             <div class="form-container">
                 <h2>Relatório de Ocupação de Mesas</h2>
                 
-                <form method="post" action="">
+                <form method="get" action="">
                     <div class="form-group">
                         <label for="tipo_relatorio">Tipo de Relatório:</label>
                         <select name="tipo_relatorio" id="tipo_relatorio" onchange="toggleFiltros()">
@@ -99,8 +194,8 @@ $total_vendido = array_sum(array_column($mesas, 'total_vendido'));
                         </div>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary">Gerar Relatório</button>
-                    <button type="button" onclick="gerarPDF()" class="btn btn-primary">Gerar PDF</button>
+                    <button type="submit" class="btn">Gerar Relatório</button>
+                    <button type="button" onclick="gerarPDF()" class="btn">Gerar PDF</button>
                 </form>
                 
                 <h3><?= $tipo_relatorio == 'historico' ? 
@@ -122,7 +217,7 @@ $total_vendido = array_sum(array_column($mesas, 'total_vendido'));
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($mesas as $mesa){ ?>
+                        <?php foreach ($mesas as $mesa): ?>
                             <tr>
                                 <td><?= $mesa['mesa'] ?></td>
                                 <td><?= htmlspecialchars($mesa['garcom']) ?></td>
@@ -134,7 +229,7 @@ $total_vendido = array_sum(array_column($mesas, 'total_vendido'));
                                 <?php endif; ?>
                                 <td>R$ <?= number_format($mesa['total_vendido'], 2, ',', '.') ?></td>
                             </tr>
-                        <?php } ?>
+                        <?php endforeach; ?>
                         
                         <tr class="total-row">
                             <td colspan="<?= $tipo_relatorio == 'historico' ? 3 : 4 ?>"><strong>Total</strong></td>
@@ -163,7 +258,14 @@ $total_vendido = array_sum(array_column($mesas, 'total_vendido'));
         }
         
         function gerarPDF() {
-            const params = new URLSearchParams(window.location.search);
+            const form = document.querySelector('form');
+            const formData = new FormData(form);
+            const params = new URLSearchParams();
+            
+            for (const [key, value] of formData.entries()) {
+                params.append(key, value);
+            }
+            
             window.location.href = 'relatorio/mesas.php?' + params.toString();
         }
     </script>

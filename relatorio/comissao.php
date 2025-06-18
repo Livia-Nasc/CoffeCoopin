@@ -1,12 +1,12 @@
 <?php
 require '../vendor/autoload.php';
 use Dompdf\Dompdf;
-
+date_default_timezone_set('America/Sao_Paulo');
 session_start();
 
 // Verifica se existem dados de comissão na sessão
 if (!isset($_SESSION['relatorio_comissao'])) {
-    header('Location: calcular_comissao.php');
+    header('Location: ../calcular/comissao.php');
     exit();
 }
 
