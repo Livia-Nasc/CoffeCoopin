@@ -14,9 +14,10 @@ if (!in_array($tipoUsuario, $tiposAcesso)) {
 require_once('../php/conexao.php');
 $conn = getConexao();
 
-$data_inicio = $_GET['data_inicio'] ?? date('Y-m-01');
-$data_fim = $_GET['data_fim'] ?? date('Y-m-t');
-$tipo_relatorio = $_GET['tipo_relatorio'] ?? 'historico';
+// Receber parâmetros via POST
+$data_inicio = $_POST['data_inicio'] ?? date('Y-m-01');
+$data_fim = $_POST['data_fim'] ?? date('Y-m-t');
+$tipo_relatorio = $_POST['tipo_relatorio'] ?? 'historico';
 
 if ($tipo_relatorio == 'historico') {
     $sql = "SELECT c.mesa, u.nome as garcom, 
@@ -144,27 +145,6 @@ $html = '
             border-top: 1px solid #ddd;
             padding-top: 10px;
         }
-        
-        .page-break {
-            page-break-after: always;
-        }
-        
-        .garcom-section {
-            margin-bottom: 25px;
-        }
-        
-        .garcom-title {
-            background-color: #f5f5f5;
-            padding: 8px;
-            border-left: 4px solid #C19770;
-            margin-bottom: 10px;
-        }
-        
-        .summary {
-            margin-top: 10px;
-            font-style: italic;
-            color: #666;
-        }
     </style>
 </head>
 <body>
@@ -204,7 +184,7 @@ $html .= '
             </tbody>
         </table>
         
-        <div class="summary">
+        <div style="margin-top: 10px; font-style: italic;">
             Total de mesas: '.$total_mesas.'
         </div>
     </div>
