@@ -10,17 +10,10 @@
     border: 0;
     padding: 0;
 }
-a{
-    margin-top: 15px;
-    display: flex;
-    align-self: center;
-    justify-self: center;
-    text-decoration: none;
-    color: #f9f0dd;
-}
 
 body{
     background-color: #f9f0dd;
+    overflow-x: hidden;
 }
 
 #container{
@@ -128,6 +121,7 @@ body{
 
 .-logo-container{
     margin-top: 10px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     align-self: center;
@@ -150,3 +144,11 @@ body{
     text-align: center;
 }
 
+a{
+    margin-top: 15px;
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    text-decoration: none;
+    color: #f9f0dd;
+}

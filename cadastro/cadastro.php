@@ -16,7 +16,7 @@ if ((isset($_SESSION['usuario']) == true)) {
 </head>
 
 <body>
-    <div id="-logo-container">
+    <div class="-logo-container">
         <img src="../img/logo.png" alt="">
     </div>
 

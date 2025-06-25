@@ -19,19 +19,18 @@
   }
   
   .header {
-    text-align: center;
-    padding: 2rem 1rem;
-    /* background-color: #c79f79;
-    border-bottom: 2px solid #a87c53; */
-    font-family: Muvia;
-    font-size: larger;
+    width: 100%;
+    padding: 0;
+    margin: 0;
   }
   
-  .logo {
-    font-size: 2rem;
-    font-weight: bold;
-    text-transform: uppercase;
+  .header img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
+  
+  
   
   .logo span {
     font-family: 'Courier New', monospace;

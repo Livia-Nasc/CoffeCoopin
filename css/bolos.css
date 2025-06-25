@@ -27,11 +27,18 @@
     font-size: larger;
   }
   
-  .logo {
-    font-size: 2rem;
-    font-weight: bold;
-    text-transform: uppercase;
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
   }
+  
+  .header img {
+    max-width: 200px; /* ajuste conforme o tamanho da sua logo */
+    height: auto;
+  }
+  
   
   .logo span {
     font-family: 'Courier New', monospace;

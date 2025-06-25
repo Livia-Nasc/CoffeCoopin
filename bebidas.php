@@ -24,7 +24,7 @@
 </head>
 <body>
     <header class="header">
-        <img src="img/logo.png" alt="Logo">
+        <a href="index.html"><img src="img/logo.png" alt="Logo"></a>
     </header>
 
     <main class="menu-container">
