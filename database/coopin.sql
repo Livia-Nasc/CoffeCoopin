@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10/06/2025 às 15:41
+-- Tempo de geração: 30/06/2025 às 04:40
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -76,10 +76,14 @@ INSERT INTO `conta` (`id`, `mesa`, `garcom_id`, `data_abertura`, `hora_abertura`
 (8, 8, 4, '2025-05-25', '19:00:00', '2025-05-25', '20:30:00', 38.50, 'fechada', 'fechada'),
 (9, 1, 1, '2025-06-01', '09:00:00', '2025-06-01', '10:30:00', 24.50, 'fechada', 'fechada'),
 (10, 2, 2, '2025-06-02', '10:00:00', NULL, NULL, 11.50, 'aberta', 'aberta'),
-(11, 3, 3, '2025-06-02', '11:00:00', NULL, NULL, 30.00, 'aberta', 'aberta'),
+(11, 3, 3, '2025-06-02', '11:00:00', NULL, NULL, 35.50, 'aberta', 'aberta'),
 (12, 4, 4, '2025-06-03', '14:00:00', '2025-06-03', '15:30:00', 28.00, 'fechada', 'fechada'),
 (13, 5, 1, '2025-06-03', '16:00:00', NULL, NULL, 13.50, 'aberta', 'aberta'),
-(14, 6, 2, '2025-06-04', '18:00:00', NULL, NULL, 53.00, 'aberta', 'aberta');
+(14, 6, 2, '2025-06-04', '18:00:00', NULL, NULL, 53.00, 'aberta', 'aberta'),
+(15, 2, 1, '2025-06-15', '19:26:47', NULL, NULL, 48.00, 'aberta', 'aberta'),
+(16, 9, 1, '2025-06-15', '19:37:02', NULL, NULL, 0.00, 'aberta', 'aberta'),
+(17, 52, 1, '2025-06-16', '13:57:21', NULL, NULL, 80.00, 'aberta', 'aberta'),
+(18, 1, 1, '2025-06-29', '23:02:18', NULL, NULL, 0.00, 'aberta', 'aberta');
 
 -- --------------------------------------------------------
 
@@ -145,7 +149,22 @@ INSERT INTO `historico_comissao` (`id`, `garcom_id`, `mes_referencia`, `total_ve
 (1, 1, '2025-04-01', 1200.50, 120.05, '2025-05-05 10:00:00'),
 (2, 2, '2025-04-01', 850.75, 85.08, '2025-05-05 10:00:00'),
 (3, 3, '2025-04-01', 950.25, 95.03, '2025-05-05 10:00:00'),
-(4, 4, '2025-04-01', 1100.00, 110.00, '2025-05-05 10:00:00');
+(4, 4, '2025-04-01', 1100.00, 110.00, '2025-05-05 10:00:00'),
+(5, 1, '0000-00-00', 34.00, 3.40, '2025-06-14 21:19:21'),
+(6, 2, '0000-00-00', 81.00, 8.10, '2025-06-14 21:19:21'),
+(7, 3, '0000-00-00', 64.50, 6.45, '2025-06-14 21:19:21'),
+(8, 4, '0000-00-00', 112.00, 11.20, '2025-06-14 21:19:21'),
+(9, 4, '0000-00-00', 28.00, 2.80, '2025-06-14 21:59:55'),
+(10, 4, '0000-00-00', 28.00, 2.80, '2025-06-14 22:09:52'),
+(11, 4, '0000-00-00', 28.00, 2.80, '2025-06-15 18:47:42'),
+(12, 4, '0000-00-00', 28.00, 2.80, '2025-06-15 18:48:27'),
+(13, 1, '0000-00-00', 29.50, 2.95, '2025-06-15 18:54:19'),
+(14, 1, '0000-00-00', 29.50, 2.95, '2025-06-15 22:18:07'),
+(15, 3, '2025-06-01', 0.00, 0.00, '2025-06-15 22:49:06'),
+(16, 4, '2025-06-01', 28.00, 2.80, '2025-06-15 22:49:06'),
+(17, 1, '2025-06-01', 29.50, 2.95, '2025-06-25 18:15:43'),
+(18, 2, '2025-06-01', 0.00, 0.00, '2025-06-25 18:15:43'),
+(19, 3, '2025-06-01', 0.00, 0.00, '2025-06-29 22:54:30');
 
 -- --------------------------------------------------------
 
@@ -198,7 +217,10 @@ INSERT INTO `pedido` (`id`, `conta_id`, `produto_id`, `quantidade`, `data_hora`)
 (30, 13, 17, 1, '2025-06-03 16:05:00'),
 (31, 13, 29, 1, '2025-06-03 16:10:00'),
 (32, 14, 37, 1, '2025-06-04 18:05:00'),
-(33, 14, 19, 1, '2025-06-04 18:10:00');
+(33, 14, 19, 1, '2025-06-04 18:10:00'),
+(34, 11, 1, 1, '2025-06-15 19:35:06'),
+(35, 15, 37, 1, '2025-06-15 19:36:49'),
+(36, 17, 45, 1, '2025-06-16 14:55:22');
 
 -- --------------------------------------------------------
 
@@ -222,7 +244,7 @@ CREATE TABLE `produto` (
 --
 
 INSERT INTO `produto` (`id`, `nome`, `preco`, `categoria_id`, `subcategoria_id`, `porcao`, `qtd_estoque`, `data_cadastro`) VALUES
-(1, 'Café Gelado', 5.50, 1, 1, 'Média', 50, '2025-06-10 13:26:37'),
+(1, 'Café Gelado', 5.50, 1, 1, 'Média', 49, '2025-06-10 13:26:37'),
 (2, 'Frapuccino de Café', 8.00, 1, 1, 'Grande', 35, '2025-06-10 13:26:37'),
 (3, 'Frapuccino de Chocolate', 8.00, 1, 1, 'Grande', 40, '2025-06-10 13:26:37'),
 (4, 'Chá Gelado', 5.00, 1, 1, 'Pequena', 60, '2025-06-10 13:26:37'),
@@ -258,7 +280,7 @@ INSERT INTO `produto` (`id`, `nome`, `preco`, `categoria_id`, `subcategoria_id`,
 (34, 'Bolo de Chocolate Simples', 32.00, 3, 6, 'Grande', 30, '2025-06-10 13:26:37'),
 (35, 'Bolo de Milho', 26.00, 3, 6, 'Média', 22, '2025-06-10 13:26:37'),
 (36, 'Red Velvet', 45.00, 3, 7, 'Grande', 15, '2025-06-10 13:26:37'),
-(37, 'Bolo de Nutella', 48.00, 3, 7, 'Grande', 12, '2025-06-10 13:26:37'),
+(37, 'Bolo de Nutella', 48.00, 3, 7, 'Grande', 11, '2025-06-10 13:26:37'),
 (38, 'Cheesecake de Morango', 50.00, 3, 7, 'Média', 18, '2025-06-10 13:26:37'),
 (39, 'Bolo Floresta Negra', 52.00, 3, 7, 'Grande', 10, '2025-06-10 13:26:37'),
 (40, 'Bolo de Limão Siciliano', 46.00, 3, 7, 'Média', 14, '2025-06-10 13:26:37'),
@@ -266,7 +288,7 @@ INSERT INTO `produto` (`id`, `nome`, `preco`, `categoria_id`, `subcategoria_id`,
 (42, 'Bolo Frutas Vermelhas', 68.00, 3, 8, 'Grande', 10, '2025-06-10 13:26:37'),
 (43, 'Bolo Opera', 70.00, 3, 8, 'Grande', 6, '2025-06-10 13:26:37'),
 (44, 'Bolo de Champagne', 75.00, 3, 8, 'Grande', 5, '2025-06-10 13:26:37'),
-(45, 'Bolo Diamante Negro', 80.00, 3, 8, 'Grande', 7, '2025-06-10 13:26:37');
+(45, 'Bolo Diamante Negro', 80.00, 3, 8, 'Grande', 6, '2025-06-10 13:26:37');
 
 -- --------------------------------------------------------
 
@@ -407,7 +429,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de tabela `conta`
 --
 ALTER TABLE `conta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de tabela `garcom`
@@ -425,19 +447,19 @@ ALTER TABLE `gerente`
 -- AUTO_INCREMENT de tabela `historico_comissao`
 --
 ALTER TABLE `historico_comissao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de tabela `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de tabela `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT de tabela `subcategoria`
